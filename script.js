@@ -41,18 +41,21 @@ function bookService(service) {
 
 function showContact() {
   alert(
-    "Welcome to MobileFix!\n\nOur team will help you with your mobile repair."
+    "Welcome to MobileFix!\n\n" +
+    "Our team will help you with your mobile repair."
   );
 }
 
 
 const bookingForm = document.getElementById("bookingForm");
 
+
 if (bookingForm) {
 
   bookingForm.addEventListener("submit", async function(event) {
 
     event.preventDefault();
+
 
     const name = document.getElementById("name").value;
     const phone = document.getElementById("phone").value;
@@ -61,6 +64,7 @@ if (bookingForm) {
     const problem = document.getElementById("problem").value;
     const serviceType = document.getElementById("serviceType").value;
     const repairDate = document.getElementById("repairDate").value;
+
 
     const bookingId =
       "MF" + Math.floor(100000 + Math.random() * 900000);
@@ -113,7 +117,9 @@ if (bookingForm) {
     bookingForm.reset();
 
   });
-}EnterkingForm.reset();
+
+}EnterookingForm.reset();
 
   });
+
 }
