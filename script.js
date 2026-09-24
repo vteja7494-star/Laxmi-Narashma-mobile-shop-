@@ -1,10 +1,8 @@
 function toggleMenu() {
   const nav = document.getElementById("navLinks");
 
-  if (nav.classList.contains("active")) {
-    nav.classList.remove("active");
-  } else {
-    nav.classList.add("active");
+  if (nav) {
+    nav.classList.toggle("active");
   }
 }
 
@@ -37,24 +35,39 @@ function showContact() {
 }
 
 
-document
-  .getElementById("bookingForm")
-  .addEventListener("submit", function(event) {
+const bookingForm = document.getElementById("bookingForm");
+
+if (bookingForm) {
+
+  bookingForm.addEventListener("submit", function(event) {
 
     event.preventDefault();
 
     const name = document.getElementById("name").value;
     const phone = document.getElementById("phone").value;
     const brand = document.getElementById("brand").value;
+    const model = document.getElementById("model").value;
     const problem = document.getElementById("problem").value;
+    const serviceType = document.getElementById("serviceType").value;
+    const repairDate = document.getElementById("repairDate").value;
+
+    const bookingId =
+      "MF" + Math.floor(100000 + Math.random() * 900000);
 
     alert(
-      "Repair Booking Created!\n\n" +
-      "Name: " + name +
+      "BOOKING CONFIRMED!\n\n" +
+      "Booking ID: " + bookingId +
+      "\nName: " + name +
       "\nPhone: " + phone +
       "\nBrand: " + brand +
-      "\nProblem: " + problem
+      "\nModel: " + model +
+      "\nProblem: " + problem +
+      "\nService: " + serviceType +
+      "\nDate: " + repairDate +
+      "\n\nMobileFix team will contact you."
     );
 
-    this.reset();
+    bookingForm.reset();
+
   });
+}
