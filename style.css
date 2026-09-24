@@ -10,89 +10,93 @@ html {
 
 body {
   font-family: Arial, sans-serif;
-  background: #f7f8fc;
   color: #111827;
-  line-height: 1.6;
+  background: #f8fafc;
 }
+
+
+/* ================= NAVBAR ================= */
 
 .navbar {
   height: 72px;
-  padding: 0 7%;
+  background: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
+  padding: 0 6%;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .logo {
-  font-size: 25px;
+  font-size: 26px;
   font-weight: 800;
   color: #111827;
 }
 
-.logo span {
-  color: #2563eb;
-}
-
-nav {
+.nav-links {
   display: flex;
+  align-items: center;
   gap: 28px;
 }
 
-nav a {
+.nav-links a {
   text-decoration: none;
-  color: #4b5563;
+  color: #374151;
   font-weight: 600;
 }
 
-nav a:hover {
+.nav-links a:hover {
   color: #2563eb;
-}
-
-.login-btn,
-.contact button,
-.service-card button {
-  border: none;
-  cursor: pointer;
 }
 
 .login-btn {
-  padding: 10px 20px;
-  border-radius: 10px;
+  border: none;
   background: #111827;
   color: white;
-  font-weight: 700;
+  padding: 11px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
 }
+
+.menu-toggle {
+  display: none;
+  border: none;
+  background: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+
+/* ================= HERO ================= */
 
 .hero {
   min-height: 650px;
-  padding: 80px 7%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 50px;
-  background: linear-gradient(135deg, #eef4ff, #ffffff);
+  padding: 70px 8%;
+  background: #eef4ff;
 }
 
 .hero-content {
-  max-width: 650px;
+  max-width: 520px;
 }
 
-.tag {
+.small-title {
   color: #2563eb;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
-  letter-spacing: 1.5px;
-  margin-bottom: 15px;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
 }
 
 .hero h1 {
-  font-size: clamp(48px, 7vw, 82px);
-  line-height: 1.02;
+  font-size: 64px;
+  line-height: 1.05;
   margin-bottom: 25px;
 }
 
@@ -100,26 +104,25 @@ nav a:hover {
   color: #2563eb;
 }
 
-.hero-text {
+.hero-content > p:not(.small-title) {
   color: #6b7280;
-  font-size: 19px;
-  max-width: 550px;
-  margin-bottom: 32px;
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 30px;
 }
 
 .hero-buttons {
   display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
+  gap: 14px;
 }
 
 .primary-btn,
 .secondary-btn {
   display: inline-block;
-  padding: 14px 24px;
-  border-radius: 12px;
+  padding: 15px 24px;
+  border-radius: 10px;
+  font-weight: 700;
   text-decoration: none;
-  font-weight: 800;
   cursor: pointer;
 }
 
@@ -127,6 +130,66 @@ nav a:hover {
   background: #2563eb;
   color: white;
   border: none;
+}
+
+.secondary-btn {
+  background: white;
+  color: #111827;
+  border: 2px solid #d1d5db;
+}
+
+
+/* ================= PHONE ================= */
+
+.phone-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.phone {
+  width: 235px;
+  height: 440px;
+  background: #111827;
+  border-radius: 38px;
+  padding: 14px;
+  transform: rotate(6deg);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+
+.phone-camera {
+  width: 70px;
+  height: 18px;
+  background: #000;
+  border-radius: 20px;
+  margin: 5px auto 12px;
+}
+
+.phone-screen {
+  height: 370px;
+  border-radius: 28px;
+  background: linear-gradient(145deg, #2563eb, #7c3aed);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.phone-screen h2 {
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+.phone-screen p {
+  font-size: 14px;
+}
+
+
+/* ================= BRANDS ================= */
+
+.brands {
 * {
   margin: 0;
   padding: 0;
@@ -139,89 +202,93 @@ html {
 
 body {
   font-family: Arial, sans-serif;
-  background: #f7f8fc;
   color: #111827;
-  line-height: 1.6;
+  background: #f8fafc;
 }
+
+
+/* ================= NAVBAR ================= */
 
 .navbar {
   height: 72px;
-  padding: 0 7%;
+  background: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
+  padding: 0 6%;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .logo {
-  font-size: 25px;
+  font-size: 26px;
   font-weight: 800;
   color: #111827;
 }
 
-.logo span {
-  color: #2563eb;
-}
-
-nav {
+.nav-links {
   display: flex;
+  align-items: center;
   gap: 28px;
 }
 
-nav a {
+.nav-links a {
   text-decoration: none;
-  color: #4b5563;
+  color: #374151;
   font-weight: 600;
 }
 
-nav a:hover {
+.nav-links a:hover {
   color: #2563eb;
-}
-
-.login-btn,
-.contact button,
-.service-card button {
-  border: none;
-  cursor: pointer;
 }
 
 .login-btn {
-  padding: 10px 20px;
-  border-radius: 10px;
+  border: none;
   background: #111827;
   color: white;
-  font-weight: 700;
+  padding: 11px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
 }
+
+.menu-toggle {
+  display: none;
+  border: none;
+  background: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+
+/* ================= HERO ================= */
 
 .hero {
   min-height: 650px;
-  padding: 80px 7%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 50px;
-  background: linear-gradient(135deg, #eef4ff, #ffffff);
+  padding: 70px 8%;
+  background: #eef4ff;
 }
 
 .hero-content {
-  max-width: 650px;
+  max-width: 520px;
 }
 
-.tag {
+.small-title {
   color: #2563eb;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
-  letter-spacing: 1.5px;
-  margin-bottom: 15px;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
 }
 
 .hero h1 {
-  font-size: clamp(48px, 7vw, 82px);
-  line-height: 1.02;
+  font-size: 64px;
+  line-height: 1.05;
   margin-bottom: 25px;
 }
 
@@ -229,26 +296,25 @@ nav a:hover {
   color: #2563eb;
 }
 
-.hero-text {
+.hero-content > p:not(.small-title) {
   color: #6b7280;
-  font-size: 19px;
-  max-width: 550px;
-  margin-bottom: 32px;
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 30px;
 }
 
 .hero-buttons {
   display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
+  gap: 14px;
 }
 
 .primary-btn,
 .secondary-btn {
   display: inline-block;
-  padding: 14px 24px;
-  border-radius: 12px;
+  padding: 15px 24px;
+  border-radius: 10px;
+  font-weight: 700;
   text-decoration: none;
-  font-weight: 800;
   cursor: pointer;
 }
 
@@ -261,84 +327,98 @@ nav a:hover {
 .secondary-btn {
   background: white;
   color: #111827;
-  border: 1px solid #d1d5db;
+  border: 2px solid #d1d5db;
 }
 
-.phone-card {
-  width: 330px;
-  height: 430px;
+
+/* ================= PHONE ================= */
+
+.phone-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .phone {
-  width: 210px;
-  height: 400px;
-  border-radius: 32px;
+  width: 235px;
+  height: 440px;
   background: #111827;
-  padding: 12px;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.2);
-  transform: rotate(5deg);
+  border-radius: 38px;
+  padding: 14px;
+  transform: rotate(6deg);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
 }
 
-.camera {
-  width: 65px;
-  height: 25px;
+.phone-camera {
+  width: 70px;
+  height: 18px;
   background: #000;
   border-radius: 20px;
-  margin: 5px auto 15px;
+  margin: 5px auto 12px;
 }
 
-.screen {
-  height: 335px;
-  border-radius: 22px;
-  background: linear-gradient(160deg, #2563eb, #7c3aed);
+.phone-screen {
+  height: 370px;
+  border-radius: 28px;
+  background: linear-gradient(145deg, #2563eb, #7c3aed);
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   text-align: center;
 }
 
-.screen h3 {
+.phone-screen h2 {
   font-size: 25px;
+  margin-bottom: 8px;
 }
+
+.phone-screen p {
+  font-size: 14px;
+}
+
+
+/* ================= BRANDS ================= */
 
 .brands {
   background: white;
-  padding: 35px 7%;
+  padding: 45px 8%;
   text-align: center;
 }
 
-.brands p {
+.brands > p {
   color: #9ca3af;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
-  letter-spacing: 1px;
+  margin-bottom: 25px;
 }
 
 .brand-list {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 55px;
   flex-wrap: wrap;
-  margin-top: 18px;
-  font-weight: 800;
-  color: #4b5563;
 }
 
+.brand-list span {
+  font-weight: 700;
+  color: #374151;
+}
+
+
+/* ================= SERVICES ================= */
+
 .services {
-  padding: 90px 7%;
+  padding: 90px 8%;
 }
 
 .services h2,
 .booking h2,
 .contact h2 {
-  font-size: 42px;
+  font-size: 45px;
   line-height: 1.15;
-  margin-bottom: 45px;
+  margin-bottom: 40px;
 }
 
 .service-grid {
@@ -350,224 +430,224 @@ nav a:hover {
 .service-card {
   background: white;
   padding: 30px;
-  border-radius: 20px;
-  border: 1px solid #e5e7eb;
-  transition: 0.25s;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
 }
 
-.service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
-}
-
-.icon {
+.service-icon {
   font-size: 35px;
   margin-bottom: 20px;
 }
 
 .service-card h3 {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .service-card p {
   color: #6b7280;
+  line-height: 1.6;
   margin-bottom: 20px;
 }
 
 .service-card button {
-  padding: 10px 15px;
-  border-radius: 9px;
-  background: #eef4ff;
-  color: #2563eb;
-  font-weight: 700;
+  border: none;
+  background: #2563eb;
+  color: white;
+  padding: 11px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
 }
+
+
+/* ================= BOOKING ================= */
 
 .booking {
-  padding: 90px 7%;
-  background: #111827;
-  color: white;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 70px;
+  padding: 90px 8%;
+  background: #eef4ff;
 }
 
-.booking p {
-  color: #cbd5e1;
+.booking-content {
+  max-width: 700px;
+  margin: auto;
+  text-align: center;
 }
 
 .booking form {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
   display: grid;
   gap: 15px;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
 }
 
 .booking input,
 .booking select {
   width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
+  padding: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
 }
 
+
+/* ================= CONTACT ================= */
+
 .contact {
-  padding: 90px 7%;
+  padding: 90px 8%;
   text-align: center;
   background: white;
 }
 
-.contact button {
-  margin-top: 10px;
-  padding: 14px 24px;
-  border-radius: 10px;
-  background: #2563eb;
-  color: white;
-  font-weight: 800;
+.contact p:not(.small-title) {
+  color: #6b7280;
+  margin-bottom: 25px;
 }
 
+
+/* ================= FOOTER ================= */
+
 footer {
-  padding: 35px 7%;
-  background: #0b1120;
-  color: #9ca3af;
+  background: #111827;
+  color: white;
+  padding: 45px 8%;
   text-align: center;
 }
 
-footer .logo {
-  color: white;
-  margin-bottom: 8px;
+.footer-content p {
+  color: #9ca3af;
+  margin-top: 10px;
 }
 
-@media (max-width: 900px) {
-  nav {
-    display: none;
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+  .navbar {
+    padding: 0 20px;
   }
 
-  .hero {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    background: white;
+    padding: 20px;
     flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links a {
+    width: 100%;
     text-align: center;
   }
 
-  .hero-buttons {
-    justify-content: center;
-  }
-
-  .phone-card {
+  .login-btn {
     width: 100%;
   }
 
-  .service-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .booking {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 550px) {
   .hero {
-    padding: 55px 5%;
+    min-height: auto;
+    flex-direction: column;
+    padding: 60px 25px;
+    gap: 60px;
+    text-align: left;
   }
 
   .hero h1 {
     font-size: 48px;
   }
 
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    text-align: center;
+    width: 100%;
+  }
+
+  .phone {
+    width: 200px;
+    height: 380px;
+  }
+
+  .phone-screen {
+    height: 315px;
+  }
+
+  .brand-list {
+    gap: 25px;
+  }
+
   .services,
   .booking,
   .contact {
-    padding: 65px 5%;
+    padding: 65px 25px;
+  }
+
+  .services h2,
+  .booking h2,
+  .contact h2 {
+    font-size: 36px;
   }
 
   .service-grid {
     grid-template-columns: 1fr;
   }
 
-  .brand-list {
-    gap: 20px;
-  }
-}Enter}
-
-.secondary-btn {
-  background: white;
-  color: #111827;
-  border: 1px solid #d1d5db;
-}
-
-.phone-card {
-  width: 330px;
-  height: 430px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.phone {
-  width: 210px;
-  height: 400px;
-  border-radius: 32px;
-  background: #111827;
-  padding: 12px;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.2);
-  transform: rotate(5deg);
-}
-
-.camera {
-  width: 65px;
-  height: 25px;
-  background: #000;
-  border-radius: 20px;
-  margin: 5px auto 15px;
-}
-
-.screen {
-  height: 335px;
-  border-radius: 22px;
-  background: linear-gradient(160deg, #2563eb, #7c3aed);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+}Enter  background: white;
+  padding: 45px 8%;
   text-align: center;
 }
 
-.screen h3 {
-  font-size: 25px;
-}
-
-.brands {
-  background: white;
-  padding: 35px 7%;
-  text-align: center;
-}
-
-.brands p {
+.brands > p {
   color: #9ca3af;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
-  letter-spacing: 1px;
+  margin-bottom: 25px;
 }
 
 .brand-list {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 55px;
   flex-wrap: wrap;
-  margin-top: 18px;
-  font-weight: 800;
-  color: #4b5563;
 }
 
+.brand-list span {
+  font-weight: 700;
+  color: #374151;
+}
+
+
+/* ================= SERVICES ================= */
+
 .services {
-  padding: 90px 7%;
+  padding: 90px 8%;
 }
 
 .services h2,
 .booking h2,
 .contact h2 {
-  font-size: 42px;
+  font-size: 45px;
   line-height: 1.15;
-  margin-bottom: 45px;
+  margin-bottom: 40px;
 }
 
 .service-grid {
@@ -579,36 +659,82 @@ footer .logo {
 .service-card {
   background: white;
   padding: 30px;
-  border-radius: 20px;
-  border: 1px solid #e5e7eb;
-  transition: 0.25s;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
 }
 
-.service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
-}
-
-.icon {
+.service-icon {
   font-size: 35px;
   margin-bottom: 20px;
 }
 
 .service-card h3 {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .service-card p {
   color: #6b7280;
+  line-height: 1.6;
   margin-bottom: 20px;
 }
 
 .service-card button {
-  padding: 10px 15px;
-  border-radius: 9px;
-  background: #eef4ff;
-  color: #2563eb;
-  font-weight: 700;
+  border: none;
+  background: #2563eb;
+  color: white;
+  padding: 11px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
 }
 
+
+/* ================= BOOKING ================= */
+
 .booking {
+  padding: 90px 8%;
+  background: #eef4ff;
+}
+
+.booking-content {
+  max-width: 700px;
+  margin: auto;
+  text-align: center;
+}
+
+.booking form {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  display: grid;
+  gap: 15px;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.booking input,
+.booking select {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+
+/* ================= CONTACT ================= */
+
+.contact {
+  padding: 90px 8%;
+  text-align: center;
+  background: white;
+}
+
+.contact p:not(.small-title) {
+  color: #6b7280;
+  margin-bottom: 25px;
+}
+
+
+/* ================= FOOTER ================= */
+
