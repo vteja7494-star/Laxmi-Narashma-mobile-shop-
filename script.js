@@ -1,11 +1,13 @@
-const SUPABASE_URL = "https://antkerjfmdmyitiehnty.supabase.co";
+cconst SUPABASE_URL = "https://antkerjfmdmyitiehnty.supabase.co";
 
-const SUPABASE_PUBLISHABLE_KEY = "నీ_PUBLISHABLE_KEY";
+const SUPABASE_PUBLISHABLE_KEY = "YOUR_PUBLISHABLE_KEY_HERE";
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
 );
+
+
 function toggleMenu() {
   const nav = document.getElementById("navLinks");
 
@@ -13,6 +15,7 @@ function toggleMenu() {
     nav.classList.toggle("active");
   }
 }
+
 
 function closeMenu() {
   const nav = document.getElementById("navLinks");
@@ -47,7 +50,7 @@ const bookingForm = document.getElementById("bookingForm");
 
 if (bookingForm) {
 
-  bookingForm.addEventListener("submit", function(event) {
+  bookingForm.addEventListener("submit", async function(event) {
 
     event.preventDefault();
 
@@ -62,6 +65,37 @@ if (bookingForm) {
     const bookingId =
       "MF" + Math.floor(100000 + Math.random() * 900000);
 
+
+    const { error } = await supabaseClient
+      .from("bookings")
+      .insert([
+        {
+          booking_id: bookingId,
+          name: name,
+          phone: phone,
+          brand: brand,
+          model: model,
+          problem: problem,
+          service_type: serviceType,
+          repair_date: repairDate,
+          status: "Booked"
+        }
+      ]);
+
+
+    if (error) {
+
+      console.error(error);
+
+      alert(
+        "Booking save avvaledu.\n\n" +
+        "Please try again."
+      );
+
+      return;
+    }
+
+
     alert(
       "BOOKING CONFIRMED!\n\n" +
       "Booking ID: " + bookingId +
@@ -75,7 +109,11 @@ if (bookingForm) {
       "\n\nMobileFix team will contact you."
     );
 
+
     bookingForm.reset();
+
+  });
+}EnterkingForm.reset();
 
   });
 }
