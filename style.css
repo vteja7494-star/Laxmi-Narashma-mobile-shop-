@@ -4,192 +4,6 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  color: #111827;
-  background: #f8fafc;
-}
-
-
-/* ================= NAVBAR ================= */
-
-.navbar {
-  height: 72px;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 6%;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-.logo {
-  font-size: 26px;
-  font-weight: 800;
-  color: #111827;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #374151;
-  font-weight: 600;
-}
-
-.nav-links a:hover {
-  color: #2563eb;
-}
-
-.login-btn {
-  border: none;
-  background: #111827;
-  color: white;
-  padding: 11px 22px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.menu-toggle {
-  display: none;
-  border: none;
-  background: none;
-  font-size: 30px;
-  cursor: pointer;
-}
-
-
-/* ================= HERO ================= */
-
-.hero {
-  min-height: 650px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 70px 8%;
-  background: #eef4ff;
-}
-
-.hero-content {
-  max-width: 520px;
-}
-
-.small-title {
-  color: #2563eb;
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  margin-bottom: 20px;
-}
-
-.hero h1 {
-  font-size: 64px;
-  line-height: 1.05;
-  margin-bottom: 25px;
-}
-
-.hero h1 span {
-  color: #2563eb;
-}
-
-.hero-content > p:not(.small-title) {
-  color: #6b7280;
-  font-size: 18px;
-  line-height: 1.7;
-  margin-bottom: 30px;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 14px;
-}
-
-.primary-btn,
-.secondary-btn {
-  display: inline-block;
-  padding: 15px 24px;
-  border-radius: 10px;
-  font-weight: 700;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.primary-btn {
-  background: #2563eb;
-  color: white;
-  border: none;
-}
-
-.secondary-btn {
-  background: white;
-  color: #111827;
-  border: 2px solid #d1d5db;
-}
-
-
-/* ================= PHONE ================= */
-
-.phone-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.phone {
-  width: 235px;
-  height: 440px;
-  background: #111827;
-  border-radius: 38px;
-  padding: 14px;
-  transform: rotate(6deg);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-}
-
-.phone-camera {
-  width: 70px;
-  height: 18px;
-  background: #000;
-  border-radius: 20px;
-  margin: 5px auto 12px;
-}
-
-.phone-screen {
-  height: 370px;
-  border-radius: 28px;
-  background: linear-gradient(145deg, #2563eb, #7c3aed);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.phone-screen h2 {
-  font-size: 25px;
-  margin-bottom: 8px;
-}
-
-.phone-screen p {
-  font-size: 14px;
-}
-
-
-/* ================= BRANDS ================= */
-
-.brands {
 * {
   margin: 0;
   padding: 0;
@@ -206,8 +20,7 @@ body {
   background: #f8fafc;
 }
 
-
-/* ================= NAVBAR ================= */
+/* NAVBAR */
 
 .navbar {
   height: 72px;
@@ -254,6 +67,8 @@ body {
   cursor: pointer;
 }
 
+/* MENU BUTTON */
+
 .menu-toggle {
   display: none;
   border: none;
@@ -263,7 +78,7 @@ body {
 }
 
 
-/* ================= HERO ================= */
+/* HERO */
 
 .hero {
   min-height: 650px;
@@ -331,7 +146,7 @@ body {
 }
 
 
-/* ================= PHONE ================= */
+/* PHONE */
 
 .phone-container {
   display: flex;
@@ -374,12 +189,8 @@ body {
   margin-bottom: 8px;
 }
 
-.phone-screen p {
-  font-size: 14px;
-}
 
-
-/* ================= BRANDS ================= */
+/* BRANDS */
 
 .brands {
   background: white;
@@ -407,7 +218,7 @@ body {
 }
 
 
-/* ================= SERVICES ================= */
+/* SERVICES */
 
 .services {
   padding: 90px 8%;
@@ -456,11 +267,10 @@ body {
   padding: 11px 18px;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: 600;
 }
 
 
-/* ================= BOOKING ================= */
+/* BOOKING */
 
 .booking {
   padding: 90px 8%;
@@ -493,7 +303,7 @@ body {
 }
 
 
-/* ================= CONTACT ================= */
+/* CONTACT */
 
 .contact {
   padding: 90px 8%;
@@ -507,7 +317,7 @@ body {
 }
 
 
-/* ================= FOOTER ================= */
+/* FOOTER */
 
 footer {
   background: #111827;
@@ -522,7 +332,7 @@ footer {
 }
 
 
-/* ================= MOBILE ================= */
+/* MOBILE MENU */
 
 @media (max-width: 768px) {
 
@@ -565,7 +375,6 @@ footer {
     flex-direction: column;
     padding: 60px 25px;
     gap: 60px;
-    text-align: left;
   }
 
   .hero h1 {
@@ -610,131 +419,4 @@ footer {
   .service-grid {
     grid-template-columns: 1fr;
   }
-
-}Enter  background: white;
-  padding: 45px 8%;
-  text-align: center;
-}
-
-.brands > p {
-  color: #9ca3af;
-  font-size: 13px;
-  font-weight: 800;
-  margin-bottom: 25px;
-}
-
-.brand-list {
-  display: flex;
-  justify-content: center;
-  gap: 55px;
-  flex-wrap: wrap;
-}
-
-.brand-list span {
-  font-weight: 700;
-  color: #374151;
-}
-
-
-/* ================= SERVICES ================= */
-
-.services {
-  padding: 90px 8%;
-}
-
-.services h2,
-.booking h2,
-.contact h2 {
-  font-size: 45px;
-  line-height: 1.15;
-  margin-bottom: 40px;
-}
-
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-
-.service-card {
-  background: white;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-}
-
-.service-icon {
-  font-size: 35px;
-  margin-bottom: 20px;
-}
-
-.service-card h3 {
-  margin-bottom: 12px;
-}
-
-.service-card p {
-  color: #6b7280;
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-
-.service-card button {
-  border: none;
-  background: #2563eb;
-  color: white;
-  padding: 11px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-
-/* ================= BOOKING ================= */
-
-.booking {
-  padding: 90px 8%;
-  background: #eef4ff;
-}
-
-.booking-content {
-  max-width: 700px;
-  margin: auto;
-  text-align: center;
-}
-
-.booking form {
-  background: white;
-  padding: 30px;
-  border-radius: 16px;
-  display: grid;
-  gap: 15px;
-  text-align: left;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-}
-
-.booking input,
-.booking select {
-  width: 100%;
-  padding: 14px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 15px;
-}
-
-
-/* ================= CONTACT ================= */
-
-.contact {
-  padding: 90px 8%;
-  text-align: center;
-  background: white;
-}
-
-.contact p:not(.small-title) {
-  color: #6b7280;
-  margin-bottom: 25px;
-}
-
-
-/* ================= FOOTER ================= */
-
+  }
