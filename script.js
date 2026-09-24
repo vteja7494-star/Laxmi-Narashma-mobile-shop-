@@ -1,4 +1,23 @@
-ffunction bookService(service) {
+function toggleMenu() {
+  const nav = document.getElementById("navLinks");
+
+  if (nav.classList.contains("active")) {
+    nav.classList.remove("active");
+  } else {
+    nav.classList.add("active");
+  }
+}
+
+function closeMenu() {
+  const nav = document.getElementById("navLinks");
+
+  if (nav) {
+    nav.classList.remove("active");
+  }
+}
+
+
+function bookService(service) {
   const problem = document.getElementById("problem");
 
   if (problem) {
@@ -10,15 +29,18 @@ ffunction bookService(service) {
   });
 }
 
+
 function showContact() {
   alert(
     "Welcome to MobileFix!\n\nOur team will help you with your mobile repair."
   );
 }
 
+
 document
   .getElementById("bookingForm")
-  .addEventListener("submit", function (event) {
+  .addEventListener("submit", function(event) {
+
     event.preventDefault();
 
     const name = document.getElementById("name").value;
@@ -35,4 +57,4 @@ document
     );
 
     this.reset();
-  });Enter;
+  });
