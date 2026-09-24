@@ -4,12 +4,6 @@
   box-sizing: border-box;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -21,7 +15,6 @@ body {
 }
 
 /* NAVBAR */
-
 .navbar {
   height: 72px;
   background: white;
@@ -38,7 +31,6 @@ body {
 .logo {
   font-size: 26px;
   font-weight: 800;
-  color: #111827;
 }
 
 .nav-links {
@@ -53,10 +45,6 @@ body {
   font-weight: 600;
 }
 
-.nav-links a:hover {
-  color: #2563eb;
-}
-
 .login-btn {
   border: none;
   background: #111827;
@@ -64,10 +52,7 @@ body {
   padding: 11px 22px;
   border-radius: 8px;
   font-weight: 600;
-  cursor: pointer;
 }
-
-/* MENU BUTTON */
 
 .menu-toggle {
   display: none;
@@ -77,9 +62,7 @@ body {
   cursor: pointer;
 }
 
-
 /* HERO */
-
 .hero {
   min-height: 650px;
   display: flex;
@@ -145,9 +128,7 @@ body {
   border: 2px solid #d1d5db;
 }
 
-
 /* PHONE */
-
 .phone-container {
   display: flex;
   justify-content: center;
@@ -184,14 +165,7 @@ body {
   text-align: center;
 }
 
-.phone-screen h2 {
-  font-size: 25px;
-  margin-bottom: 8px;
-}
-
-
 /* BRANDS */
-
 .brands {
   background: white;
   padding: 45px 8%;
@@ -214,12 +188,9 @@ body {
 
 .brand-list span {
   font-weight: 700;
-  color: #374151;
 }
 
-
 /* SERVICES */
-
 .services {
   padding: 90px 8%;
 }
@@ -250,14 +221,10 @@ body {
   margin-bottom: 20px;
 }
 
-.service-card h3 {
-  margin-bottom: 12px;
-}
-
 .service-card p {
   color: #6b7280;
   line-height: 1.6;
-  margin-bottom: 20px;
+  margin: 12px 0 20px;
 }
 
 .service-card button {
@@ -266,12 +233,9 @@ body {
   color: white;
   padding: 11px 18px;
   border-radius: 8px;
-  cursor: pointer;
 }
 
-
 /* BOOKING */
-
 .booking {
   padding: 90px 8%;
   background: #eef4ff;
@@ -290,7 +254,6 @@ body {
   display: grid;
   gap: 15px;
   text-align: left;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
 }
 
 .booking input,
@@ -299,12 +262,9 @@ body {
   padding: 14px;
   border: 1px solid #d1d5db;
   border-radius: 8px;
-  font-size: 15px;
 }
 
-
 /* CONTACT */
-
 .contact {
   padding: 90px 8%;
   text-align: center;
@@ -316,9 +276,7 @@ body {
   margin-bottom: 25px;
 }
 
-
 /* FOOTER */
-
 footer {
   background: #111827;
   color: white;
@@ -326,14 +284,7 @@ footer {
   text-align: center;
 }
 
-.footer-content p {
-  color: #9ca3af;
-  margin-top: 10px;
-}
-
-
 /* MOBILE MENU */
-
 @media (max-width: 768px) {
 
   .navbar {
@@ -371,7 +322,6 @@ footer {
   }
 
   .hero {
-    min-height: auto;
     flex-direction: column;
     padding: 60px 25px;
     gap: 60px;
@@ -387,21 +337,12 @@ footer {
 
   .primary-btn,
   .secondary-btn {
-    text-align: center;
     width: 100%;
+    text-align: center;
   }
 
-  .phone {
-    width: 200px;
-    height: 380px;
-  }
-
-  .phone-screen {
-    height: 315px;
-  }
-
-  .brand-list {
-    gap: 25px;
+  .service-grid {
+    grid-template-columns: 1fr;
   }
 
   .services,
@@ -409,14 +350,4 @@ footer {
   .contact {
     padding: 65px 25px;
   }
-
-  .services h2,
-  .booking h2,
-  .contact h2 {
-    font-size: 36px;
-  }
-
-  .service-grid {
-    grid-template-columns: 1fr;
-  }
-  }
+}
