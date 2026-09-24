@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>MobileFix - Mobile Repair Service</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,17 +13,25 @@
 
   <!-- NAVBAR -->
   <nav class="navbar">
+
     <div class="logo">MobileFix</div>
 
     <button class="menu-toggle" onclick="toggleMenu()">☰</button>
 
     <div class="nav-links" id="navLinks">
+
       <a href="#home" onclick="closeMenu()">Home</a>
+
       <a href="#services" onclick="closeMenu()">Services</a>
+
       <a href="#booking" onclick="closeMenu()">Book Repair</a>
+
       <a href="#contact" onclick="closeMenu()">Contact</a>
+
       <button class="login-btn">Login</button>
+
     </div>
+
   </nav>
 
 
@@ -29,7 +39,10 @@
   <section class="hero" id="home">
 
     <div class="hero-content">
-      <p class="small-title">TRUSTED MOBILE REPAIR SERVICE</p>
+
+      <p class="small-title">
+        TRUSTED MOBILE REPAIR SERVICE
+      </p>
 
       <h1>
         Your Phone.<br>
@@ -42,20 +55,36 @@
       </p>
 
       <div class="hero-buttons">
-        <a href="#booking" class="primary-btn">Book a Repair</a>
-        <a href="#services" class="secondary-btn">View Services</a>
+
+        <a href="#booking" class="primary-btn">
+          Book a Repair
+        </a>
+
+        <a href="#services" class="secondary-btn">
+          View Services
+        </a>
+
       </div>
+
     </div>
 
+
     <div class="phone-container">
+
       <div class="phone">
+
         <div class="phone-camera"></div>
 
         <div class="phone-screen">
+
           <h2>MobileFix</h2>
+
           <p>Repair made simple.</p>
+
         </div>
+
       </div>
+
     </div>
 
   </section>
@@ -67,12 +96,14 @@
     <p>WE REPAIR ALL MAJOR BRANDS</p>
 
     <div class="brand-list">
+
       <span>Apple</span>
       <span>Samsung</span>
       <span>OnePlus</span>
       <span>Vivo</span>
       <span>Oppo</span>
       <span>Xiaomi</span>
+
     </div>
 
   </section>
@@ -81,170 +112,301 @@
   <!-- SERVICES -->
   <section class="services" id="services">
 
-    <p class="small-title">OUR SERVICES</p>
+    <p class="small-title">
+      OUR SERVICES
+    </p>
 
     <h2>
       Everything your<br>
       phone needs.
     </h2>
 
+
     <div class="service-grid">
 
+
       <div class="service-card">
+
         <div class="service-icon">📱</div>
+
         <h3>Screen Repair</h3>
-        <p>Cracked or damaged screen replacement.</p>
+
+        <p>
+          Cracked or damaged screen replacement.
+        </p>
+
         <button onclick="bookService('Screen Damage')">
           Get Estimate
         </button>
+
       </div>
 
+
       <div class="service-card">
+
         <div class="service-icon">🔋</div>
+
         <h3>Battery Replacement</h3>
-        <p>Fast battery replacement for your phone.</p>
+
+        <p>
+          Fast battery replacement for your phone.
+        </p>
+
         <button onclick="bookService('Battery Problem')">
           Get Estimate
         </button>
+
       </div>
 
+
       <div class="service-card">
+
         <div class="service-icon">🔌</div>
+
         <h3>Charging Repair</h3>
-        <p>Charging port and charging problems.</p>
+
+        <p>
+          Charging port and charging problems.
+        </p>
+
         <button onclick="bookService('Charging Problem')">
           Get Estimate
         </button>
+
       </div>
 
+
       <div class="service-card">
+
         <div class="service-icon">🛠️</div>
+
         <h3>Other Repairs</h3>
-        <p>Software, speaker, camera and other repairs.</p>
+
+        <p>
+          Software, speaker, camera and other repairs.
+        </p>
+
         <button onclick="bookService('Other Problem')">
           Get Estimate
         </button>
+
       </div>
 
+
     </div>
+
   </section>
 
 
   <!-- BOOKING -->
   <section class="booking" id="booking">
 
-  <div class="booking-content">
+    <div class="booking-content">
 
-    <p class="small-title">QUICK BOOKING</p>
+      <p class="small-title">
+        QUICK BOOKING
+      </p>
 
-    <h2>Book Your Repair</h2>
+      <h2>
+        Book Your Repair
+      </h2>
 
-    <p>
-      Enter your details and choose your repair service.
-    </p>
+      <p>
+        Enter your details and choose your repair service.
+      </p>
 
-    <form id="bookingForm">
 
-      <input
-        type="text"
-        id="name"
-        placeholder="Your Full Name"
-        required
-      >
+      <form id="bookingForm">
 
-      <input
-        type="tel"
-        id="phone"
-        placeholder="Mobile Number"
-        required
-      >
 
-      <select id="brand" required>
-        <option value="">Select Phone Brand</option>
-        <option value="Apple">Apple</option>
-        <option value="Samsung">Samsung</option>
-        <option value="OnePlus">OnePlus</option>
-        <option value="Vivo">Vivo</option>
-        <option value="Oppo">Oppo</option>
-        <option value="Xiaomi">Xiaomi</option>
-      </select>
+        <input
+          type="text"
+          id="name"
+          placeholder="Your Full Name"
+          required
+        >
 
-      <input
-        type="text"
-        id="model"
-        placeholder="Phone Model"
-        required
-      >
 
-      <select id="problem" required>
-        <option value="">Select Repair Problem</option>
-        <option value="Screen Damage">Screen Damage</option>
-        <option value="Battery Problem">Battery Problem</option>
-        <option value="Charging Problem">Charging Problem</option>
-        <option value="Camera Problem">Camera Problem</option>
-        <option value="Speaker Problem">Speaker Problem</option>
-        <option value="Software Problem">Software Problem</option>
-        <option value="Other Problem">Other Problem</option>
-      </select>
+        <input
+          type="tel"
+          id="phone"
+          placeholder="Mobile Number"
+          required
+        >
 
-      <select id="serviceType" required>
-        <option value="">Choose Service Type</option>
-        <option value="Visit Shop">Visit Repair Shop</option>
-        <option value="Pickup">Pickup From My Location</option>
-        <option value="Doorstep">Doorstep Repair</option>
-      </select>
 
-      <input
-        type="date"
-        id="repairDate"
-        required
-      >
+        <select id="brand" required>
 
-      <button type="submit" class="primary-btn">
-        Confirm Repair Booking
-      </button>
+          <option value="">
+            Select Phone Brand
+          </option>
 
-    </form>
+          <option value="Apple">
+            Apple
+          </option>
 
-  </div>
+          <option value="Samsung">
+            Samsung
+          </option>
+
+          <option value="OnePlus">
+            OnePlus
+          </option>
+
+          <option value="Vivo">
+            Vivo
+          </option>
+
+          <option value="Oppo">
+            Oppo
+          </option>
+
+          <option value="Xiaomi">
+            Xiaomi
+          </option>
+
+        </select>
+
+
+        <input
+          type="text"
+          id="model"
+          placeholder="Phone Model"
+          required
+        >
+
+
+        <select id="problem" required>
+
+          <option value="">
+            Select Repair Problem
+          </option>
+
+          <option value="Screen Damage">
+            Screen Damage
+          </option>
+
+          <option value="Battery Problem">
+            Battery Problem
+          </option>
+
+          <option value="Charging Problem">
+            Charging Problem
+          </option>
+
+          <option value="Camera Problem">
+            Camera Problem
+          </option>
+
+          <option value="Speaker Problem">
+            Speaker Problem
+          </option>
+
+          <option value="Software Problem">
+            Software Problem
+          </option>
+
+          <option value="Other Problem">
+            Other Problem
+          </option>
+
+        </select>
+
+
+        <select id="serviceType" required>
+
+          <option value="">
+            Choose Service Type
+          </option>
+
+          <option value="Visit Shop">
+            Visit Repair Shop
+          </option>
+
+          <option value="Pickup">
+            Pickup From My Location
+          </option>
+
+          <option value="Doorstep">
+            Doorstep Repair
+          </option>
+
+        </select>
+
+
+        <input
+          type="date"
+          id="repairDate"
+          required
+        >
+
+
+        <button
+          type="submit"
+          class="primary-btn"
+        >
+          Confirm Repair Booking
+        </button>
+
+
+      </form>
+
+    </div>
 
   </section>
-
-
-
 
 
   <!-- CONTACT -->
   <section class="contact" id="contact">
 
-    <p class="small-title">CONTACT US</p>
+    <p class="small-title">
+      CONTACT US
+    </p>
 
-    <h2>Need help with your phone?</h2>
+    <h2>
+      Need help with your phone?
+    </h2>
 
-    <p>Our MobileFix team is ready to help you.</p>
+    <p>
+      Our MobileFix team is ready to help you.
+    </p>
 
-    <button onclick="showContact()" class="primary-btn">
+    <button
+      onclick="showContact()"
+      class="primary-btn"
+    >
       Contact Support
     </button>
 
-  </section
+  </section>
 
 
   <!-- FOOTER -->
   <footer>
 
     <div class="footer-content">
+
       <h2>MobileFix</h2>
 
-      <p>Professional mobile repair service.</p>
+      <p>
+        Professional mobile repair service.
+      </p>
 
-      <p>© 2026 MobileFix. All rights reserved.</p>
+      <p>
+        © 2026 MobileFix. All rights reserved.
+      </p>
+
     </div>
 
   </footer>
 
 
+  <!-- SUPABASE FIRST -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- YOUR JAVASCRIPT SECOND -->
   <script src="script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
 </body>
   </html>
