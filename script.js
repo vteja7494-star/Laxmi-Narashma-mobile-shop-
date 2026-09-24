@@ -1,3 +1,11 @@
+const SUPABASE_URL = "https://antkerjfmdmyitiehnty.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY = "నీ_PUBLISHABLE_KEY";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
 function toggleMenu() {
   const nav = document.getElementById("navLinks");
 
