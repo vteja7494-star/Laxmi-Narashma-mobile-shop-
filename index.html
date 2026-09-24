@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>MobileFix - Mobile Repair Service</title>
-
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,44 +11,25 @@
 
   <!-- NAVBAR -->
   <nav class="navbar">
+    <div class="logo">MobileFix</div>
 
-    <div class="logo">
-      MobileFix
-    </div>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
 
-    <!-- Mobile Menu Button -->
-    <button class="menu-toggle" onclick="toggleMenu()">
-      ☰
-    </button>
-
-    <!-- Navigation Links -->
     <div class="nav-links" id="navLinks">
-
       <a href="#home" onclick="closeMenu()">Home</a>
-
       <a href="#services" onclick="closeMenu()">Services</a>
-
       <a href="#booking" onclick="closeMenu()">Book Repair</a>
-
       <a href="#contact" onclick="closeMenu()">Contact</a>
-
-      <button class="login-btn">
-        Login
-      </button>
-
+      <button class="login-btn">Login</button>
     </div>
-
   </nav>
 
 
-  <!-- HERO SECTION -->
+  <!-- HERO -->
   <section class="hero" id="home">
 
     <div class="hero-content">
-
-      <p class="small-title">
-        TRUSTED MOBILE REPAIR SERVICE
-      </p>
+      <p class="small-title">TRUSTED MOBILE REPAIR SERVICE</p>
 
       <h1>
         Your Phone.<br>
@@ -63,39 +42,20 @@
       </p>
 
       <div class="hero-buttons">
-
-        <a href="#booking" class="primary-btn">
-          Book a Repair
-        </a>
-
-        <a href="#services" class="secondary-btn">
-          View Services
-        </a>
-
+        <a href="#booking" class="primary-btn">Book a Repair</a>
+        <a href="#services" class="secondary-btn">View Services</a>
       </div>
-
     </div>
 
-
-    <!-- PHONE MOCKUP -->
     <div class="phone-container">
-
       <div class="phone">
-
         <div class="phone-camera"></div>
 
         <div class="phone-screen">
-
           <h2>MobileFix</h2>
-
-          <p>
-            Repair made simple.
-          </p>
-
+          <p>Repair made simple.</p>
         </div>
-
       </div>
-
     </div>
 
   </section>
@@ -104,19 +64,15 @@
   <!-- BRANDS -->
   <section class="brands">
 
-    <p>
-      WE REPAIR ALL MAJOR BRANDS
-    </p>
+    <p>WE REPAIR ALL MAJOR BRANDS</p>
 
     <div class="brand-list">
-
       <span>Apple</span>
       <span>Samsung</span>
       <span>OnePlus</span>
       <span>Vivo</span>
       <span>Oppo</span>
       <span>Xiaomi</span>
-
     </div>
 
   </section>
@@ -125,268 +81,52 @@
   <!-- SERVICES -->
   <section class="services" id="services">
 
-    <p class="small-title">
-      OUR SERVICES
-    </p>
+    <p class="small-title">OUR SERVICES</p>
 
     <h2>
       Everything your<br>
       phone needs.
     </h2>
 
-
     <div class="service-grid">
 
-
-      <!-- Screen Repair -->
       <div class="service-card">
-
-        <div class="service-icon">
-          📱
-        </div>
-
-        <h3>
-          Screen Repair
-        </h3>
-
-        <p>
-          Cracked or damaged screen replacement.
-        </p>
-
+        <div class="service-icon">📱</div>
+        <h3>Screen Repair</h3>
+        <p>Cracked or damaged screen replacement.</p>
         <button onclick="bookService('Screen Damage')">
           Get Estimate
         </button>
-
-      </div>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>MobileFix - Mobile Repair Service</title>
-
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-  <!-- NAVBAR -->
-  <nav class="navbar">
-
-    <div class="logo">
-      MobileFix
-    </div>
-
-    <!-- Mobile Menu Button -->
-    <button class="menu-toggle" onclick="toggleMenu()">
-      ☰
-    </button>
-
-    <!-- Navigation Links -->
-    <div class="nav-links" id="navLinks">
-
-      <a href="#home" onclick="closeMenu()">Home</a>
-
-      <a href="#services" onclick="closeMenu()">Services</a>
-
-      <a href="#booking" onclick="closeMenu()">Book Repair</a>
-
-      <a href="#contact" onclick="closeMenu()">Contact</a>
-
-      <button class="login-btn">
-        Login
-      </button>
-
-    </div>
-
-  </nav>
-
-
-  <!-- HERO SECTION -->
-  <section class="hero" id="home">
-
-    <div class="hero-content">
-
-      <p class="small-title">
-        TRUSTED MOBILE REPAIR SERVICE
-      </p>
-
-      <h1>
-        Your Phone.<br>
-        <span>Our Expertise.</span>
-      </h1>
-
-      <p>
-        Fast, reliable and professional mobile repair services
-        with transparent pricing.
-      </p>
-
-      <div class="hero-buttons">
-
-        <a href="#booking" class="primary-btn">
-          Book a Repair
-        </a>
-
-        <a href="#services" class="secondary-btn">
-          View Services
-        </a>
-
       </div>
 
-    </div>
-
-
-    <!-- PHONE MOCKUP -->
-    <div class="phone-container">
-
-      <div class="phone">
-
-        <div class="phone-camera"></div>
-
-        <div class="phone-screen">
-
-          <h2>MobileFix</h2>
-
-          <p>
-            Repair made simple.
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- BRANDS -->
-  <section class="brands">
-
-    <p>
-      WE REPAIR ALL MAJOR BRANDS
-    </p>
-
-    <div class="brand-list">
-
-      <span>Apple</span>
-      <span>Samsung</span>
-      <span>OnePlus</span>
-      <span>Vivo</span>
-      <span>Oppo</span>
-      <span>Xiaomi</span>
-
-    </div>
-
-  </section>
-
-
-  <!-- SERVICES -->
-  <section class="services" id="services">
-
-    <p class="small-title">
-      OUR SERVICES
-    </p>
-
-    <h2>
-      Everything your<br>
-      phone needs.
-    </h2>
-
-
-    <div class="service-grid">
-
-
-      <!-- Screen Repair -->
       <div class="service-card">
-
-        <div class="service-icon">
-          📱
-        </div>
-
-        <h3>
-          Screen Repair
-        </h3>
-
-        <p>
-          Cracked or damaged screen replacement.
-        </p>
-
-        <button onclick="bookService('Screen Damage')">
-          Get Estimate
-        </button>
-
-      </div>
-
-
-      <!-- Battery -->
-      <div class="service-card">
-
-        <div class="service-icon">
-          🔋
-        </div>
-
-        <h3>
-          Battery Replacement
-        </h3>
-
-        <p>
-          Fast battery replacement for your phone.
-        </p>
-
+        <div class="service-icon">🔋</div>
+        <h3>Battery Replacement</h3>
+        <p>Fast battery replacement for your phone.</p>
         <button onclick="bookService('Battery Problem')">
           Get Estimate
         </button>
-
       </div>
 
-
-      <!-- Charging -->
       <div class="service-card">
-
-        <div class="service-icon">
-          🔌
-        </div>
-
-        <h3>
-          Charging Repair
-        </h3>
-
-        <p>
-          Charging port and charging problems.
-        </p>
-
+        <div class="service-icon">🔌</div>
+        <h3>Charging Repair</h3>
+        <p>Charging port and charging problems.</p>
         <button onclick="bookService('Charging Problem')">
           Get Estimate
         </button>
-
       </div>
 
-
-      <!-- Other Repairs -->
       <div class="service-card">
-
-        <div class="service-icon">
-          🛠️
-        </div>
-
-        <h3>
-          Other Repairs
-        </h3>
-
-        <p>
-          Software, speaker, camera and other repairs.
-        </p>
-
+        <div class="service-icon">🛠️</div>
+        <h3>Other Repairs</h3>
+        <p>Software, speaker, camera and other repairs.</p>
         <button onclick="bookService('Other Problem')">
           Get Estimate
         </button>
-
       </div>
 
     </div>
-
   </section>
 
 
@@ -395,22 +135,16 @@
 
     <div class="booking-content">
 
-      <p class="small-title">
-        QUICK BOOKING
-      </p>
+      <p class="small-title">QUICK BOOKING</p>
 
-      <h2>
-        Book your repair
-      </h2>
+      <h2>Book your repair</h2>
 
       <p>
         Tell us about your phone and our team will contact you.
       </p>
 
-
       <form id="bookingForm">
 
-        <!-- Name -->
         <input
           type="text"
           id="name"
@@ -418,8 +152,6 @@
           required
         >
 
-
-        <!-- Phone -->
         <input
           type="tel"
           id="phone"
@@ -427,66 +159,23 @@
           required
         >
 
-
-        <!-- Brand -->
         <select id="brand" required>
-
-          <option value="">
-            Select Phone Brand
-          </option>
-
-          <option value="Apple">
-            Apple
-          </option>
-
-          <option value="Samsung">
-            Samsung
-          </option>
-
-          <option value="OnePlus">
-            OnePlus
-          </option>
-
-          <option value="Vivo">
-            Vivo
-          </option>
-
-          <option value="Oppo">
-            Oppo
-          </option>
-
-          <option value="Xiaomi">
-            Xiaomi
-          </option>
-
+          <option value="">Select Phone Brand</option>
+          <option value="Apple">Apple</option>
+          <option value="Samsung">Samsung</option>
+          <option value="OnePlus">OnePlus</option>
+          <option value="Vivo">Vivo</option>
+          <option value="Oppo">Oppo</option>
+          <option value="Xiaomi">Xiaomi</option>
         </select>
 
-
-        <!-- Problem -->
         <select id="problem" required>
-
-          <option value="">
-            Select Problem
-          </option>
-
-          <option value="Screen Damage">
-            Screen Damage
-          </option>
-
-          <option value="Battery Problem">
-            Battery Problem
-          </option>
-
-          <option value="Charging Problem">
-            Charging Problem
-          </option>
-
-          <option value="Other Problem">
-            Other Problem
-          </option>
-
+          <option value="">Select Problem</option>
+          <option value="Screen Damage">Screen Damage</option>
+          <option value="Battery Problem">Battery Problem</option>
+          <option value="Charging Problem">Charging Problem</option>
+          <option value="Other Problem">Other Problem</option>
         </select>
-
 
         <button type="submit" class="primary-btn">
           Book Repair
@@ -502,17 +191,11 @@
   <!-- CONTACT -->
   <section class="contact" id="contact">
 
-    <p class="small-title">
-      CONTACT US
-    </p>
+    <p class="small-title">CONTACT US</p>
 
-    <h2>
-      Need help with your phone?
-    </h2>
+    <h2>Need help with your phone?</h2>
 
-    <p>
-      Our MobileFix team is ready to help you.
-    </p>
+    <p>Our MobileFix team is ready to help you.</p>
 
     <button onclick="showContact()" class="primary-btn">
       Contact Support
@@ -525,152 +208,17 @@
   <footer>
 
     <div class="footer-content">
+      <h2>MobileFix</h2>
 
-      <h2>
-        MobileFix
-      </h2>
+      <p>Professional mobile repair service.</p>
 
-      <p>
-        Professional mobile repair service.
-      </p>
-
-      <p>
-        © 2026 MobileFix. All rights reserved.
-      </p>
-
+      <p>© 2026 MobileFix. All rights reserved.</p>
     </div>
 
   </footer>
 
 
-  <!-- JAVASCRIPT -->
   <script src="script.js"></script>
 
 </body>
-</html>Enter
-
-      <!-- Battery -->
-      <div class="service-card">
-
-        <div class="service-icon">
-          🔋
-        </div>
-
-        <h3>
-          Battery Replacement
-        </h3>
-
-        <p>
-          Fast battery replacement for your phone.
-        </p>
-
-        <button onclick="bookService('Battery Problem')">
-          Get Estimate
-        </button>
-
-      </div>
-
-
-      <!-- Charging -->
-      <div class="service-card">
-
-        <div class="service-icon">
-          🔌
-        </div>
-
-        <h3>
-          Charging Repair
-        </h3>
-
-        <p>
-          Charging port and charging problems.
-        </p>
-
-        <button onclick="bookService('Charging Problem')">
-          Get Estimate
-        </button>
-
-      </div>
-
-
-      <!-- Other Repairs -->
-      <div class="service-card">
-
-        <div class="service-icon">
-          🛠️
-        </div>
-
-        <h3>
-          Other Repairs
-        </h3>
-
-        <p>
-          Software, speaker, camera and other repairs.
-        </p>
-
-        <button onclick="bookService('Other Problem')">
-          Get Estimate
-        </button>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- BOOKING -->
-  <section class="booking" id="booking">
-
-    <div class="booking-content">
-
-      <p class="small-title">
-        QUICK BOOKING
-      </p>
-
-      <h2>
-        Book your repair
-      </h2>
-
-      <p>
-        Tell us about your phone and our team will contact you.
-      </p>
-
-
-      <form id="bookingForm">
-
-        <!-- Name -->
-        <input
-          type="text"
-          id="name"
-          placeholder="Your Name"
-          required
-        >
-
-
-        <!-- Phone -->
-        <input
-          type="tel"
-          id="phone"
-          placeholder="Phone Number"
-          required
-        >
-
-
-        <!-- Brand -->
-        <select id="brand" required>
-
-          <option value="">
-            Select Phone Brand
-          </option>
-
-          <option value="Apple">
-            Apple
-          </option>
-
-          <option value="Samsung">
-            Samsung
-          </option>
-
-          <option value="OnePlus">
-            OnePlus
+  </html>
