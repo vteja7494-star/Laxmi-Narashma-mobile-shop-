@@ -1,7 +1,7 @@
 const SUPABASE_URL = "https://antkerjfmdmyitiehnty.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY 
+const SUPABASE_PUBLISHABLE_KEY
   =
-  "YOUR_ACTUAL_SB_PUBLISHABLE_KEY";
+  "sb_publishable_...;
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
@@ -31,7 +31,7 @@ function closeMenu() {
 
 
 // ===============================
-// CONTACT
+// CONTACT SUPPORT
 // ===============================
 
 function showContact() {
@@ -44,10 +44,11 @@ function showContact() {
 
 
 // ===============================
-// BOOK SERVICE
+// SERVICE ESTIMATE
 // ===============================
 
 function bookService(service) {
+
   const problem = document.getElementById("problem");
 
   if (problem) {
@@ -65,12 +66,17 @@ function bookService(service) {
 
 
 // ===============================
-// BOOKING FORM
+// BOOKING
 // ===============================
 
-const bookingForm = document.getElementById("bookingForm");
+document.addEventListener("DOMContentLoaded", function () {
 
-if (bookingForm) {
+  const bookingForm = document.getElementById("bookingForm");
+
+  if (!bookingForm) {
+    console.error("bookingForm not found");
+    return;
+  }
 
   bookingForm.addEventListener("submit", async function (event) {
 
@@ -100,44 +106,58 @@ if (bookingForm) {
     const bookingId =
       "MF" + Date.now().toString().slice(-8);
 
-    const { error } = await supabaseClient
-      .from("bookings")
-      .insert([
-        {
-          booking_id: bookingId,
-          name: name,
-          phone: phone,
-          brand: brand,
-          model: model,
-          problem: problem,
-          service_type: serviceType,
-          repair_date: repairDate,
-          status: "Booked"
-        }
-      ]);
+    try {
 
-    if (error) {
+      const { error } = await supabaseClient
+        .from("bookings")
+        .insert([
+          {
+            booking_id: bookingId,
+            name: name,
+            phone: phone,
+            brand: brand,
+            model: model,
+            problem: problem,
+            service_type: serviceType,
+            repair_date: repairDate,
+            status: "Booked"
+          }
+        ]);
 
-      console.error(error);
+      if (error) {
+
+        console.error("Supabase Error:", error);
+
+        alert(
+          "Booking save avvaledu.\n\n" +
+          error.message
+        );
+
+        return;
+      }
 
       alert(
-        "Booking save avvaledu.\n\n" +
-        error.message
+        "BOOKING CONFIRMED! 🎉\n\n" +
+        "Booking ID: " +
+        bookingId
       );
 
-      return;
+      bookingForm.reset();
+
+    } catch (error) {
+
+      console.error("Error:", error);
+
+      alert(
+        "Something went wrong.\n\n" +
+        error.message
+      );
     }
 
-    alert(
-      "BOOKING CONFIRMED! 🎉\n\n" +
-      "Booking ID: " +
-      bookingId
-    );
-
-    bookingForm.reset();
   });
-}Entercconst SUPABASE_URL = "https://antkerjfmdmyitiehnty.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "YOUR_PUBLISHABLE_KEY_HERE";
+
+});Entercconst SUPABASE_URL = "https://antkerjfmdmyitiehnty.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "YOUR_SUPABASE_KEY";
 
 const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
@@ -167,7 +187,7 @@ function closeMenu() {
 
 
 // ===============================
-// CONTACT
+// CONTACT SUPPORT
 // ===============================
 
 function showContact() {
@@ -180,10 +200,11 @@ function showContact() {
 
 
 // ===============================
-// BOOK SERVICE
+// SERVICE ESTIMATE
 // ===============================
 
 function bookService(service) {
+
   const problem = document.getElementById("problem");
 
   if (problem) {
@@ -201,12 +222,17 @@ function bookService(service) {
 
 
 // ===============================
-// BOOKING FORM
+// BOOKING
 // ===============================
 
-const bookingForm = document.getElementById("bookingForm");
+document.addEventListener("DOMContentLoaded", function () {
 
-if (bookingForm) {
+  const bookingForm = document.getElementById("bookingForm");
+
+  if (!bookingForm) {
+    console.error("bookingForm not found");
+    return;
+  }
 
   bookingForm.addEventListener("submit", async function (event) {
 
@@ -236,42 +262,60 @@ if (bookingForm) {
     const bookingId =
       "MF" + Date.now().toString().slice(-8);
 
-    const { error } = await supabaseClient
-      .from("bookings")
-      .insert([
-        {
-          booking_id: bookingId,
-          name: name,
-          phone: phone,
-          brand: brand,
-          model: model,
-          problem: problem,
-          service_type: serviceType,
-          repair_date: repairDate,
-          status: "Booked"
-        }
-      ]);
+    try {
 
-    if (error) {
+      const { error } = await supabaseClient
+        .from("bookings")
+        .insert([
+          {
+            booking_id: bookingId,
+            name: name,
+            phone: phone,
+            brand: brand,
+            model: model,
+            problem: problem,
+            service_type: serviceType,
+            repair_date: repairDate,
+            status: "Booked"
+          }
+        ]);
 
-      console.error(error);
+      if (error) {
+
+        console.error("Supabase Error:", error);
+
+        alert(
+          "Booking save avvaledu.\n\n" +
+          error.message
+        );
+
+        return;
+      }
 
       alert(
-        "Booking save avvaledu.\n\n" +
-        error.message
+        "BOOKING CONFIRMED! 🎉\n\n" +
+        "Booking ID: " +
+        bookingId
       );
 
-      return;
+      bookingForm.reset();
+
+    } catch (error) {
+
+      console.error("Error:", error);
+
+      alert(
+        "Something went wrong.\n\n" +
+        error.message
+      );
     }
 
-    alert(
-      "BOOKING CONFIRMED! 🎉\n\n" +
-      "Booking ID: " +
-      bookingId
-    );
+  });
 
-    bookingForm.reset();
+});Enterssage
+      );
+    }
+
   });
-}EnterokingForm.reset();
-  });
-                               }
+
+});
