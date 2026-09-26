@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MobileFix - Login</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      background: #0f172a;
+    }
+
+    .page {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(37,99,235,.45), transparent 30%),
+        radial-gradient(circle at 85% 80%, rgba(14,165,233,.35), transparent 30%),
+        #0f172a;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(5px);
+      animation: float 7s ease-in-out infinite;
+    }
+
+    .orb.one {
+      width: 220px;
+      height: 220px;
+      background: rgba(59,130,246,.25);
+      top: -70px;
+      left: -60px;
+    }
+
+    .orb.two {
+      width: 280px;
+      height: 280px;
+      background: rgba(14,165,233,.18);
+      bottom: -100px;
+      right: -80px;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-25px);
+      }
+    }
+
+    .brand {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      color: white;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      z-index: 5;
+    }
+
+    .brand span {
+      color: #60a5fa;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 430px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .card {
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-radius: 28px;
+      padding: 34px 28px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.35);
+      color: white;
+    }
+
+    .icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 20px;
+      box-shadow: 0 12px 30px rgba(37,99,235,.35);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 8px;
+      letter-spacing: -0.7px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: rgba(255,255,255,.65);
+      font-size: 13px;
+      margin-bottom: 28px;
+    }
+
+    .form {
+      display: none;
+      animation: slideIn .4s ease;
+    }
+
+    .form.active {
+      display: block;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      color: rgba(255,255,255,.75);
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 14px 15px;
+      border-radius: 13px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color: white;
+      outline: none;
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    .field input::placeholder {
+      color: rgba(255,255,255,.4);
+    }
+
+    .field input:focus {
+      border-color: #60a5fa;
+      background: rgba(255,255,255,.12);
+      box-shadow: 0 0 0 3px rgba(96,165,250,.12);
+    }
+
+    .forgot {
+      display: block;
+      text-align: right;
+      margin-top: -7px;
+      margin-bottom: 18px;
+      color: #93c5fd;
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .main-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #2563eb, #0ea5e9);
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s;
+      box-shadow: 0 10px 25px rgba(37,99,235,.25);
+    }
+
+    .main-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(37,99,235,.35);
+    }
+
+    .switch {
+      text-align: center;
+      margin-top: 22px;
+      font-size: 13px;
+      color: rgba(255,255,255,.6);
+    }
+
+    .switch button {
+      background: none;
+      border: none;
+      color: #93c5fd;
+      font-weight: 700;
+      cursor: pointer;
+      margin-left: 4px;
+      font-size: 13px;
+    }
+
+    .message {
+      min-height: 20px;
+      text-align: center;
+      margin-top: 15px;
+      font-size: 12px;
+      color: #fca5a5;
+    }
+
+    .home {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,.6);
+      font-size: 12px;
+      text-decoration: none;
+      z-index: 10;
+    }
+
+    .home:hover {
+      color: white;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 28px 20px;
+        border-radius: 24px;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+
+      .brand {
+        left: 18px;
+        top: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+
+    <div class="brand">
+      Mobile<span>Fix</span>
+    </div>
+
+    <div class="container">
+
+      <div class="card">
+
+        <div class="icon">📱</div>
+
+        <!-- LOGIN -->
+        <div class="form active" id="loginForm">
+
+          <h1>Welcome Back</h1>
+
+          <p class="subtitle">
+            Login to manage your MobileFix repairs
+          </p>
+
+          <div class="field">
+            <label>Email</label>
+            <input
+              type="email"
+              id="loginEmail"
+              placeholder="Enter your email"
+            >
+          </div>
+
+          <div class="field">
+            <label>Password</label>
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="Enter your password"
+            >
+          </div>
+
+          <a href="#" class="forgot" onclick="forgotPassword(event)">
+            Forgot password?
+          </a>
+
+          <button class="main-btn" onclick="loginUser()">
+            Login →
+          </button>
+
+          <p class="message" id="loginMessage"></p>
+
+          <div class="switch">
+            Don't have an account?
+            <button onclick="showSignup()">Create account</button>
+          </div>
+
+        </div>
+
+
+        <!-- SIGNUP -->
+        <div class="form" id="signupForm">
+
+          <h1>Create Account</h1>
+
+          <p class="subtitle">
+            Join MobileFix and track your repairs
+          </p>
+
+          <div class="field">
+            <label>Full Name</label>
+            <input
+              type="text"
+              id="signupName"
+              placeholder="Enter your name"
+            >
+          </div>
+
+          <div class="field">
+            <label>Phone</label>
+            <input
+              type="tel"
+              id="signupPhone"
+              placeholder="Enter phone number"
+            >
+          </div>
+
+          <div class="field">
+            <label>Email</label>
+            <input
+              type="email"
+              id="signupEmail"
+              placeholder="Enter your email"
+            >
+          </div>
+
+          <div class="field">
+            <label>Password</label>
+            <input
+              type="password"
+              id="signupPassword"
+              placeholder="Create a password"
+            >
+          </div>
+
+          <button class="main-btn" onclick="signupUser()">
+            Create Account →
+          </button>
+
+          <p class="message" id="signupMessage"></p>
+
+          <div class="switch">
+            Already have an account?
+            <button onclick="showLogin()">Login</button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <a href="./index.html" class="home">
+      ← Back to MobileFix
+    </a>
+
+  </div>
+
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+
+    const SUPABASE_URL =
+      "https://antkerjfmdmyitiehnty.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "YOUR_EXISTING_PUBLISHABLE_KEY";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+
+    function showSignup() {
+      document.getElementById("loginForm")
+        .classList.remove("active");
+
+      document.getElementById("signupForm")
+        .classList.add("active");
+    }
+
+
+    function showLogin() {
+      document.getElementById("signupForm")
+        .classList.remove("active");
+
+      document.getElementById("loginForm")
+        .classList.add("active");
+    }
+
+
+    async function loginUser() {
+
+      const email =
+        document.getElementById("loginEmail").value.trim();
+
+      const password =
+        document.getElementById("loginPassword").value;
+
+      const message =
+        document.getElementById("loginMessage");
+
+      if (!email || !password) {
+        message.textContent =
+          "Please enter email and password.";
+        return;
+      }
+
+      message.textContent = "Logging in...";
+
+      const { error } =
+        await supabaseClient.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+      if (error) {
+        message.textContent = error.message;
+        return;
+      }
+
+      message.style.color = "#86efac";
+      message.textContent = "Login successful!";
+
+      setTimeout(function() {
+        window.location.href = "./index.html";
+      }, 700);
+    }
+
+
+    async function signupUser() {
+
+      const name =
+        document.getElementById("signupName").value.trim();
+
+      const phone =
+        document.getElementById("signupPhone").value.trim();
+
+      const email =
+        document.getElementById("signupEmail").value.trim();
+
+      const password =
+        document.getElementById("signupPassword").value;
+
+      const message =
+        document.getElementById("signupMessage");
+
+      if (!name || !phone || !email || !password) {
+        message.textContent =
+          "Please fill all details.";
+        return;
+      }
+
+      if (password.length < 6) {
+        message.textContent =
+          "Password must be at least 6 characters.";
+        return;
+      }
+
+      message.textContent = "Creating account...";
+
+      const { data, error } =
+        await supabaseClient.auth.signUp({
+          email: email,
+          password: password,
+          options: {
+            data: {
+              full_name: name,
+              phone: phone
+            }
+          }
+        });
+
+      if (error) {
+        message.textContent = error.message;
+        return;
+      }
+
+      message.style.color = "#86efac";
+
+      if (data.session) {
+        message.textContent =
+          "Account created successfully!";
+
+        setTimeout(function() {
+          window.location.href = "./index.html";
+        }, 700);
+      } else {
+        message.textContent =
+          "Account created! Please check your email to confirm.";
+      }
+    }
+
+
+    async function forgotPassword(event) {
+
+      event.preventDefault();
+
+      const email =
+        document.getElementById("loginEmail").value.trim();
+
+      const message =
+        document.getElementById("loginMessage");
+
+      if (!email) {
+        message.textContent =
+          "Enter your email first.";
+        return;
+      }
+
+      const { error } =
+        await supabaseClient.auth.resetPasswordForEmail(
+          email,
+          {
+            redirectTo:
+              window.location.origin +
+              window.location.pathname
+          }
+        );
+
+      if (error) {
+        message.textContent = error.message;
+        return;
+      }
+
+      message.style.color = "#86efac";
+      message.textContent =
+        "Password reset email sent.";
+    }
+
+  </script>
+
+</body>
+  </html>
