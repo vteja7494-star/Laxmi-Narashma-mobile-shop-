@@ -509,6 +509,24 @@
     </div>
 
   </section>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+const SUPABASE_URL = "https://antkerjfmdmyitiehnty.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_gzORKzM9wqsWQjlp0fq6g_MHjyz4Bs";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+(async function () {
+  const { data } = await supabaseClient.auth.getSession();
+
+  if (!data.session) {
+    window.location.href = "login.html";
+  }
+})();
+</script>
 </body>
 </html>
