@@ -387,7 +387,92 @@
         "Account created. Check your email if confirmation is required.";
     });
   </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+  const SUPABASE_URL =
+    "https://antkerjfmdmyitiehnty.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_gzORKzM9wqsWqUjlp0fq6g_MHjyz4Bs";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  const loginForm = document.getElementById("loginForm");
+  const signupBtn = document.getElementById("signupBtn");
+  const message = document.getElementById("message");
+
+  loginForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    const password =
+      document.getElementById("password").value;
+
+    message.textContent = "Logging in...";
+
+    const { error } =
+      await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+    if (error) {
+      message.textContent = error.message;
+      return;
+    }
+
+    message.textContent = "Login successful...";
+
+    setTimeout(function() {
+      window.location.href = "ai.html";
+    }, 500);
+  });
+
+  signupBtn.addEventListener("click", async function() {
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    const password =
+      document.getElementById("password").value;
+
+    if (!email || !password) {
+      message.textContent =
+        "Enter email and password first.";
+      return;
+    }
+
+    if (password.length < 6) {
+      message.textContent =
+        "Password must be at least 6 characters.";
+      return;
+    }
+
+    message.textContent =
+      "Creating account...";
+
+    const { error } =
+      await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+      });
+
+    if (error) {
+      message.textContent =
+        error.message;
+      return;
+    }
+
+    message.textContent =
+      "Account created. Check your email if confirmation is required.";
+  });
+</script>
 </body>
 </html>
 
