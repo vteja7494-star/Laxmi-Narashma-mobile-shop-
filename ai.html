@@ -1,716 +1,265 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Laxmi Narashma Mobile Shop</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html,
-body{
-  width:100%;
-  height:100%;
-}
-
-body{
-  font-family:'Inter',sans-serif;
-  overflow:hidden;
-}
-
-.hero{
-  position:relative;
-  width:100%;
-  height:100vh;
-  overflow:hidden;
-  transition:
-    background-color 650ms cubic-bezier(.4,0,.2,1);
-}
-
-/* GRAIN */
-
-.grain{
-  position:absolute;
-  inset:0;
-  z-index:50;
-  pointer-events:none;
-  opacity:.4;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.08'/%3E%3C/svg%3E");
-  background-size:200px 200px;
-}
-
-/* GIANT TEXT */
-
-.ghost-text{
-  position:absolute;
-  inset-inline:0;
-  top:18%;
-  z-index:2;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  pointer-events:none;
-  user-select:none;
-
-  font-family:'Anton',sans-serif;
-  font-size:clamp(90px,28vw,380px);
-  font-weight:900;
-  line-height:1;
-  letter-spacing:-.02em;
-  white-space:nowrap;
-  color:white;
-}
-
-/* BRAND */
-
-.brand{
-  position:absolute;
-  top:24px;
-  left:16px;
-  z-index:60;
-
-  color:white;
-  opacity:.9;
-
-  font-size:12px;
-  font-weight:600;
-  text-transform:uppercase;
-  letter-spacing:.18em;
-}
-
-/* CAROUSEL */
-
-.carousel{
-  position:absolute;
-  inset:0;
-  z-index:3;
-}
-
-.slide{
-  position:absolute;
-
-  aspect-ratio:.6 / 1;
-
-  transform-origin:center bottom;
-
-  transition:
-    transform 650ms cubic-bezier(.4,0,.2,1),
-    filter 650ms cubic-bezier(.4,0,.2,1),
-    opacity 650ms cubic-bezier(.4,0,.2,1),
-    left 650ms cubic-bezier(.4,0,.2,1);
-
-  will-change:transform,filter,opacity,left;
-}
-
-.slide img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  object-position:bottom center;
-  display:block;
-  user-select:none;
-  -webkit-user-drag:none;
-}
-
-/* CENTER */
-
-.slide.center{
-  left:50%;
-  bottom:0;
-  height:92%;
-
-  transform:
-    translateX(-50%)
-    scale(1.68);
-
-  filter:none;
-  opacity:1;
-  z-index:20;
-}
-
-/* LEFT */
-
-.slide.left{
-  left:30%;
-  bottom:12%;
-  height:28%;
-
-  transform:
-    translateX(-50%)
-    scale(1);
-
-  filter:blur(2px);
-  opacity:.85;
-  z-index:10;
-}
-
-/* RIGHT */
-
-.slide.right{
-  left:70%;
-  bottom:12%;
-  height:28%;
-
-  transform:
-    translateX(-50%)
-    scale(1);
-
-  filter:blur(2px);
-  opacity:.85;
-  z-index:10;
-}
-
-/* BACK */
-
-.slide.back{
-  left:50%;
-  bottom:12%;
-  height:22%;
-
-  transform:
-    translateX(-50%)
-    scale(1);
-
-  filter:blur(4px);
-  opacity:1;
-  z-index:5;
-}
-
-/* BOTTOM LEFT */
-
-.bottom-left{
-  position:absolute;
-  left:24px;
-  bottom:24px;
-  z-index:60;
-  max-width:320px;
-}
-
-.title{
-  margin-bottom:8px;
-
-  color:white;
-  opacity:.95;
-
-  font-size:16px;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-}
-
-.description{
-  margin-bottom:20px;
-
-  color:white;
-  opacity:.85;
-
-  font-size:14px;
-  line-height:1.6;
-}
-
-/* BUTTONS */
-
-.navigation{
-  display:flex;
-  gap:12px;
-}
-
-.nav-button{
-  width:48px;
-  height:48px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  background:transparent;
-  border:2px solid white;
-  border-radius:50%;
-
-  color:white;
-  cursor:pointer;
-
-  transition:
-    transform 150ms ease,
-    background-color 150ms ease;
-}
-
-.nav-button:hover{
-  transform:scale(1.08);
-  background:rgba(255,255,255,.12);
-}
-
-.nav-button:active{
-  transform:scale(.96);
-}
-
-/* DISCOVER */
-
-.discover{
-  position:absolute;
-  right:16px;
-  bottom:24px;
-  z-index:60;
-
-  display:flex;
-  align-items:center;
-  gap:8px;
-
-  color:white;
-  opacity:.95;
-
-  font-family:'Anton',sans-serif;
-  font-size:clamp(20px,4vw,56px);
-  font-weight:400;
-  line-height:1;
-  letter-spacing:-.02em;
-
-  text-decoration:none;
-
-  transition:opacity 200ms ease;
-}
-
-.discover:hover{
-  opacity:1;
-}
-
-/* DESKTOP */
-
-@media(min-width:640px){
-
-  .brand{
-    left:32px;
-    top:24px;
-  }
-
-  .bottom-left{
-    left:96px;
-    bottom:80px;
-  }
-
-  .title{
-    font-size:22px;
-  }
-
-  .description{
-    font-size:14px;
-    margin-bottom:20px;
-  }
-
-  .nav-button{
-    width:64px;
-    height:64px;
-  }
-
-  .discover{
-    right:40px;
-    bottom:80px;
-  }
-
-}
-
-/* MOBILE */
-
-@media(max-width:639px){
-
-  .ghost-text{
-    top:18%;
-    font-size:28vw;
-  }
-
-  .slide.center{
-    height:60%;
-    bottom:22%;
-
-    transform:
-      translateX(-50%)
-      scale(1.25);
-  }
-
-  .slide.left{
-    left:20%;
-    bottom:32%;
-    height:16%;
-  }
-
-  .slide.right{
-    left:80%;
-    bottom:32%;
-    height:16%;
-  }
-
-  .slide.back{
-    left:50%;
-    bottom:32%;
-    height:13%;
-  }
-
-  .bottom-left{
-    left:16px;
-    bottom:24px;
-    max-width:250px;
-  }
-
-  .description{
-    display:none;
-  }
-
-  .nav-button{
-    width:48px;
-    height:48px;
-  }
-
-  .discover{
-    right:16px;
-    bottom:24px;
-  }
-
-}
-
-/* SMALL PHONES */
-
-@media(max-width:380px){
-
-  .bottom-left{
-    bottom:18px;
-  }
-
-  .discover{
-    font-size:20px;
-  }
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div
-  class="hero"
-  id="hero"
-  style="background-color:#F4845F;"
->
-
-  <div class="grain"></div>
-
-  <div class="ghost-text">
-    3D SHAPE
-  </div>
-
-  <div class="brand">
-    LAXMI NARASHMA MOBILE SHOP
-  </div>
-
-  <div
-    class="carousel"
-    id="carousel"
-  ></div>
-
-  <div class="bottom-left">
-
-    <p class="title">
-      MOBILE SHOWCASE
-    </p>
-
-    <p class="description">
-      Explore premium smartphones with a
-      smooth showroom-style presentation.
-      Choose your favourite mobile and
-      discover more.
-    </p>
-
-    <div class="navigation">
-
-      <button
-        class="nav-button"
-        id="prevButton"
-        aria-label="Previous"
-      >
-        <svg
-          width="26"
-          height="26"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.25"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="m15 18-6-6 6-6"/>
-        </svg>
-      </button>
-
-      <button
-        class="nav-button"
-        id="nextButton"
-        aria-label="Next"
-      >
-        <svg
-          width="26"
-          height="26"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.25"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="m9 18 6-6-6-6"/>
-        </svg>
-      </button>
-
-    </div>
-
-  </div>
-
-  <a
-    href="#"
-    class="discover"
-    onclick="return false;"
-  >
-    DISCOVER IT
-
-    <svg
-      width="32"
-      height="32"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2.25"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path d="M5 12h14"/>
-      <path d="m12 5 7 7-7 7"/>
-    </svg>
-
-  </a>
-
-</div>
-
-<script>
-
-/* IMAGE DATA */
+import { useEffect, useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const IMAGES = [
-
   {
-    src:"https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/1.02464a56.png",
-    bg:"#F4845F"
+    src: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=900&q=90",
+    bg: "#F4845F",
   },
-
   {
-    src:"https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/2.b977faab.png",
-    bg:"#6BBF7A"
+    src: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=90",
+    bg: "#6BBF7A",
   },
-
   {
-    src:"https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/3.4df853b4.png",
-    bg:"#E882B4"
+    src: "https://images.unsplash.com/photo-1592286927505-1def25115558?auto=format&fit=crop&w=900&q=90",
+    bg: "#E882B4",
   },
-
   {
-    src:"https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/4.4457fbce.png",
-    bg:"#6EB5FF"
-  }
-
+    src: "https://images.unsplash.com/photo-1556656793-08538906a9f8?auto=format&fit=crop&w=900&q=90",
+    bg: "#6EB5FF",
+  },
 ];
 
-/* STATE */
+type Direction = "next" | "prev";
 
-let activeIndex = 0;
-let isAnimating = false;
+export default function App() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    window.innerWidth < 640
+  );
 
-let isMobile =
-  window.innerWidth < 640;
+  useEffect(() => {
+    IMAGES.forEach((item) => {
+      const image = new Image();
+      image.src = item.src;
+    });
 
-/* PRELOAD */
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
 
-IMAGES.forEach(function(item){
+    window.addEventListener("resize", handleResize);
 
-  const image = new Image();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
-  image.src = item.src;
+  const navigate = (direction: Direction) => {
+    if (isAnimating) return;
 
-});
+    setIsAnimating(true);
 
-/* ELEMENTS */
+    setActiveIndex((current) => {
+      if (direction === "next") {
+        return (current + 1) % IMAGES.length;
+      }
 
-const hero =
-  document.getElementById("hero");
+      return (current + 3) % IMAGES.length;
+    });
 
-const carousel =
-  document.getElementById("carousel");
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 650);
+  };
 
-const prevButton =
-  document.getElementById("prevButton");
+  const center = activeIndex;
+  const left = (activeIndex + 3) % 4;
+  const right = (activeIndex + 1) % 4;
+  const back = (activeIndex + 2) % 4;
 
-const nextButton =
-  document.getElementById("nextButton");
-
-/* CREATE SLIDES */
-
-IMAGES.forEach(function(item,index){
-
-  const slide =
-    document.createElement("div");
-
-  slide.className =
-    "slide";
-
-  const image =
-    document.createElement("img");
-
-  image.src =
-    item.src;
-
-  image.alt =
-    "Mobile showcase";
-
-  image.draggable =
-    false;
-
-  slide.appendChild(image);
-
-  carousel.appendChild(slide);
-
-});
-
-/* GET ROLES */
-
-function getRole(index){
-
-  const center =
-    activeIndex;
-
-  const left =
-    (activeIndex + 3) % 4;
-
-  const right =
-    (activeIndex + 1) % 4;
-
-  const back =
-    (activeIndex + 2) % 4;
-
-  if(index === center){
-    return "center";
-  }
-
-  if(index === left){
-    return "left";
-  }
-
-  if(index === right){
-    return "right";
-  }
-
-  if(index === back){
+  const getRole = (index: number) => {
+    if (index === center) return "center";
+    if (index === left) return "left";
+    if (index === right) return "right";
     return "back";
-  }
+  };
 
-  return "";
+  const getStyle = (role: string): React.CSSProperties => {
+    const common = {
+      position: "absolute" as const,
+      aspectRatio: "0.6 / 1",
+      transition:
+        "transform 650ms cubic-bezier(0.4,0,0.2,1), filter 650ms cubic-bezier(0.4,0,0.2,1), opacity 650ms cubic-bezier(0.4,0,0.2,1), left 650ms cubic-bezier(0.4,0,0.2,1)",
+      willChange: "transform, filter, opacity",
+    };
 
+    if (role === "center") {
+      return {
+        ...common,
+        transform: `translateX(-50%) scale(${
+          isMobile ? 1.15 : 1.35
+        })`,
+        filter: "none",
+        opacity: 1,
+        zIndex: 20,
+        left: "50%",
+        height: isMobile ? "62%" : "88%",
+        bottom: isMobile ? "22%" : "2%",
+      };
+    }
+
+    if (role === "left") {
+      return {
+        ...common,
+        transform: "translateX(-50%) scale(1)",
+        filter: "blur(2px)",
+        opacity: 0.82,
+        zIndex: 10,
+        left: isMobile ? "18%" : "29%",
+        height: isMobile ? "18%" : "30%",
+        bottom: isMobile ? "31%" : "12%",
+      };
+    }
+
+    if (role === "right") {
+      return {
+        ...common,
+        transform: "translateX(-50%) scale(1)",
+        filter: "blur(2px)",
+        opacity: 0.82,
+        zIndex: 10,
+        left: isMobile ? "82%" : "71%",
+        height: isMobile ? "18%" : "30%",
+        bottom: isMobile ? "31%" : "12%",
+      };
+    }
+
+    return {
+      ...common,
+      transform: "translateX(-50%) scale(1)",
+      filter: "blur(4px)",
+      opacity: 0.7,
+      zIndex: 5,
+      left: "50%",
+      height: isMobile ? "14%" : "23%",
+      bottom: isMobile ? "31%" : "12%",
+    };
+  };
+
+  return (
+    <div
+      className="relative w-full overflow-hidden"
+      style={{
+        backgroundColor: IMAGES[activeIndex].bg,
+        transition:
+          "background-color 650ms cubic-bezier(0.4,0,0.2,1)",
+        fontFamily: "'Inter', sans-serif",
+      }}
+    >
+      <div className="relative h-screen w-full overflow-hidden">
+
+        {/* Grain */}
+        <div
+          className="pointer-events-none absolute inset-0 z-[50] opacity-40"
+          style={{
+            backgroundImage: `
+              url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.08'/%3E%3C/svg%3E")
+            `,
+            backgroundSize: "200px 200px",
+            backgroundRepeat: "repeat",
+          }}
+        />
+
+        {/* Giant Ghost Text */}
+        <div
+          className="pointer-events-none absolute inset-x-0 z-[2] flex select-none items-center justify-center"
+          style={{
+            top: "18%",
+            fontFamily: "'Anton', sans-serif",
+            fontSize: "clamp(90px, 28vw, 380px)",
+            fontWeight: 900,
+            color: "white",
+            opacity: 1,
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
+            whiteSpace: "nowrap",
+          }}
+        >
+          MOBILE
+        </div>
+
+        {/* Brand */}
+        <div className="absolute left-4 top-6 z-[60] text-xs font-semibold uppercase tracking-[0.18em] text-white opacity-90 sm:left-8">
+          LAXMI NARASHMA MOBILE SHOP
+        </div>
+
+        {/* Carousel */}
+        <div className="absolute inset-0 z-[3]">
+          {IMAGES.map((item, index) => {
+            const role = getRole(index);
+
+            return (
+              <div
+                key={item.src}
+                style={getStyle(role)}
+              >
+                <img
+                  src={item.src}
+                  alt={`Mobile phone ${index + 1}`}
+                  draggable={false}
+                  className="h-full w-full select-none object-contain object-bottom"
+                />
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom Left */}
+        <div className="absolute bottom-6 left-4 z-[60] max-w-[320px] sm:bottom-20 sm:left-24">
+
+          <p className="mb-2 text-base font-bold uppercase tracking-widest text-white opacity-95 sm:mb-3 sm:text-[22px]">
+            PREMIUM MOBILES
+          </p>
+
+          <p className="mb-4 hidden text-xs leading-[1.6] text-white opacity-85 sm:mb-5 sm:block sm:text-sm">
+            Explore premium smartphones with a smooth showroom-style
+            presentation. Choose your favourite mobile and discover more.
+          </p>
+
+          <div className="flex gap-3">
+            <button
+              onClick={() => navigate("prev")}
+              className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-transparent text-white transition-all duration-150 hover:scale-[1.08] hover:bg-white/10 sm:h-16 sm:w-16"
+              aria-label="Previous mobile"
+            >
+              <ArrowLeft size={26} strokeWidth={2.25} />
+            </button>
+
+            <button
+              onClick={() => navigate("next")}
+              className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-transparent text-white transition-all duration-150 hover:scale-[1.08] hover:bg-white/10 sm:h-16 sm:w-16"
+              aria-label="Next mobile"
+            >
+              <ArrowRight size={26} strokeWidth={2.25} />
+            </button>
+          </div>
+        </div>
+
+        {/* Bottom Right */}
+        <a
+          href="#"
+          onClick={(e) => e.preventDefault()}
+          className="absolute bottom-6 right-4 z-[60] flex items-center text-white opacity-95 transition-opacity duration-200 hover:opacity-100 sm:bottom-20 sm:right-10"
+          style={{
+            fontFamily: "'Anton', sans-serif",
+            fontSize: "clamp(20px, 4vw, 56px)",
+            fontWeight: 400,
+            letterSpacing: "-0.02em",
+            lineHeight: 1,
+            textTransform: "uppercase",
+            textDecoration: "none",
+          }}
+        >
+          DISCOVER IT
+          <ArrowRight
+            className="ml-2 h-5 w-5 sm:ml-3 sm:h-8 sm:w-8"
+            strokeWidth={2.25}
+          />
+        </a>
+
+      </div>
+    </div>
+  );
 }
-
-/* RENDER */
-
-function render(){
-
-  hero.style.backgroundColor =
-    IMAGES[activeIndex].bg;
-
-  const slides =
-    document.querySelectorAll(".slide");
-
-  slides.forEach(function(slide,index){
-
-    slide.className =
-      "slide " + getRole(index);
-
-  });
-
-}
-
-/* NAVIGATE */
-
-function navigate(direction){
-
-  if(isAnimating){
-    return;
-  }
-
-  isAnimating = true;
-
-  if(direction === "next"){
-
-    activeIndex =
-      (activeIndex + 1) % 4;
-
-  }else{
-
-    activeIndex =
-      (activeIndex + 3) % 4;
-
-  }
-
-  render();
-
-  setTimeout(function(){
-
-    isAnimating = false;
-
-  },650);
-
-}
-
-/* BUTTON EVENTS */
-
-prevButton.addEventListener(
-  "click",
-  function(){
-    navigate("prev");
-  }
-);
-
-nextButton.addEventListener(
-  "click",
-  function(){
-    navigate("next");
-  }
-);
-
-/* RESIZE */
-
-window.addEventListener(
-  "resize",
-  function(){
-
-    isMobile =
-      window.innerWidth < 640;
-
-  }
-);
-
-/* INITIAL */
-
-render();
-
-</script>
-
-</body>
-</html>
