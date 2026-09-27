@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mobile AI Assistant | Laxmi Narashma</title>
+
+  <title>Laxmi Narashma Mobile Shop - AI Assistant</title>
 
   <style>
     * {
@@ -13,465 +14,378 @@
     }
 
     body {
-      margin: 0;
-      background: #050505;
-      color: white;
-      font-family: Arial, sans-serif;
+      min-height: 100vh;
       overflow: hidden;
-    }
-
-    .app {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-      overflow: hidden;
+      font-family: Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at center, #292929 0%, #0b0b0b 42%, #020202 100%);
+        radial-gradient(circle at 50% 45%, #202020 0%, #080808 45%, #000 100%);
+      color: white;
     }
 
-    /* BIG WEBSITE NAME BEHIND PHONES */
+    .page {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+    }
 
-    .ghost-name {
+    /* Giant background brand */
+    .ghost-text {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-
-      width: 100%;
-      text-align: center;
-
-      font-size: clamp(55px, 13vw, 180px);
+      font-size: clamp(70px, 13vw, 190px);
       font-weight: 900;
-      letter-spacing: -7px;
-
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,.08);
-
+      letter-spacing: -8px;
+      color: rgba(255,255,255,0.035);
       white-space: nowrap;
       pointer-events: none;
       user-select: none;
+      z-index: 0;
     }
 
-    /* TOP BRAND */
-
-    .brand {
+    /* Top brand */
+    .top-brand {
       position: absolute;
-      top: 25px;
-      left: 30px;
-      z-index: 100;
+      top: 28px;
+      left: 32px;
+      z-index: 20;
+      font-size: 13px;
+      letter-spacing: 2px;
+      font-weight: 800;
     }
 
-    .brand small {
+    .top-brand span {
       display: block;
-      color: #777;
+      margin-top: 5px;
+      color: #888;
       font-size: 9px;
-      letter-spacing: 4px;
-      margin-bottom: 5px;
+      letter-spacing: 3px;
     }
-
-    .brand strong {
-      font-size: 18px;
-      letter-spacing: 1px;
-    }
-
-    /* LOGOUT */
 
     .logout {
       position: absolute;
-      top: 20px;
-      right: 25px;
-      z-index: 100;
-
+      top: 25px;
+      right: 28px;
+      z-index: 30;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.06);
+      color: white;
       padding: 10px 17px;
-
-      border: 1px solid #333;
-      border-radius: 20px;
-
-      background: rgba(0,0,0,.5);
-      color: #aaa;
-
+      border-radius: 30px;
       cursor: pointer;
+      backdrop-filter: blur(10px);
     }
 
     .logout:hover {
-      color: white;
-      border-color: #777;
+      background: white;
+      color: black;
     }
 
-    /* CAROUSEL */
-
+    /* Main carousel */
     .carousel {
       position: absolute;
-      inset: 0;
-    }
-
-    .phone {
-      position: absolute;
-
       left: 50%;
-      bottom: 5%;
-
-      width: 220px;
-      height: 450px;
-
-      border-radius: 40px;
-
-      background: linear-gradient(145deg, #303030, #050505);
-
-      border: 2px solid rgba(255,255,255,.18);
-
-      overflow: hidden;
-
-      box-shadow: 0 40px 100px rgba(0,0,0,.8);
-
-      cursor: pointer;
-
-      transition:
-        left .65s cubic-bezier(.4,0,.2,1),
-        transform .65s cubic-bezier(.4,0,.2,1),
-        opacity .65s cubic-bezier(.4,0,.2,1),
-        filter .65s cubic-bezier(.4,0,.2,1);
+      top: 51%;
+      transform: translate(-50%, -50%);
+      width: min(1000px, 100vw);
+      height: 610px;
+      z-index: 5;
     }
 
-    .screen {
+    .phone-card {
       position: absolute;
-      inset: 7px;
-
-      border-radius: 34px;
-
-      background:
-        radial-gradient(circle at 50% 25%, #555, transparent 20%),
-        linear-gradient(145deg,#202020,#020202);
+      top: 50%;
+      left: 50%;
+      width: 245px;
+      height: 475px;
+      transform-origin: center center;
+      transition:
+        transform 650ms cubic-bezier(.22,.8,.25,1),
+        opacity 650ms ease,
+        filter 650ms ease;
+      cursor: pointer;
+      border-radius: 35px;
+      overflow: hidden;
+      background: #111;
+      box-shadow: 0 30px 80px rgba(0,0,0,.65);
+      border: 1px solid rgba(255,255,255,.15);
     }
 
-    .screen::after {
+    .phone-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #111;
+    }
+
+    .phone-card::after {
       content: "";
       position: absolute;
       inset: 0;
-
       background:
-        radial-gradient(circle at 30% 70%, rgba(255,255,255,.08), transparent 25%);
+        linear-gradient(
+          to bottom,
+          rgba(0,0,0,.02),
+          rgba(0,0,0,.05) 55%,
+          rgba(0,0,0,.72)
+        );
+      pointer-events: none;
     }
 
-    .notch {
+    .phone-info {
       position: absolute;
-      top: 12px;
-      left: 50%;
-
-      transform: translateX(-50%);
-
-      width: 75px;
-      height: 17px;
-
-      background: #000;
-      border-radius: 20px;
-
-      z-index: 5;
+      left: 20px;
+      bottom: 22px;
+      z-index: 4;
     }
 
-    .logo {
-      position: absolute;
-
-      left: 50%;
-      top: 50%;
-
-      transform: translate(-50%, -50%);
-
-      font-size: 52px;
-      font-weight: 900;
-
-      color: rgba(255,255,255,.15);
-
-      z-index: 5;
-    }
-
-    .phone-name {
-      position: absolute;
-
-      bottom: 28px;
-      left: 0;
-
-      width: 100%;
-
-      text-align: center;
-
-      font-size: 16px;
-      font-weight: bold;
-
-      z-index: 6;
-    }
-
-    /* PHONE POSITIONS */
-
-    .center {
-      left: 50%;
-
-      transform:
-        translateX(-50%)
-        scale(1.35);
-
-      opacity: 1;
-      filter: none;
-
-      z-index: 20;
-    }
-
-    .left {
-      left: 22%;
-
-      transform:
-        translateX(-50%)
-        scale(.7);
-
-      opacity: .75;
-      filter: blur(2px);
-
-      z-index: 10;
-    }
-
-    .right {
-      left: 78%;
-
-      transform:
-        translateX(-50%)
-        scale(.7);
-
-      opacity: .75;
-      filter: blur(2px);
-
-      z-index: 10;
-    }
-
-    .back {
-      left: 50%;
-
-      transform:
-        translateX(-50%)
-        scale(.55);
-
-      opacity: .25;
-      filter: blur(6px);
-
-      z-index: 5;
-    }
-
-    /* AI PANEL */
-
-    .ai-panel {
-      position: absolute;
-
-      top: 90px;
-      right: 25px;
-
-      width: 280px;
-
-      padding: 20px;
-
-      background: rgba(5,5,5,.72);
-
-      border: 1px solid rgba(255,255,255,.12);
-
-      border-radius: 18px;
-
-      backdrop-filter: blur(20px);
-
-      z-index: 100;
-    }
-
-    .ai-panel h2 {
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-
-    .ai-panel p {
-      color: #777;
+    .phone-info .brand {
       font-size: 11px;
-      line-height: 1.5;
-      margin-bottom: 12px;
+      letter-spacing: 3px;
+      color: #aaa;
+      margin-bottom: 6px;
     }
 
-    .issue {
-      display: block;
-
-      width: 100%;
-
-      margin-top: 7px;
-
-      padding: 10px;
-
-      border: 1px solid #292929;
-      border-radius: 9px;
-
-      background: #101010;
-      color: white;
-
-      text-align: left;
-
-      cursor: pointer;
+    .phone-info .model {
+      font-size: 23px;
+      font-weight: 800;
     }
 
-    .issue:hover {
-      background: #222;
+    /* Positions */
+    .pos-center {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      z-index: 10;
+      filter: brightness(1);
     }
 
-    /* BOTTOM */
-
-    .bottom {
-      position: absolute;
-
-      left: 30px;
-      bottom: 28px;
-
-      z-index: 100;
+    .pos-left {
+      transform: translate(calc(-50% - 255px), -50%) scale(.72) rotate(-5deg);
+      opacity: .55;
+      z-index: 6;
+      filter: brightness(.65) blur(.2px);
     }
 
-    .bottom small {
-      color: #777;
-      font-size: 9px;
-      letter-spacing: 4px;
+    .pos-right {
+      transform: translate(calc(-50% + 255px), -50%) scale(.72) rotate(5deg);
+      opacity: .55;
+      z-index: 6;
+      filter: brightness(.65) blur(.2px);
     }
 
-    .bottom h1 {
-      font-size: 22px;
-      margin-top: 6px;
+    .pos-back-left {
+      transform: translate(calc(-50% - 430px), -50%) scale(.52) rotate(-9deg);
+      opacity: .18;
+      z-index: 3;
+      filter: brightness(.35) blur(2px);
     }
 
-    .model {
-      color: #888;
-      font-size: 12px;
-      margin-top: 5px;
+    .pos-back-right {
+      transform: translate(calc(-50% + 430px), -50%) scale(.52) rotate(9deg);
+      opacity: .18;
+      z-index: 3;
+      filter: brightness(.35) blur(2px);
     }
 
-    /* ARROWS */
-
-    .controls {
-      position: absolute;
-
-      left: 50%;
-      bottom: 25px;
-
-      transform: translateX(-50%);
-
-      display: flex;
-      gap: 10px;
-
-      z-index: 100;
+    .pos-hidden {
+      transform: translate(-50%, -50%) scale(.35);
+      opacity: 0;
+      z-index: 1;
+      pointer-events: none;
     }
 
+    /* Navigation */
     .arrow {
-      width: 48px;
-      height: 48px;
-
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
-
-      border: 1px solid #444;
-
-      background: rgba(0,0,0,.55);
-
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.07);
       color: white;
-
-      font-size: 20px;
-
+      font-size: 25px;
       cursor: pointer;
+      z-index: 20;
+      backdrop-filter: blur(15px);
+      transition: .25s;
     }
 
     .arrow:hover {
       background: white;
       color: black;
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .arrow-left {
+      left: 25px;
+    }
+
+    .arrow-right {
+      right: 25px;
+    }
+
+    /* Bottom UI */
+    .bottom-left {
+      position: absolute;
+      bottom: 30px;
+      left: 32px;
+      z-index: 20;
+    }
+
+    .bottom-left .small {
+      color: #777;
+      font-size: 10px;
+      letter-spacing: 3px;
+      margin-bottom: 6px;
+    }
+
+    .bottom-left h2 {
+      font-size: 17px;
+      letter-spacing: 2px;
     }
 
     .discover {
       position: absolute;
-
-      right: 30px;
-      bottom: 32px;
-
-      color: #888;
-
+      right: 32px;
+      bottom: 30px;
+      z-index: 20;
       font-size: 11px;
       letter-spacing: 2px;
-
-      z-index: 100;
+      color: #aaa;
+      cursor: pointer;
     }
 
-    /* MOBILE */
+    .discover:hover {
+      color: white;
+    }
 
-    @media(max-width:700px) {
+    /* AI panel */
+    .ai-panel {
+      position: absolute;
+      left: 50%;
+      bottom: 85px;
+      transform: translateX(-50%);
+      width: min(430px, 90vw);
+      padding: 17px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 20px;
+      background: rgba(10,10,10,.72);
+      backdrop-filter: blur(18px);
+      z-index: 30;
+      opacity: 0;
+      pointer-events: none;
+      transform-origin: bottom;
+      transition: .3s ease;
+    }
 
-      .brand {
-        left: 15px;
-        top: 17px;
+    .ai-panel.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .ai-title {
+      font-size: 12px;
+      color: #999;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .problem-btn {
+      padding: 11px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.05);
+      color: white;
+      cursor: pointer;
+      text-align: left;
+      font-size: 12px;
+    }
+
+    .problem-btn:hover {
+      background: white;
+      color: black;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        overflow: hidden;
       }
 
-      .brand strong {
-        font-size: 13px;
+      .top-brand {
+        top: 20px;
+        left: 20px;
       }
 
       .logout {
-        right: 15px;
-        top: 15px;
+        top: 18px;
+        right: 18px;
+        padding: 8px 13px;
       }
 
-      .ghost-name {
-        font-size: 55px;
-        letter-spacing: -3px;
+      .ghost-text {
+        font-size: 60px;
       }
 
-      .phone {
-        width: 150px;
-        height: 310px;
-        border-radius: 28px;
+      .carousel {
+        height: 520px;
       }
 
-      .screen {
-        border-radius: 22px;
+      .phone-card {
+        width: 205px;
+        height: 405px;
       }
 
-      .center {
-        transform:
-          translateX(-50%)
-          scale(1.15);
+      .pos-left {
+        transform: translate(calc(-50% - 155px), -50%) scale(.63) rotate(-5deg);
       }
 
-      .left {
-        left: 13%;
-        transform:
-          translateX(-50%)
-          scale(.55);
+      .pos-right {
+        transform: translate(calc(-50% + 155px), -50%) scale(.63) rotate(5deg);
       }
 
-      .right {
-        left: 87%;
-        transform:
-          translateX(-50%)
-          scale(.55);
+      .pos-back-left {
+        transform: translate(calc(-50% - 270px), -50%) scale(.45) rotate(-9deg);
       }
 
-      .back {
-        transform:
-          translateX(-50%)
-          scale(.45);
+      .pos-back-right {
+        transform: translate(calc(-50% + 270px), -50%) scale(.45) rotate(9deg);
       }
 
-      .ai-panel {
-        left: 15px;
-        right: 15px;
-        top: auto;
-        bottom: 85px;
-        width: auto;
+      .arrow {
+        width: 44px;
+        height: 44px;
       }
 
-      .bottom {
-        left: 15px;
-        bottom: 18px;
+      .arrow-left {
+        left: 10px;
       }
 
-      .bottom h1 {
-        font-size: 15px;
+      .arrow-right {
+        right: 10px;
+      }
+
+      .bottom-left {
+        left: 20px;
+        bottom: 20px;
       }
 
       .discover {
-        display: none;
+        right: 20px;
+        bottom: 20px;
+      }
+
+      .ai-panel {
+        bottom: 75px;
       }
     }
   </style>
@@ -479,1016 +393,351 @@
 
 <body>
 
-  <div class="app">
+<div class="page">
 
-    <div class="ghost-name">
-      LAXMI NARASHMA
-    </div>
+  <div class="ghost-text">LAXMI NARASHMA</div>
 
-    <div class="brand">
-      <small>WELCOME TO</small>
-      <strong>LAXMI NARASHMA MOBILE SHOP</strong>
-    </div>
+  <div class="top-brand">
+    LAXMI NARASHMA
+    <span>MOBILE SHOP</span>
+  </div>
 
-    <button class="logout" onclick="logout()">
-      LOGOUT
-    </button>
+  <button class="logout" onclick="logoutUser()">Logout</button>
 
-    <div class="carousel" id="carousel"></div>
+  <div class="carousel" id="carousel">
 
-    <div class="ai-panel">
-
-      <h2>✦ MOBILE AI ASSISTANT</h2>
-
-      <p id="aiMessage">
-        Select your mobile and choose your problem.
-      </p>
-
-      <button class="issue" onclick="selectProblem('Screen Damage')">
-        📱 Screen Damage
-      </button>
-
-      <button class="issue" onclick="selectProblem('Battery Problem')">
-        🔋 Battery Problem
-      </button>
-
-      <button class="issue" onclick="selectProblem('Charging Problem')">
-        ⚡ Charging Problem
-      </button>
-
-      <button class="issue" onclick="selectProblem('Camera Problem')">
-        📷 Camera Problem
-      </button>
-
-      <button class="issue" onclick="selectProblem('Software Problem')">
-        ⚙️ Software Problem
-      </button>
-
-    </div>
-
-    <div class="bottom">
-
-      <small>MOBILE AI ASSISTANT</small>
-
-      <h1 id="selectedBrand">
-        NOTHING
-      </h1>
-
-      <div class="model" id="selectedModel">
-        Nothing Phone
+    <!-- NOTHING -->
+    <div class="phone-card pos-center"
+         data-brand="NOTHING"
+         data-model="Phone (2)"
+         onclick="selectPhone(this)">
+      <img
+        src="https://commons.wikimedia.org/wiki/Special:FilePath/Nothing_phone_(2)_(Booredatwork.com)_001.png"
+        alt="Nothing Phone 2"
+        onerror="imageFallback(this)"
+      >
+      <div class="phone-info">
+        <div class="brand">NOTHING</div>
+        <div class="model">Phone (2)</div>
       </div>
-
     </div>
 
-    <div class="controls">
-
-      <button class="arrow" onclick="previousPhone()">
-        ←
-      </button>
-
-      <button class="arrow" onclick="nextPhone()">
-        →
-      </button>
-
+    <!-- IPHONE -->
+    <div class="phone-card pos-right"
+         data-brand="APPLE"
+         data-model="iPhone 15"
+         onclick="selectPhone(this)">
+      <img
+        src="https://commons.wikimedia.org/wiki/Special:FilePath/Apple_iPhone_15.png"
+        alt="Apple iPhone 15"
+        onerror="imageFallback(this)"
+      >
+      <div class="phone-info">
+        <div class="brand">APPLE</div>
+        <div class="model">iPhone 15</div>
+      </div>
     </div>
 
-    <div class="discover">
-      DISCOVER MODELS →
+    <!-- SAMSUNG -->
+    <div class="phone-card pos-back-right"
+         data-brand="SAMSUNG"
+         data-model="Galaxy S24"
+         onclick="selectPhone(this)">
+      <img
+        src="https://commons.wikimedia.org/wiki/Special:FilePath/Samsung_Galaxy_S24_02.jpg"
+        alt="Samsung Galaxy S24"
+        onerror="imageFallback(this)"
+      >
+      <div class="phone-info">
+        <div class="brand">SAMSUNG</div>
+        <div class="model">Galaxy S24</div>
+      </div>
+    </div>
+
+    <!-- OPPO -->
+    <div class="phone-card pos-back-left"
+         data-brand="OPPO"
+         data-model="OPPO Smartphone"
+         onclick="selectPhone(this)">
+      <img
+        src="https://commons.wikimedia.org/wiki/Special:FilePath/%D9%87%D8%A7%D8%AA%D9%81_oppo_%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF.jpg"
+        alt="OPPO Smartphone"
+        onerror="imageFallback(this)"
+      >
+      <div class="phone-info">
+        <div class="brand">OPPO</div>
+        <div class="model">Smartphone</div>
+      </div>
+    </div>
+
+    <!-- REDMI -->
+    <div class="phone-card pos-left"
+         data-brand="REDMI"
+         data-model="Redmi A1+"
+         onclick="selectPhone(this)">
+      <img
+        src="https://commons.wikimedia.org/wiki/Special:FilePath/%D0%A1%D0%BC%D0%B0%D1%80%D1%82%D1%84%D0%BE%D0%BD_Xiaomi_Redmi_A1%2B_%D0%B7%D0%B0%D0%B4%D0%BD%D1%8F%D1%8F_%D0%BA%D1%80%D1%8B%D1%88%D0%BA%D0%B0.jpg"
+        alt="Redmi A1 Plus"
+        onerror="imageFallback(this)"
+      >
+      <div class="phone-info">
+        <div class="brand">REDMI</div>
+        <div class="model">Redmi A1+</div>
+      </div>
     </div>
 
   </div>
 
-  <!-- USE THE SAME SUPABASE LIBRARY -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <script>
-
-    /*
-      IMPORTANT:
-      We load the existing script.js first.
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mobile AI Assistant | Laxmi Narashma</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      margin: 0;
-      background: #050505;
-      color: white;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-    }
-
-    .app {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at center, #292929 0%, #0b0b0b 42%, #020202 100%);
-    }
-
-    /* BIG WEBSITE NAME BEHIND PHONES */
-
-    .ghost-name {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-
-      width: 100%;
-      text-align: center;
-
-      font-size: clamp(55px, 13vw, 180px);
-      font-weight: 900;
-      letter-spacing: -7px;
-
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,.08);
-
-      white-space: nowrap;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    /* TOP BRAND */
-
-    .brand {
-      position: absolute;
-      top: 25px;
-      left: 30px;
-      z-index: 100;
-    }
-
-    .brand small {
-      display: block;
-      color: #777;
-      font-size: 9px;
-      letter-spacing: 4px;
-      margin-bottom: 5px;
-    }
-
-    .brand strong {
-      font-size: 18px;
-      letter-spacing: 1px;
-    }
-
-    /* LOGOUT */
-
-    .logout {
-      position: absolute;
-      top: 20px;
-      right: 25px;
-      z-index: 100;
-
-      padding: 10px 17px;
-
-      border: 1px solid #333;
-      border-radius: 20px;
-
-      background: rgba(0,0,0,.5);
-      color: #aaa;
-
-      cursor: pointer;
-    }
-
-    .logout:hover {
-      color: white;
-      border-color: #777;
-    }
-
-    /* CAROUSEL */
-
-    .carousel {
-      position: absolute;
-      inset: 0;
-    }
-
-    .phone {
-      position: absolute;
-
-      left: 50%;
-      bottom: 5%;
-
-      width: 220px;
-      height: 450px;
-
-      border-radius: 40px;
-
-      background: linear-gradient(145deg, #303030, #050505);
-
-      border: 2px solid rgba(255,255,255,.18);
-
-      overflow: hidden;
-
-      box-shadow: 0 40px 100px rgba(0,0,0,.8);
-
-      cursor: pointer;
-
-      transition:
-        left .65s cubic-bezier(.4,0,.2,1),
-        transform .65s cubic-bezier(.4,0,.2,1),
-        opacity .65s cubic-bezier(.4,0,.2,1),
-        filter .65s cubic-bezier(.4,0,.2,1);
-    }
-
-    .screen {
-      position: absolute;
-      inset: 7px;
-
-      border-radius: 34px;
-
-      background:
-        radial-gradient(circle at 50% 25%, #555, transparent 20%),
-        linear-gradient(145deg,#202020,#020202);
-    }
-
-    .screen::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-
-      background:
-        radial-gradient(circle at 30% 70%, rgba(255,255,255,.08), transparent 25%);
-    }
-
-    .notch {
-      position: absolute;
-      top: 12px;
-      left: 50%;
-
-      transform: translateX(-50%);
-
-      width: 75px;
-      height: 17px;
-
-      background: #000;
-      border-radius: 20px;
-
-      z-index: 5;
-    }
-
-    .logo {
-      position: absolute;
-
-      left: 50%;
-      top: 50%;
-
-      transform: translate(-50%, -50%);
-
-      font-size: 52px;
-      font-weight: 900;
-
-      color: rgba(255,255,255,.15);
-
-      z-index: 5;
-    }
-
-    .phone-name {
-      position: absolute;
-
-      bottom: 28px;
-      left: 0;
-
-      width: 100%;
-
-      text-align: center;
-
-      font-size: 16px;
-      font-weight: bold;
-
-      z-index: 6;
-    }
-
-    /* PHONE POSITIONS */
-
-    .center {
-      left: 50%;
-
-      transform:
-        translateX(-50%)
-        scale(1.35);
-
-      opacity: 1;
-      filter: none;
-
-      z-index: 20;
-    }
-
-    .left {
-      left: 22%;
-
-      transform:
-        translateX(-50%)
-        scale(.7);
-
-      opacity: .75;
-      filter: blur(2px);
-
-      z-index: 10;
-    }
-
-    .right {
-      left: 78%;
-
-      transform:
-        translateX(-50%)
-        scale(.7);
-
-      opacity: .75;
-      filter: blur(2px);
-
-      z-index: 10;
-    }
-
-    .back {
-      left: 50%;
-
-      transform:
-        translateX(-50%)
-        scale(.55);
-
-      opacity: .25;
-      filter: blur(6px);
-
-      z-index: 5;
-    }
-
-    /* AI PANEL */
-
-    .ai-panel {
-      position: absolute;
-
-      top: 90px;
-      right: 25px;
-
-      width: 280px;
-
-      padding: 20px;
-
-      background: rgba(5,5,5,.72);
-
-      border: 1px solid rgba(255,255,255,.12);
-
-      border-radius: 18px;
-
-      backdrop-filter: blur(20px);
-
-      z-index: 100;
-    }
-
-    .ai-panel h2 {
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-
-    .ai-panel p {
-      color: #777;
-      font-size: 11px;
-      line-height: 1.5;
-      margin-bottom: 12px;
-    }
-
-    .issue {
-      display: block;
-
-      width: 100%;
-
-      margin-top: 7px;
-
-      padding: 10px;
-
-      border: 1px solid #292929;
-      border-radius: 9px;
-
-      background: #101010;
-      color: white;
-
-      text-align: left;
-
-      cursor: pointer;
-    }
-
-    .issue:hover {
-      background: #222;
-    }
-
-    /* BOTTOM */
-
-    .bottom {
-      position: absolute;
-
-      left: 30px;
-      bottom: 28px;
-
-      z-index: 100;
-    }
-
-    .bottom small {
-      color: #777;
-      font-size: 9px;
-      letter-spacing: 4px;
-    }
-
-    .bottom h1 {
-      font-size: 22px;
-      margin-top: 6px;
-    }
-
-    .model {
-      color: #888;
-      font-size: 12px;
-      margin-top: 5px;
-    }
-
-    /* ARROWS */
-
-    .controls {
-      position: absolute;
-
-      left: 50%;
-      bottom: 25px;
-
-      transform: translateX(-50%);
-
-      display: flex;
-      gap: 10px;
-
-      z-index: 100;
-    }
-
-    .arrow {
-      width: 48px;
-      height: 48px;
-
-      border-radius: 50%;
-
-      border: 1px solid #444;
-
-      background: rgba(0,0,0,.55);
-
-      color: white;
-
-      font-size: 20px;
-
-      cursor: pointer;
-    }
-
-    .arrow:hover {
-      background: white;
-      color: black;
-    }
-
-    .discover {
-      position: absolute;
-
-      right: 30px;
-      bottom: 32px;
-
-      color: #888;
-
-      font-size: 11px;
-      letter-spacing: 2px;
-
-      z-index: 100;
-    }
-
-    /* MOBILE */
-
-    @media(max-width:700px) {
-
-      .brand {
-        left: 15px;
-        top: 17px;
-      }
-
-      .brand strong {
-        font-size: 13px;
-      }
-
-      .logout {
-        right: 15px;
-        top: 15px;
-      }
-
-      .ghost-name {
-        font-size: 55px;
-        letter-spacing: -3px;
-      }
-
-      .phone {
-        width: 150px;
-        height: 310px;
-        border-radius: 28px;
-      }
-
-      .screen {
-        border-radius: 22px;
-      }
-
-      .center {
-        transform:
-          translateX(-50%)
-          scale(1.15);
-      }
-
-      .left {
-        left: 13%;
-        transform:
-          translateX(-50%)
-          scale(.55);
-      }
-
-      .right {
-        left: 87%;
-        transform:
-          translateX(-50%)
-          scale(.55);
-      }
-
-      .back {
-        transform:
-          translateX(-50%)
-          scale(.45);
-      }
-
-      .ai-panel {
-        left: 15px;
-        right: 15px;
-        top: auto;
-        bottom: 85px;
-        width: auto;
-      }
-
-      .bottom {
-        left: 15px;
-        bottom: 18px;
-      }
-
-      .bottom h1 {
-        font-size: 15px;
-      }
-
-      .discover {
-        display: none;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="app">
-
-    <div class="ghost-name">
-      LAXMI NARASHMA
+  <button class="arrow arrow-left" onclick="previousPhone()">‹</button>
+  <button class="arrow arrow-right" onclick="nextPhone()">›</button>
+
+  <div class="ai-panel" id="aiPanel">
+    <div class="ai-title" id="selectedPhone">
+      AI MOBILE DIAGNOSTIC
     </div>
 
-    <div class="brand">
-      <small>WELCOME TO</small>
-      <strong>LAXMI NARASHMA MOBILE SHOP</strong>
-    </div>
-
-    <button class="logout" onclick="logout()">
-      LOGOUT
-    </button>
-
-    <div class="carousel" id="carousel"></div>
-
-    <div class="ai-panel">
-
-      <h2>✦ MOBILE AI ASSISTANT</h2>
-
-      <p id="aiMessage">
-        Select your mobile and choose your problem.
-      </p>
-
-      <button class="issue" onclick="selectProblem('Screen Damage')">
+    <div class="problem-grid">
+      <button class="problem-btn" onclick="showRepair('Screen Damage')">
         📱 Screen Damage
       </button>
 
-      <button class="issue" onclick="selectProblem('Battery Problem')">
+      <button class="problem-btn" onclick="showRepair('Battery Problem')">
         🔋 Battery Problem
       </button>
 
-      <button class="issue" onclick="selectProblem('Charging Problem')">
+      <button class="problem-btn" onclick="showRepair('Charging Problem')">
         ⚡ Charging Problem
       </button>
 
-      <button class="issue" onclick="selectProblem('Camera Problem')">
+      <button class="problem-btn" onclick="showRepair('Camera Problem')">
         📷 Camera Problem
       </button>
 
-      <button class="issue" onclick="selectProblem('Software Problem')">
+      <button class="problem-btn" onclick="showRepair('Software Problem')">
         ⚙️ Software Problem
       </button>
 
-    </div>
-
-    <div class="bottom">
-
-      <small>MOBILE AI ASSISTANT</small>
-
-      <h1 id="selectedBrand">
-        NOTHING
-      </h1>
-
-      <div class="model" id="selectedModel">
-        Nothing Phone
-      </div>
-
-    </div>
-
-    <div class="controls">
-
-      <button class="arrow" onclick="previousPhone()">
-        ←
+      <button class="problem-btn" onclick="showRepair('Other Problem')">
+        🛠 Other Problem
       </button>
-
-      <button class="arrow" onclick="nextPhone()">
-        →
-      </button>
-
     </div>
-
-    <div class="discover">
-      DISCOVER MODELS →
-    </div>
-
   </div>
 
-  <!-- USE THE SAME SUPABASE LIBRARY -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <div class="bottom-left">
+    <div class="small">SMART SERVICE</div>
+    <h2>MOBILE AI ASSISTANT</h2>
+  </div>
 
-  <script>
+  <div class="discover" onclick="nextPhone()">
+    DISCOVER MODELS →
+  </div>
 
-    /*
-      IMPORTANT:
-      We load the existing script.js first.
+</div>
 
-      Your Supabase URL and publishable key
-      are already inside script.js.
-    */
+<script src="script.js"></script>
 
-  </script>
+<script>
 
-  <script src="script.js"></script>
+  let phones = Array.from(
+    document.querySelectorAll(".phone-card")
+  );
 
-  <script>
+  let currentIndex = 0;
 
-    const phones = [
-      {
-        brand: "NOTHING",
-        model: "Nothing Phone",
-        logo: "N"
-      },
+  const positions = [
+    "pos-center",
+    "pos-right",
+    "pos-back-right",
+    "pos-back-left",
+    "pos-left"
+  ];
 
-      {
-        brand: "IPHONE",
-        model: "Apple iPhone",
-        logo: ""
-      },
+  function updateCarousel() {
 
-      {
-        brand: "SAMSUNG",
-        model: "Samsung Galaxy",
-        logo: "S"
-      },
+    phones.forEach((phone, index) => {
 
-      {
-        brand: "ONEPLUS",
-        model: "OnePlus",
-        logo: "+"
-      },
+      phone.classList.remove(
+        "pos-center",
+        "pos-left",
+        "pos-right",
+        "pos-back-left",
+        "pos-back-right",
+        "pos-hidden"
+      );
 
-      {
-        brand: "VIVO",
-        model: "Vivo",
-        logo: "V"
-      },
+      let relative =
+        (index - currentIndex + phones.length) %
+        phones.length;
 
-      {
-        brand: "OPPO",
-        model: "Oppo",
-        logo: "O"
-      },
-
-      {
-        brand: "REALME",
-        model: "Realme",
-        logo: "R"
-      },
-
-      {
-        brand: "REDMI",
-        model: "Redmi",
-        logo: "R"
-      }
-    ];
-
-    let active = 0;
-    let moving = false;
-
-    const carousel =
-      document.getElementById("carousel");
-
-    function createPhones() {
-
-      carousel.innerHTML = "";
-
-      phones.forEach((phone, index) => {
-
-        const element =
-          document.createElement("div");
-
-        element.className = "phone";
-
-        element.innerHTML = `
-          <div class="screen">
-
-            <div class="notch"></div>
-
-            <div class="logo">
-              ${phone.logo}
-            </div>
-
-            <div class="phone-name">
-              ${phone.brand}
-            </div>
-
-          </div>
-        `;
-
-        element.onclick = function() {
-
-          active = index;
-
-          renderPhones();
-
-        };
-
-        carousel.appendChild(element);
-
-      });
-
-      renderPhones();
-    }
-
-    function renderPhones() {
-
-      const elements =
-        document.querySelectorAll(".phone");
-
-      elements.forEach((element, index) => {
-
-        element.className = "phone";
-
-        let position =
-          (index - active + phones.length)
-          % phones.length;
-
-        if (position === 0) {
-
-          element.classList.add("center");
-
-        } else if (position === 1) {
-
-          element.classList.add("right");
-
-        } else if (
-          position === phones.length - 1
-        ) {
-
-          element.classList.add("left");
-
-        } else {
-
-          element.classList.add("back");
-
-        }
-
-      });
-
-      document.getElementById("selectedBrand")
-        .textContent =
-        phones[active].brand;
-
-      document.getElementById("selectedModel")
-        .textContent =
-        phones[active].model;
-
-      document.getElementById("aiMessage")
-        .textContent =
-        "Selected " +
-        phones[active].model +
-        ". Choose your problem.";
-    }
-
-    function nextPhone() {
-
-      if (moving) return;
-
-      moving = true;
-
-      active =
-        (active + 1) % phones.length;
-
-      renderPhones();
-
-      setTimeout(() => {
-        moving = false;
-      }, 650);
-    }
-
-    function previousPhone() {
-
-      if (moving) return;
-
-      moving = true;
-
-      active =
-        (active - 1 + phones.length)
-        % phones.length;
-
-      renderPhones();
-
-      setTimeout(() => {
-        moving = false;
-      }, 650);
-    }
-
-    function selectProblem(problem) {
-
-      const phone =
-        phones[active];
-
-      document.getElementById("aiMessage")
-        .innerHTML =
-        "<strong>" +
-        phone.model +
-        "</strong><br><br>" +
-        problem +
-        " selected.<br><br>" +
-        "AI diagnosis ready.";
-    }
-
-    async function logout() {
-
-      /*
-        script.js creates supabaseClient.
-      */
-
-      if (
-        typeof supabaseClient !== "undefined"
-      ) {
-
-        await supabaseClient.auth.signOut();
-
+      if (relative === 0) {
+        phone.classList.add("pos-center");
       }
 
-      window.location.href =
-        "login.html";
+      else if (relative === 1) {
+        phone.classList.add("pos-right");
+      }
+
+      else if (relative === 2) {
+        phone.classList.add("pos-back-right");
+      }
+
+      else if (relative === phones.length - 1) {
+        phone.classList.add("pos-left");
+      }
+
+      else if (relative === phones.length - 2) {
+        phone.classList.add("pos-back-left");
+      }
+
+      else {
+        phone.classList.add("pos-hidden");
+      }
+
+    });
+
+    updateSelectedPhone();
+  }
+
+
+  function nextPhone() {
+
+    currentIndex =
+      (currentIndex + 1) %
+      phones.length;
+
+    updateCarousel();
+  }
+
+
+  function previousPhone() {
+
+    currentIndex =
+      (currentIndex - 1 + phones.length) %
+      phones.length;
+
+    updateCarousel();
+  }
+
+
+  function selectPhone(phone) {
+
+    const clickedIndex =
+      phones.indexOf(phone);
+
+    if (clickedIndex === -1) {
+      return;
     }
 
-    createPhones();
+    currentIndex = clickedIndex;
 
-  </script>
+    updateCarousel();
+
+    document
+      .getElementById("aiPanel")
+      .classList.add("active");
+
+  }
+
+
+  function updateSelectedPhone() {
+
+    const phone = phones[currentIndex];
+
+    if (!phone) {
+      return;
+    }
+
+    const brand =
+      phone.dataset.brand || "";
+
+    const model =
+      phone.dataset.model || "";
+
+    document.getElementById("selectedPhone").textContent =
+      brand + " • " + model + " — AI DIAGNOSTIC";
+  }
+
+
+  function showRepair(problem) {
+
+    const phone = phones[currentIndex];
+
+    const brand =
+      phone?.dataset.brand || "";
+
+    const model =
+      phone?.dataset.model || "";
+
+    alert(
+      "AI MOBILE DIAGNOSTIC\n\n" +
+      "Brand: " + brand + "\n" +
+      "Model: " + model + "\n\n" +
+      "Problem: " + problem + "\n\n" +
+      "Laxmi Narashma Mobile Shop will help you with this repair."
+    );
+  }
+
+
+  function imageFallback(img) {
+
+    img.style.display = "none";
+
+    const parent = img.parentElement;
+
+    parent.style.background =
+      "linear-gradient(145deg,#1b1b1b,#050505)";
+
+    parent.setAttribute(
+      "data-image-error",
+      "true"
+    );
+  }
+
+
+  function logoutUser() {
+
+    if (
+      typeof supabaseClient !== "undefined" &&
+      supabaseClient.auth
+    ) {
+
+      supabaseClient.auth.signOut()
+        .then(() => {
+          window.location.href = "login.html";
+        });
+
+    } else {
+
+      window.location.href = "login.html";
+
+    }
+  }
+
+
+  /* Keyboard controls */
+  document.addEventListener("keydown", function(event) {
+
+    if (event.key === "ArrowRight") {
+      nextPhone();
+    }
+
+    if (event.key === "ArrowLeft") {
+      previousPhone();
+    }
+
+    if (event.key === "Escape") {
+      document
+        .getElementById("aiPanel")
+        .classList.remove("active");
+    }
+
+  });
+
+
+  /* Start */
+  updateCarousel();
+
+</script>
 
 </body>
-</html>Enter      Your Supabase URL and publishable key
-      are already inside script.js.
-    */
-
-  </script>
-
-  <script src="script.js"></script>
-
-  <script>
-
-    const phones = [
-      {
-        brand: "NOTHING",
-        model: "Nothing Phone",
-        logo: "N"
-      },
-
-      {
-        brand: "IPHONE",
-        model: "Apple iPhone",
-        logo: ""
-      },
-
-      {
-        brand: "SAMSUNG",
-        model: "Samsung Galaxy",
-        logo: "S"
-      },
-
-      {
-        brand: "ONEPLUS",
-        model: "OnePlus",
-        logo: "+"
-      },
-
-      {
-        brand: "VIVO",
-        model: "Vivo",
-        logo: "V"
-      },
-
-      {
-        brand: "OPPO",
-        model: "Oppo",
-        logo: "O"
-      },
-
-      {
-        brand: "REALME",
-        model: "Realme",
-        logo: "R"
-      },
-
-      {
-        brand: "REDMI",
-        model: "Redmi",
-        logo: "R"
-      }
-    ];
-
-    let active = 0;
-    let moving = false;
-
-    const carousel =
-      document.getElementById("carousel");
-
-    function createPhones() {
-
-      carousel.innerHTML = "";
-
-      phones.forEach((phone, index) => {
-
-        const element =
-          document.createElement("div");
-
-        element.className = "phone";
-
-        element.innerHTML = `
-          <div class="screen">
-
-            <div class="notch"></div>
-
-            <div class="logo">
-              ${phone.logo}
-            </div>
-
-            <div class="phone-name">
-              ${phone.brand}
-            </div>
-
-          </div>
-        `;
-
-        element.onclick = function() {
-
-          active = index;
-
-          renderPhones();
-
-        };
-
-        carousel.appendChild(element);
-
-      });
-
-      renderPhones();
-    }
-
-    function renderPhones() {
-
-      const elements =
-        document.querySelectorAll(".phone");
-
-      elements.forEach((element, index) => {
-
-        element.className = "phone";
-
-        let position =
-          (index - active + phones.length)
-          % phones.length;
-
-        if (position === 0) {
-
-          element.classList.add("center");
-
-        } else if (position === 1) {
-
+</html>
