@@ -3,459 +3,255 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>Laxmi Narashma Mobile Shop</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 body{
   min-height:100vh;
-  overflow:hidden;
-  background:#020202;
+  background:#000;
   color:#fff;
-  font-family:Arial,sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 .page{
   min-height:100vh;
   position:relative;
   overflow:hidden;
+  background:#000;
+}
+
+/* HERO IMAGE */
+.hero{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+
+/* DARK OVERLAY */
+.overlay{
+  position:absolute;
+  inset:0;
   background:
-  radial-gradient(circle at 50% 45%,#292929 0,#080808 42%,#000 78%);
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.82) 0%,
+      rgba(0,0,0,.25) 45%,
+      rgba(0,0,0,.65) 100%
+    );
 }
 
-.ghost{
+/* HEADER */
+.header{
   position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  font-size:clamp(50px,12vw,170px);
-  font-weight:900;
-  white-space:nowrap;
-  color:rgba(255,255,255,.035);
+  top:0;
+  left:0;
+  width:100%;
+  padding:25px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:10;
 }
 
-.brand{
-  position:absolute;
-  top:25px;
-  left:28px;
-  z-index:100;
-  font-size:14px;
+.logo{
+  font-size:15px;
   font-weight:900;
-  letter-spacing:2px;
+  letter-spacing:3px;
 }
 
-.brand small{
+.logo span{
   display:block;
   margin-top:5px;
-  color:#888;
+  color:#aaa;
   font-size:9px;
-  letter-spacing:3px;
+  letter-spacing:4px;
 }
 
 .logout{
-  position:absolute;
-  top:20px;
-  right:24px;
-  z-index:100;
   padding:10px 18px;
-  border:1px solid #444;
+  border:1px solid rgba(255,255,255,.3);
   border-radius:25px;
-  background:#111;
+  background:rgba(0,0,0,.45);
   color:#fff;
+  cursor:pointer;
 }
 
-/* STAGE */
-.stage{
+/* CONTENT */
+.content{
   position:absolute;
-  width:100%;
-  height:620px;
-  top:52%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  perspective:1500px;
-}
-
-/* PHONE */
-.phone{
-  position:absolute;
-  width:230px;
-  height:470px;
-  left:50%;
-  top:50%;
-  transform-style:preserve-3d;
-  transition:transform .75s,opacity .75s,filter .75s;
-}
-
-/* PHONE BODY COLORS */
-.phone-body{
-  position:absolute;
-  inset:0;
-  padding:7px;
-  border-radius:40px;
-  box-shadow:
-    0 35px 90px #000,
-    inset 0 0 15px rgba(255,255,255,.5);
-}
-
-/* NOTHING - SILVER */
-.nothing .phone-body{
-  background:linear-gradient(
-    135deg,
-    #ffffff,
-    #c9c9c9 25%,
-    #777 50%,
-    #eeeeee 75%,
-    #999
-  );
-}
-
-/* APPLE - BLUE */
-.apple .phone-body{
-  background:linear-gradient(
-    135deg,
-    #b9d9f5,
-    #6c9bc5 30%,
-    #315b80 55%,
-    #a9d0ed 80%,
-    #4b769c
-  );
-}
-
-/* SAMSUNG - VIOLET */
-.samsung .phone-body{
-  background:linear-gradient(
-    135deg,
-    #d8c8ff,
-    #8067c5 30%,
-    #30235d 55%,
-    #9d8bd6 80%,
-    #443477
-  );
-}
-
-/* ONEPLUS - RED */
-.oneplus .phone-body{
-  background:linear-gradient(
-    135deg,
-    #ff7777,
-    #c53030 30%,
-    #430606 55%,
-    #e44a4a 80%,
-    #650909
-  );
-}
-
-/* VIVO - GOLD */
-.vivo .phone-body{
-  background:linear-gradient(
-    135deg,
-    #fff0b0,
-    #d5a83e 30%,
-    #6e5018 55%,
-    #f5d878 80%,
-    #92702a
-  );
-}
-
-/* SCREEN */
-.screen{
-  position:relative;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  border-radius:34px;
-  border:2px solid rgba(255,255,255,.45);
-}
-
-/* SCREEN COLOURS */
-.nothing .screen{
-  background:
-  radial-gradient(circle at 30% 20%,#fff,#777 20%,#202020 55%,#000);
-}
-
-.apple .screen{
-  background:
-  radial-gradient(circle at 70% 20%,#d9f2ff,#4295d0 35%,#07182a 78%);
-}
-
-.samsung .screen{
-  background:
-  radial-gradient(circle at 30% 20%,#e2d8ff,#7658c7 35%,#10082a 78%);
-}
-
-.oneplus .screen{
-  background:
-  radial-gradient(circle at 70% 20%,#ffb0a0,#e52d20 35%,#240000 78%);
-}
-
-.vivo .screen{
-  background:
-  radial-gradient(circle at 25% 20%,#fff3ba,#d29b25 35%,#211502 78%);
-}
-
-/* GLASS REFLECTION */
-.screen:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-  linear-gradient(
-    120deg,
-    rgba(255,255,255,.38),
-    transparent 22%,
-    transparent 65%,
-    rgba(255,255,255,.1)
-  );
-}
-
-/* CAMERA */
-.camera{
-  position:absolute;
-  top:13px;
-  left:50%;
-  transform:translateX(-50%);
-  width:70px;
-  height:22px;
-  border-radius:20px;
-  background:#000;
-  z-index:10;
-}
-
-/* CAMERA BUMP */
-.camera-bump{
-  position:absolute;
-  top:20px;
-  left:18px;
-  width:88px;
-  height:115px;
-  border-radius:25px;
-  background:linear-gradient(145deg,#555,#080808);
-  box-shadow:0 8px 20px #000;
-  z-index:20;
-  transform:translateZ(15px);
-}
-
-.lens{
-  position:absolute;
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  background:
-  radial-gradient(circle at 35% 30%,#bfe5ff,#23476b 25%,#050505 65%);
-  border:2px solid #777;
-  box-shadow:inset 0 0 8px #000;
-}
-
-.l1{top:12px;left:12px}
-.l2{top:12px;right:12px}
-.l3{bottom:12px;left:12px}
-
-.flash{
-  position:absolute;
-  right:14px;
-  bottom:20px;
-  width:14px;
-  height:14px;
-  border-radius:50%;
-  background:#fff;
-  box-shadow:0 0 10px #fff;
-}
-
-.wallpaper{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:30px;
-  font-weight:900;
-  letter-spacing:2px;
-  color:rgba(255,255,255,.5);
-}
-
-.info{
-  position:absolute;
-  left:22px;
-  bottom:25px;
-  z-index:30;
-  text-shadow:0 2px 10px #000;
-}
-
-.maker{
-  font-size:9px;
-  letter-spacing:3px;
-}
-
-.model{
-  margin-top:6px;
-  font-size:21px;
-  font-weight:900;
-}
-
-/* 3D POSITIONS */
-.center{
-  transform:
-  translate(-50%,-50%)
-  rotateY(0)
-  rotateX(2deg)
-  translateZ(120px)
-  scale(1.05);
-  opacity:1;
-  z-index:20;
-}
-
-.right{
-  transform:
-  translate(calc(-50% + 285px),-50%)
-  rotateY(-35deg)
-  rotateZ(4deg)
-  translateZ(-80px)
-  scale(.72);
-  opacity:.75;
-  z-index:10;
-}
-
-.left{
-  transform:
-  translate(calc(-50% - 285px),-50%)
-  rotateY(35deg)
-  rotateZ(-4deg)
-  translateZ(-80px)
-  scale(.72);
-  opacity:.75;
-  z-index:10;
-}
-
-.back-right{
-  transform:
-  translate(calc(-50% + 480px),-50%)
-  rotateY(-48deg)
-  translateZ(-220px)
-  scale(.5);
-  opacity:.3;
-}
-
-.back-left{
-  transform:
-  translate(calc(-50% - 480px),-50%)
-  rotateY(48deg)
-  translateZ(-220px)
-  scale(.5);
-  opacity:.3;
-}
-
-/* ARROWS */
-.arrow{
-  position:absolute;
+  left:7%;
   top:50%;
   transform:translateY(-50%);
-  width:52px;
-  height:52px;
-  border-radius:50%;
+  z-index:5;
+  max-width:390px;
+}
+
+.tag{
+  color:#aaa;
+  font-size:11px;
+  letter-spacing:4px;
+  margin-bottom:15px;
+}
+
+h1{
+  font-size:clamp(35px,5vw,70px);
+  line-height:.95;
+  letter-spacing:-3px;
+}
+
+h1 span{
+  color:#aaa;
+}
+
+.description{
+  margin-top:20px;
+  color:#bbb;
+  line-height:1.6;
+  font-size:14px;
+}
+
+.buttons{
+  display:flex;
+  gap:10px;
+  margin-top:25px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:13px 20px;
+  border-radius:25px;
   border:1px solid #555;
   background:#111;
   color:white;
-  font-size:28px;
   cursor:pointer;
-  z-index:80;
 }
 
-.arrow:hover{
+.btn.primary{
   background:white;
   color:black;
 }
 
-.prev{left:25px}
-.next{right:25px}
-
-/* BOTTOM */
-.bottom{
+/* AI PANEL */
+.ai-panel{
+  display:none;
   position:absolute;
-  left:28px;
-  bottom:25px;
-  z-index:50;
+  right:6%;
+  bottom:45px;
+  width:min(380px,88vw);
+  padding:18px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:22px;
+  background:rgba(5,5,5,.78);
+  backdrop-filter:blur(18px);
+  z-index:20;
 }
 
-.bottom small{
-  color:#888;
-  letter-spacing:3px;
+.ai-panel.show{
+  display:block;
 }
 
-.bottom h2{
-  margin-top:6px;
-  font-size:17px;
-  letter-spacing:2px;
-}
-
-.discover{
-  position:absolute;
-  right:28px;
-  bottom:30px;
-  color:#aaa;
+.ai-title{
   font-size:11px;
-  letter-spacing:2px;
-  z-index:50;
+  color:#999;
+  letter-spacing:3px;
+  margin-bottom:15px;
+}
+
+.options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+
+.option{
+  padding:12px;
+  border:1px solid #333;
+  border-radius:12px;
+  background:#111;
+  color:#fff;
+  cursor:pointer;
+}
+
+.option:hover{
+  background:#fff;
+  color:#000;
+}
+
+.close{
+  position:absolute;
+  top:12px;
+  right:15px;
+  color:#888;
+  cursor:pointer;
+}
+
+/* FOOTER */
+.footer{
+  position:absolute;
+  bottom:22px;
+  left:30px;
+  z-index:10;
+  color:#777;
+  font-size:10px;
+  letter-spacing:3px;
 }
 
 /* MOBILE */
 @media(max-width:700px){
 
-  .stage{
-    height:520px;
+  .hero{
+    object-position:62% center;
   }
 
-  .phone{
-    width:195px;
-    height:400px;
+  .overlay{
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0,0,0,.65),
+        rgba(0,0,0,.15) 45%,
+        rgba(0,0,0,.9)
+      );
   }
 
-  .center{
-    transform:
-    translate(-50%,-50%)
-    translateZ(70px)
-    scale(.94);
+  .header{
+    padding:18px;
   }
 
-  .right{
-    transform:
-    translate(calc(-50% + 155px),-50%)
-    rotateY(-28deg)
-    translateZ(-70px)
-    scale(.62);
+  .content{
+    left:20px;
+    right:20px;
+    top:56%;
+    max-width:none;
   }
 
-  .left{
-    transform:
-    translate(calc(-50% - 155px),-50%)
-    rotateY(28deg)
-    translateZ(-70px)
-    scale(.62);
+  h1{
+    font-size:43px;
   }
 
-  .back-right{
-    transform:
-    translate(calc(-50% + 270px),-50%)
-    rotateY(-40deg)
-    translateZ(-150px)
-    scale(.42);
+  .description{
+    font-size:13px;
   }
 
-  .back-left{
-    transform:
-    translate(calc(-50% - 270px),-50%)
-    rotateY(40deg)
-    translateZ(-150px)
-    scale(.42);
+  .ai-panel{
+    right:5%;
+    bottom:25px;
+    left:5%;
+    width:90%;
   }
 
-  .arrow{
-    width:44px;
-    height:44px;
+  .footer{
+    display:none;
   }
-
-  .prev{left:8px}
-  .next{right:8px}
 }
 </style>
 </head>
@@ -464,222 +260,137 @@ body{
 
 <div class="page">
 
-<div class="ghost">LAXMI NARASHMA</div>
+<img
+  class="hero"
+  src="ai-hero.png"
+  alt="Laxmi Narashma Mobile Shop AI Mobile Showcase"
+>
 
-<div class="brand">
+<div class="overlay"></div>
+
+<header class="header">
+
+<div class="logo">
 LAXMI NARASHMA
-<small>MOBILE SHOP</small>
+<span>MOBILE SHOP</span>
 </div>
 
-<button class="logout" onclick="logoutUser()">Logout</button>
+<button class="logout" onclick="logoutUser()">
+Logout
+</button>
 
-<div class="stage">
+</header>
 
-<!-- NOTHING -->
-<div class="phone center nothing"
-data-brand="NOTHING"
-data-model="Phone (2)">
+<section class="content">
 
-<div class="phone-body">
-
-<div class="camera-bump">
-<div class="lens l1"></div>
-<div class="lens l2"></div>
-<div class="lens l3"></div>
-<div class="flash"></div>
+<div class="tag">
+SMART MOBILE ASSISTANT
 </div>
 
-<div class="screen">
-<div class="camera"></div>
-<div class="wallpaper">NOTHING</div>
+<h1>
+Find Your<br>
+<span>Perfect Mobile.</span>
+</h1>
 
-<div class="info">
-<div class="maker">NOTHING</div>
-<div class="model">Phone (2)</div>
-</div>
-</div>
+<p class="description">
+Explore latest smartphones, compare models,
+check prices and get repair assistance from
+Laxmi Narashma Mobile Shop.
+</p>
 
-</div>
-</div>
+<div class="buttons">
 
-<!-- APPLE -->
-<div class="phone right apple"
-data-brand="APPLE"
-data-model="iPhone 15">
+<button class="btn primary" onclick="openAI()">
+🤖 AI Assistant
+</button>
 
-<div class="phone-body">
-
-<div class="camera-bump">
-<div class="lens l1"></div>
-<div class="lens l2"></div>
-<div class="lens l3"></div>
-<div class="flash"></div>
-</div>
-
-<div class="screen">
-<div class="camera"></div>
-<div class="wallpaper">APPLE</div>
-
-<div class="info">
-<div class="maker">APPLE</div>
-<div class="model">iPhone 15</div>
-</div>
-</div>
+<button class="btn" onclick="showPhones()">
+📱 Explore Phones
+</button>
 
 </div>
+
+</section>
+
+<div class="ai-panel" id="aiPanel">
+
+<div class="close" onclick="closeAI()">✕</div>
+
+<div class="ai-title">
+LAXMI NARASHMA AI ASSISTANT
 </div>
 
-<!-- SAMSUNG -->
-<div class="phone back-right samsung"
-data-brand="SAMSUNG"
-data-model="Galaxy S24">
+<div class="options">
 
-<div class="phone-body">
+<button class="option" onclick="aiAction('Compare Phones')">
+📱 Compare Phones
+</button>
 
-<div class="camera-bump">
-<div class="lens l1"></div>
-<div class="lens l2"></div>
-<div class="lens l3"></div>
-<div class="flash"></div>
-</div>
+<button class="option" onclick="aiAction('Check Price')">
+💰 Check Price
+</button>
 
-<div class="screen">
-<div class="camera"></div>
-<div class="wallpaper">SAMSUNG</div>
+<button class="option" onclick="aiAction('Find Phone')">
+🔎 Find Phone
+</button>
 
-<div class="info">
-<div class="maker">SAMSUNG</div>
-<div class="model">Galaxy S24</div>
-</div>
-</div>
+<button class="option" onclick="aiAction('Repair Help')">
+🛠 Repair Help
+</button>
 
-</div>
-</div>
-
-<!-- ONEPLUS -->
-<div class="phone left oneplus"
-data-brand="ONEPLUS"
-data-model="OnePlus 12">
-
-<div class="phone-body">
-
-<div class="camera-bump">
-<div class="lens l1"></div>
-<div class="lens l2"></div>
-<div class="lens l3"></div>
-<div class="flash"></div>
-</div>
-
-<div class="screen">
-<div class="camera"></div>
-<div class="wallpaper">ONEPLUS</div>
-
-<div class="info">
-<div class="maker">ONEPLUS</div>
-<div class="model">OnePlus 12</div>
-</div>
-</div>
-
-</div>
-</div>
-
-<!-- VIVO -->
-<div class="phone back-left vivo"
-data-brand="VIVO"
-data-model="V30">
-
-<div class="phone-body">
-
-<div class="camera-bump">
-<div class="lens l1"></div>
-<div class="lens l2"></div>
-<div class="lens l3"></div>
-<div class="flash"></div>
-</div>
-
-<div class="screen">
-<div class="camera"></div>
-<div class="wallpaper">VIVO</div>
-
-<div class="info">
-<div class="maker">VIVO</div>
-<div class="model">V30</div>
-</div>
-</div>
-
-</div>
 </div>
 
 </div>
 
-<button class="arrow prev" onclick="previousPhone()">‹</button>
-<button class="arrow next" onclick="nextPhone()">›</button>
-
-<div class="bottom">
-<small>SMART SERVICE</small>
-<h2>MOBILE AI ASSISTANT</h2>
-</div>
-
-<div class="discover" onclick="nextPhone()">
-DISCOVER MODELS →
+<div class="footer">
+LATEST PHONES • BEST PRICES • TRUSTED SERVICE
 </div>
 
 </div>
 
 <script>
 
-const phones=[...document.querySelectorAll(".phone")];
-
-let current=0;
-
-function update(){
-
-  phones.forEach((phone,index)=>{
-
-    phone.classList.remove(
-      "center",
-      "right",
-      "left",
-      "back-right",
-      "back-left"
-    );
-
-    const position=
-      (index-current+phones.length)%phones.length;
-
-    if(position===0){
-      phone.classList.add("center");
-    }
-    else if(position===1){
-      phone.classList.add("right");
-    }
-    else if(position===2){
-      phone.classList.add("back-right");
-    }
-    else if(position===phones.length-1){
-      phone.classList.add("left");
-    }
-    else{
-      phone.classList.add("back-left");
-    }
-
-  });
+function openAI(){
+  document
+    .getElementById("aiPanel")
+    .classList.add("show");
 }
 
-function nextPhone(){
-  current=(current+1)%phones.length;
-  update();
+function closeAI(){
+  document
+    .getElementById("aiPanel")
+    .classList.remove("show");
 }
 
-function previousPhone(){
-  current=(current-1+phones.length)%phones.length;
-  update();
+function showPhones(){
+
+  alert(
+    "LAXMI NARASHMA MOBILE SHOP\n\n"+
+    "Available Brands:\n"+
+    "Apple\n"+
+    "Samsung\n"+
+    "OnePlus\n"+
+    "Vivo\n"+
+    "Nothing"
+  );
+
+}
+
+function aiAction(action){
+
+  alert(
+    "LAXMI NARASHMA AI\n\n"+
+    "Selected: "+action
+  );
+
 }
 
 function logoutUser(){
 
-  if(typeof supabaseClient!=="undefined" &&
-     supabaseClient.auth){
+  if(
+    typeof supabaseClient!=="undefined" &&
+    supabaseClient.auth
+  ){
 
     supabaseClient.auth.signOut()
     .then(()=>{
@@ -687,18 +398,12 @@ function logoutUser(){
     });
 
   }else{
+
     window.location.href="login.html";
+
   }
+
 }
-
-document.addEventListener("keydown",function(e){
-
-  if(e.key==="ArrowRight") nextPhone();
-  if(e.key==="ArrowLeft") previousPhone();
-
-});
-
-update();
 
 </script>
 
