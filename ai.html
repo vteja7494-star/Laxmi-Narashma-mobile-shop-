@@ -1,265 +1,540 @@
-import { useEffect, useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-const IMAGES = [
-  {
-    src: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=900&q=90",
-    bg: "#F4845F",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=90",
-    bg: "#6BBF7A",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1592286927505-1def25115558?auto=format&fit=crop&w=900&q=90",
-    bg: "#E882B4",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1556656793-08538906a9f8?auto=format&fit=crop&w=900&q=90",
-    bg: "#6EB5FF",
-  },
-];
+  <title>Laxmi Narashma Mobile Shop</title>
 
-type Direction = "next" | "prev";
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
-export default function App() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [isMobile, setIsMobile] = useState(
-    window.innerWidth < 640
-  );
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  useEffect(() => {
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      transition:
+        background-color 650ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .grain {
+      position: absolute;
+      inset: 0;
+      z-index: 50;
+      pointer-events: none;
+      opacity: 0.4;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.08'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      background-repeat: repeat;
+    }
+
+    .ghost-text {
+      position: absolute;
+      inset-inline: 0;
+      top: 18%;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      user-select: none;
+
+      font-family: "Anton", sans-serif;
+      font-size: clamp(90px, 28vw, 380px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      color: white;
+      opacity: 1;
+    }
+
+    .brand {
+      position: absolute;
+      top: 24px;
+      left: 16px;
+      z-index: 60;
+
+      color: white;
+      opacity: 0.9;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .carousel {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+    }
+
+    .mobile-item {
+      position: absolute;
+      aspect-ratio: 0.6 / 1;
+
+      transition:
+        transform 650ms cubic-bezier(0.4, 0, 0.2, 1),
+        filter 650ms cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 650ms cubic-bezier(0.4, 0, 0.2, 1),
+        left 650ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      will-change: transform, filter, opacity;
+    }
+
+    .mobile-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: bottom center;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .bottom-left {
+      position: absolute;
+      bottom: 24px;
+      left: 16px;
+      z-index: 60;
+      max-width: 320px;
+    }
+
+    .title {
+      margin-bottom: 10px;
+
+      color: white;
+      opacity: 0.95;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .description {
+      margin-bottom: 20px;
+
+      color: white;
+      opacity: 0.85;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .navigation {
+      display: flex;
+      gap: 12px;
+    }
+
+    .nav-button {
+      width: 64px;
+      height: 64px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 2px solid white;
+      border-radius: 50%;
+      background: transparent;
+      color: white;
+
+      cursor: pointer;
+
+      transition:
+        transform 150ms ease,
+        background-color 150ms ease;
+    }
+
+    .nav-button:hover {
+      transform: scale(1.08);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .nav-button svg {
+      width: 26px;
+      height: 26px;
+      stroke-width: 2.25;
+    }
+
+    .discover {
+      position: absolute;
+      right: 16px;
+      bottom: 24px;
+      z-index: 60;
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      color: white;
+      opacity: 0.95;
+
+      font-family: "Anton", sans-serif;
+      font-size: clamp(20px, 4vw, 56px);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      text-transform: uppercase;
+
+      transition: opacity 200ms ease;
+    }
+
+    .discover:hover {
+      opacity: 1;
+    }
+
+    .discover svg {
+      width: 32px;
+      height: 32px;
+      stroke-width: 2.25;
+    }
+
+    @media (min-width: 640px) {
+      .brand {
+        left: 32px;
+      }
+
+      .bottom-left {
+        bottom: 80px;
+        left: 96px;
+      }
+
+      .title {
+        margin-bottom: 12px;
+        font-size: 22px;
+      }
+
+      .description {
+        margin-bottom: 20px;
+      }
+
+      .discover {
+        right: 40px;
+        bottom: 80px;
+      }
+    }
+
+    @media (max-width: 639px) {
+      .description {
+        display: none;
+      }
+
+      .nav-button {
+        width: 48px;
+        height: 48px;
+      }
+
+      .nav-button svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .discover svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="hero" id="hero">
+
+    <div class="grain"></div>
+
+    <div class="ghost-text">
+      MOBILE
+    </div>
+
+    <div class="brand">
+      LAXMI NARASHMA MOBILE SHOP
+    </div>
+
+    <div class="carousel" id="carousel"></div>
+
+    <div class="bottom-left">
+
+      <p class="title">
+        PREMIUM MOBILES
+      </p>
+
+      <p class="description">
+        Explore premium smartphones with a smooth showroom-style
+        presentation. Choose your favourite mobile and discover more.
+      </p>
+
+      <div class="navigation">
+
+        <button
+          class="nav-button"
+          id="prevButton"
+          aria-label="Previous mobile"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path d="m15 18-6-6 6-6"></path>
+          </svg>
+        </button>
+
+        <button
+          class="nav-button"
+          id="nextButton"
+          aria-label="Next mobile"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path d="m9 18 6-6-6-6"></path>
+          </svg>
+        </button>
+
+      </div>
+    </div>
+
+    <a
+      href="#"
+      class="discover"
+      id="discoverButton"
+    >
+      DISCOVER IT
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+      >
+        <path d="M5 12h14"></path>
+        <path d="m12 5 7 7-7 7"></path>
+      </svg>
+    </a>
+
+  </div>
+
+  <script>
+    const IMAGES = [
+      {
+        src: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=900&q=90",
+        bg: "#F4845F"
+      },
+      {
+        src: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=90",
+        bg: "#6BBF7A"
+      },
+      {
+        src: "https://images.unsplash.com/photo-1592286927505-1def25115558?auto=format&fit=crop&w=900&q=90",
+        bg: "#E882B4"
+      },
+      {
+        src: "https://images.unsplash.com/photo-1556656793-08538906a9f8?auto=format&fit=crop&w=900&q=90",
+        bg: "#6EB5FF"
+      }
+    ];
+
+    const hero = document.getElementById("hero");
+    const carousel = document.getElementById("carousel");
+    const prevButton = document.getElementById("prevButton");
+    const nextButton = document.getElementById("nextButton");
+
+    let activeIndex = 0;
+    let isAnimating = false;
+    let isMobile = window.innerWidth < 640;
+
+    /* Preload images */
     IMAGES.forEach((item) => {
       const image = new Image();
       image.src = item.src;
     });
 
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 640);
-    };
+    /* Create carousel items */
+    IMAGES.forEach((item, index) => {
 
-    window.addEventListener("resize", handleResize);
+      const container = document.createElement("div");
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+      container.className = "mobile-item";
+      container.dataset.index = index;
 
-  const navigate = (direction: Direction) => {
-    if (isAnimating) return;
+      const image = document.createElement("img");
 
-    setIsAnimating(true);
+      image.src = item.src;
+      image.alt = "Premium smartphone";
+      image.draggable = false;
 
-    setActiveIndex((current) => {
-      if (direction === "next") {
-        return (current + 1) % IMAGES.length;
-      }
-
-      return (current + 3) % IMAGES.length;
+      container.appendChild(image);
+      carousel.appendChild(container);
     });
 
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, 650);
-  };
-
-  const center = activeIndex;
-  const left = (activeIndex + 3) % 4;
-  const right = (activeIndex + 1) % 4;
-  const back = (activeIndex + 2) % 4;
-
-  const getRole = (index: number) => {
-    if (index === center) return "center";
-    if (index === left) return "left";
-    if (index === right) return "right";
-    return "back";
-  };
-
-  const getStyle = (role: string): React.CSSProperties => {
-    const common = {
-      position: "absolute" as const,
-      aspectRatio: "0.6 / 1",
-      transition:
-        "transform 650ms cubic-bezier(0.4,0,0.2,1), filter 650ms cubic-bezier(0.4,0,0.2,1), opacity 650ms cubic-bezier(0.4,0,0.2,1), left 650ms cubic-bezier(0.4,0,0.2,1)",
-      willChange: "transform, filter, opacity",
-    };
-
-    if (role === "center") {
-      return {
-        ...common,
-        transform: `translateX(-50%) scale(${
-          isMobile ? 1.15 : 1.35
-        })`,
-        filter: "none",
-        opacity: 1,
-        zIndex: 20,
-        left: "50%",
-        height: isMobile ? "62%" : "88%",
-        bottom: isMobile ? "22%" : "2%",
-      };
+    function updateMobileState() {
+      isMobile = window.innerWidth < 640;
+      render();
     }
 
-    if (role === "left") {
-      return {
-        ...common,
-        transform: "translateX(-50%) scale(1)",
-        filter: "blur(2px)",
-        opacity: 0.82,
-        zIndex: 10,
-        left: isMobile ? "18%" : "29%",
-        height: isMobile ? "18%" : "30%",
-        bottom: isMobile ? "31%" : "12%",
-      };
+    function getRole(index) {
+
+      const center = activeIndex;
+      const left = (activeIndex + 3) % 4;
+      const right = (activeIndex + 1) % 4;
+
+      if (index === center) return "center";
+      if (index === left) return "left";
+      if (index === right) return "right";
+
+      return "back";
     }
 
-    if (role === "right") {
-      return {
-        ...common,
-        transform: "translateX(-50%) scale(1)",
-        filter: "blur(2px)",
-        opacity: 0.82,
-        zIndex: 10,
-        left: isMobile ? "82%" : "71%",
-        height: isMobile ? "18%" : "30%",
-        bottom: isMobile ? "31%" : "12%",
-      };
+    function applyRoleStyle(element, role) {
+
+      if (role === "center") {
+
+        element.style.transform =
+          `translateX(-50%) scale(${isMobile ? 1.15 : 1.35})`;
+
+        element.style.filter = "none";
+        element.style.opacity = "1";
+        element.style.zIndex = "20";
+        element.style.left = "50%";
+        element.style.height = isMobile ? "62%" : "88%";
+        element.style.bottom = isMobile ? "22%" : "2%";
+
+        return;
+      }
+
+      if (role === "left") {
+
+        element.style.transform =
+          "translateX(-50%) scale(1)";
+
+        element.style.filter = "blur(2px)";
+        element.style.opacity = "0.82";
+        element.style.zIndex = "10";
+        element.style.left = isMobile ? "18%" : "29%";
+        element.style.height = isMobile ? "18%" : "30%";
+        element.style.bottom = isMobile ? "31%" : "12%";
+
+        return;
+      }
+
+      if (role === "right") {
+
+        element.style.transform =
+          "translateX(-50%) scale(1)";
+
+        element.style.filter = "blur(2px)";
+        element.style.opacity = "0.82";
+        element.style.zIndex = "10";
+        element.style.left = isMobile ? "82%" : "71%";
+        element.style.height = isMobile ? "18%" : "30%";
+        element.style.bottom = isMobile ? "31%" : "12%";
+
+        return;
+      }
+
+      element.style.transform =
+        "translateX(-50%) scale(1)";
+
+      element.style.filter = "blur(4px)";
+      element.style.opacity = "0.7";
+      element.style.zIndex = "5";
+      element.style.left = "50%";
+      element.style.height = isMobile ? "14%" : "23%";
+      element.style.bottom = isMobile ? "31%" : "12%";
     }
 
-    return {
-      ...common,
-      transform: "translateX(-50%) scale(1)",
-      filter: "blur(4px)",
-      opacity: 0.7,
-      zIndex: 5,
-      left: "50%",
-      height: isMobile ? "14%" : "23%",
-      bottom: isMobile ? "31%" : "12%",
-    };
-  };
+    function render() {
 
-  return (
-    <div
-      className="relative w-full overflow-hidden"
-      style={{
-        backgroundColor: IMAGES[activeIndex].bg,
-        transition:
-          "background-color 650ms cubic-bezier(0.4,0,0.2,1)",
-        fontFamily: "'Inter', sans-serif",
-      }}
-    >
-      <div className="relative h-screen w-full overflow-hidden">
+      hero.style.backgroundColor =
+        IMAGES[activeIndex].bg;
 
-        {/* Grain */}
-        <div
-          className="pointer-events-none absolute inset-0 z-[50] opacity-40"
-          style={{
-            backgroundImage: `
-              url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.08'/%3E%3C/svg%3E")
-            `,
-            backgroundSize: "200px 200px",
-            backgroundRepeat: "repeat",
-          }}
-        />
+      const items =
+        document.querySelectorAll(".mobile-item");
 
-        {/* Giant Ghost Text */}
-        <div
-          className="pointer-events-none absolute inset-x-0 z-[2] flex select-none items-center justify-center"
-          style={{
-            top: "18%",
-            fontFamily: "'Anton', sans-serif",
-            fontSize: "clamp(90px, 28vw, 380px)",
-            fontWeight: 900,
-            color: "white",
-            opacity: 1,
-            lineHeight: 1,
-            letterSpacing: "-0.02em",
-            whiteSpace: "nowrap",
-          }}
-        >
-          MOBILE
-        </div>
+      items.forEach((item) => {
 
-        {/* Brand */}
-        <div className="absolute left-4 top-6 z-[60] text-xs font-semibold uppercase tracking-[0.18em] text-white opacity-90 sm:left-8">
-          LAXMI NARASHMA MOBILE SHOP
-        </div>
+        const index =
+          Number(item.dataset.index);
 
-        {/* Carousel */}
-        <div className="absolute inset-0 z-[3]">
-          {IMAGES.map((item, index) => {
-            const role = getRole(index);
+        const role =
+          getRole(index);
 
-            return (
-              <div
-                key={item.src}
-                style={getStyle(role)}
-              >
-                <img
-                  src={item.src}
-                  alt={`Mobile phone ${index + 1}`}
-                  draggable={false}
-                  className="h-full w-full select-none object-contain object-bottom"
-                />
-              </div>
-            );
-          })}
-        </div>
+        applyRoleStyle(item, role);
+      });
+    }
 
-        {/* Bottom Left */}
-        <div className="absolute bottom-6 left-4 z-[60] max-w-[320px] sm:bottom-20 sm:left-24">
+    function navigate(direction) {
 
-          <p className="mb-2 text-base font-bold uppercase tracking-widest text-white opacity-95 sm:mb-3 sm:text-[22px]">
-            PREMIUM MOBILES
-          </p>
+      if (isAnimating) return;
 
-          <p className="mb-4 hidden text-xs leading-[1.6] text-white opacity-85 sm:mb-5 sm:block sm:text-sm">
-            Explore premium smartphones with a smooth showroom-style
-            presentation. Choose your favourite mobile and discover more.
-          </p>
+      isAnimating = true;
 
-          <div className="flex gap-3">
-            <button
-              onClick={() => navigate("prev")}
-              className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-transparent text-white transition-all duration-150 hover:scale-[1.08] hover:bg-white/10 sm:h-16 sm:w-16"
-              aria-label="Previous mobile"
-            >
-              <ArrowLeft size={26} strokeWidth={2.25} />
-            </button>
+      if (direction === "next") {
+        activeIndex =
+          (activeIndex + 1) % 4;
+      } else {
+        activeIndex =
+          (activeIndex + 3) % 4;
+      }
 
-            <button
-              onClick={() => navigate("next")}
-              className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-transparent text-white transition-all duration-150 hover:scale-[1.08] hover:bg-white/10 sm:h-16 sm:w-16"
-              aria-label="Next mobile"
-            >
-              <ArrowRight size={26} strokeWidth={2.25} />
-            </button>
-          </div>
-        </div>
+      render();
 
-        {/* Bottom Right */}
-        <a
-          href="#"
-          onClick={(e) => e.preventDefault()}
-          className="absolute bottom-6 right-4 z-[60] flex items-center text-white opacity-95 transition-opacity duration-200 hover:opacity-100 sm:bottom-20 sm:right-10"
-          style={{
-            fontFamily: "'Anton', sans-serif",
-            fontSize: "clamp(20px, 4vw, 56px)",
-            fontWeight: 400,
-            letterSpacing: "-0.02em",
-            lineHeight: 1,
-            textTransform: "uppercase",
-            textDecoration: "none",
-          }}
-        >
-          DISCOVER IT
-          <ArrowRight
-            className="ml-2 h-5 w-5 sm:ml-3 sm:h-8 sm:w-8"
-            strokeWidth={2.25}
-          />
-        </a>
+      setTimeout(() => {
+        isAnimating = false;
+      }, 650);
+    }
 
-      </div>
-    </div>
-  );
-}
+    prevButton.addEventListener(
+      "click",
+      () => navigate("prev")
+    );
+
+    nextButton.addEventListener(
+      "click",
+      () => navigate("next")
+    );
+
+    document
+      .getElementById("discoverButton")
+      .addEventListener("click", (event) => {
+        event.preventDefault();
+      });
+
+    window.addEventListener(
+      "resize",
+      updateMobileState
+    );
+
+    render();
+  </script>
+
+</body>
+</html>
