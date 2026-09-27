@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mobile AI Assistant | Laxmi Narashma</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      background: #050505;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .app {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 45%, #252525 0%, #090909 42%, #020202 100%);
+    }
+
+    /* Giant website name behind phones */
+
+    .ghost-title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      width: 100%;
+      text-align: center;
+
+      font-size: clamp(55px, 13vw, 190px);
+      line-height: .8;
+      font-weight: 900;
+      letter-spacing: -7px;
+
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,.08);
+
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* Top branding */
+
+    .top-brand {
+      position: absolute;
+      top: 28px;
+      left: 35px;
+      z-index: 50;
+    }
+
+    .top-brand small {
+      display: block;
+      color: #777;
+      font-size: 9px;
+      letter-spacing: 4px;
+      margin-bottom: 5px;
+    }
+
+    .top-brand strong {
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    /* Logout */
+
+    .logout {
+      position: absolute;
+      top: 25px;
+      right: 30px;
+      z-index: 50;
+
+      border: 1px solid #333;
+      background: rgba(0,0,0,.4);
+      color: #aaa;
+
+      padding: 10px 16px;
+      border-radius: 20px;
+
+      cursor: pointer;
+    }
+
+    .logout:hover {
+      color: white;
+      border-color: #777;
+    }
+
+    /* Carousel */
+
+    .carousel {
+      position: absolute;
+      inset: 0;
+    }
+
+    .phone {
+      position: absolute;
+
+      left: 50%;
+      bottom: 3%;
+
+      width: 230px;
+      height: 470px;
+
+      transform: translateX(-50%) scale(.55);
+
+      border-radius: 42px;
+
+      overflow: hidden;
+
+      border: 2px solid rgba(255,255,255,.18);
+
+      background:
+        linear-gradient(145deg, #333, #070707);
+
+      box-shadow:
+        0 30px 100px rgba(0,0,0,.8);
+
+      transition:
+        left .65s cubic-bezier(.4,0,.2,1),
+        bottom .65s cubic-bezier(.4,0,.2,1),
+        transform .65s cubic-bezier(.4,0,.2,1),
+        opacity .65s cubic-bezier(.4,0,.2,1),
+        filter .65s cubic-bezier(.4,0,.2,1);
+
+      cursor: pointer;
+    }
+
+    .phone-screen {
+      position: absolute;
+      inset: 7px;
+
+      border-radius: 35px;
+
+      overflow: hidden;
+
+      background:
+        radial-gradient(circle at 50% 20%, rgba(255,255,255,.12), transparent 25%),
+        linear-gradient(145deg,#222,#050505);
+    }
+
+    .phone-notch {
+      position: absolute;
+
+      top: 12px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      width: 75px;
+      height: 18px;
+
+      border-radius: 20px;
+
+      background: #000;
+
+      z-index: 3;
+    }
+
+    .wallpaper {
+      position: absolute;
+      inset: 0;
+
+      background:
+        radial-gradient(circle at 50% 35%, #555, transparent 20%),
+        radial-gradient(circle at 30% 70%, #222, transparent 30%),
+        linear-gradient(145deg,#111,#000);
+    }
+
+    .phone-label {
+      position: absolute;
+
+      bottom: 25px;
+      left: 0;
+
+      width: 100%;
+
+      text-align: center;
+
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 1px;
+
+      z-index: 5;
+    }
+
+    .camera {
+      position: absolute;
+
+      top: 28px;
+      left: 24px;
+
+      width: 70px;
+      height: 70px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(circle, #111 0 35%, #444 36% 42%, #111 43%);
+
+      box-shadow:
+        45px 0 0 -12px #222,
+        22px 35px 0 -12px #333;
+
+      z-index: 4;
+    }
+
+    /* Positions */
+
+    .phone.center {
+      left: 50%;
+      bottom: 0;
+
+      transform:
+        translateX(-50%)
+        scale(1.35);
+
+      opacity: 1;
+
+      filter: none;
+
+      z-index: 20;
+    }
+
+    .phone.left {
+      left: 25%;
+      bottom: 10%;
+
+      transform:
+        translateX(-50%)
+        scale(.7);
+
+      opacity: .75;
+
+      filter: blur(2px);
+
+      z-index: 10;
+    }
+
+    .phone.right {
+      left: 75%;
+      bottom: 10%;
+
+      transform:
+        translateX(-50%)
+        scale(.7);
+
+      opacity: .75;
+
+      filter: blur(2px);
+
+      z-index: 10;
+    }
+
+    .phone.back {
+      left: 50%;
+      bottom: 12%;
+
+      transform:
+        translateX(-50%)
+        scale(.55);
+
+      opacity: .35;
+
+      filter: blur(6px);
+
+      z-index: 5;
+    }
+
+    /* Bottom information */
+
+    .bottom-left {
+      position: absolute;
+
+      left: 35px;
+      bottom: 30px;
+
+      z-index: 50;
+    }
+
+    .bottom-left small {
+      display: block;
+
+      color: #777;
+
+      font-size: 9px;
+
+      letter-spacing: 4px;
+
+      margin-bottom: 6px;
+    }
+
+    .bottom-left h2 {
+      font-size: 23px;
+      letter-spacing: 2px;
+    }
+
+    .model-name {
+      color: #999;
+      margin-top: 6px;
+      font-size: 13px;
+    }
+
+    /* Arrows */
+
+    .controls {
+      position: absolute;
+
+      left: 50%;
+      bottom: 30px;
+
+      transform: translateX(-50%);
+
+      display: flex;
+      gap: 12px;
+
+      z-index: 50;
+    }
+
+    .arrow {
+      width: 48px;
+      height: 48px;
+
+      border-radius: 50%;
+
+      border: 1px solid #444;
+
+      background: rgba(0,0,0,.5);
+
+      color: white;
+
+      font-size: 20px;
+
+      cursor: pointer;
+
+      transition: .2s;
+    }
+
+    .arrow:hover {
+      background: white;
+      color: black;
+    }
+
+    /* Discover */
+
+    .discover {
+      position: absolute;
+
+      right: 35px;
+      bottom: 35px;
+
+      z-index: 50;
+
+      color: #aaa;
+
+      font-size: 12px;
+
+      letter-spacing: 2px;
+    }
+
+    /* AI panel */
+
+    .ai-panel {
+      position: absolute;
+
+      top: 90px;
+      right: 30px;
+
+      width: 270px;
+
+      padding: 20px;
+
+      border-radius: 18px;
+
+      border: 1px solid rgba(255,255,255,.12);
+
+      background: rgba(5,5,5,.72);
+
+      backdrop-filter: blur(18px);
+
+      z-index: 60;
+    }
+
+    .ai-panel h3 {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .ai-panel p {
+      color: #777;
+      font-size: 11px;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .issue {
+      width: 100%;
+
+      padding: 10px;
+
+      margin-top: 7px;
+
+      border-radius: 9px;
+
+      border: 1px solid #292929;
+
+      background: #101010;
+
+      color: white;
+
+      cursor: pointer;
+
+      text-align: left;
+    }
+
+    .issue:hover {
+      background: #222;
+    }
+
+    /* Mobile */
+
+    @media (max-width: 700px) {
+
+      .top-brand {
+        top: 18px;
+        left: 18px;
+      }
+
+      .logout {
+        top: 15px;
+        right: 15px;
+      }
+
+      .ghost-title {
+        font-size: 58px;
+        letter-spacing: -3px;
+      }
+
+      .phone {
+        width: 150px;
+        height: 310px;
+        border-radius: 28px;
+      }
+
+      .phone-screen {
+        border-radius: 23px;
+      }
+
+      .phone.center {
+        transform:
+          translateX(-50%)
+          scale(1.15);
+      }
+
+      .phone.left {
+        left: 15%;
+        transform:
+          translateX(-50%)
+          scale(.55);
+      }
+
+      .phone.right {
+        left: 85%;
+        transform:
+          translateX(-50%)
+          scale(.55);
+      }
+
+      .phone.back {
+        transform:
+          translateX(-50%)
+          scale(.45);
+      }
+
+      .ai-panel {
+        left: 15px;
+        right: 15px;
+        top: auto;
+        bottom: 90px;
+        width: auto;
+      }
+
+      .bottom-left {
+        left: 18px;
+        bottom: 20px;
+      }
+
+      .bottom-left h2 {
+        font-size: 16px;
+      }
+
+      .controls {
+        bottom: 18px;
+      }
+
+      .discover {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="app">
+
+    <div class="ghost-title">
+      LAXMI NARASHMA
+    </div>
+
+    <div class="top-brand">
+      <small>WELCOME TO</small>
+      <strong>LAXMI NARASHMA MOBILE SHOP</strong>
+    </div>
+
+    <button class="logout" id="logoutBtn">
+      LOGOUT
+    </button>
+
+    <section class="carousel" id="carousel"></section>
+
+    <section class="ai-panel">
+
+      <h3>✦ MOBILE AI ASSISTANT</h3>
+
+      <p id="aiText">
+        Select a mobile and choose your problem.
+      </p>
+
+      <button class="issue" data-issue="Screen Damage">
+        📱 Screen Damage
+      </button>
+
+      <button class="issue" data-issue="Battery Problem">
+        🔋 Battery Problem
+      </button>
+
+      <button class="issue" data-issue="Charging Problem">
+        ⚡ Charging Problem
+      </button>
+
+      <button class="issue" data-issue="Camera Problem">
+        📷 Camera Problem
+      </button>
+
+      <button class="issue" data-issue="Software Problem">
+        ⚙️ Software Problem
+      </button>
+
+    </section>
+
+    <div class="bottom-left">
+
+      <small>MOBILE AI ASSISTANT</small>
+
+      <h2 id="selectedModel">
+        NOTHING
+      </h2>
+
+      <div class="model-name">
+        Choose your mobile →
+      </div>
+
+    </div>
+
+    <div class="controls">
+
+      <button class="arrow" id="prevBtn">
+        ←
+      </button>
+
+      <button class="arrow" id="nextBtn">
+        →
+      </button>
+
+    </div>
+
+    <div class="discover">
+      DISCOVER MODELS →
+    </div>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL =
+      "https://antkerjfmdmyitiehnty.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "YOUR_EXISTING_PUBLISHABLE_KEY";
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+    /*
+      Popular mobile models.
+
+      Later we can connect this list to Supabase
+      and add hundreds/thousands of models.
+    */
+
+    const mobiles = [
+      {
+        name: "NOTHING",
+        model: "Nothing Phone",
+        icon: "N"
+      },
+      {
+        name: "IPHONE",
+        model: "Apple iPhone",
+        icon: ""
+      },
+      {
+        name: "SAMSUNG",
+        model: "Samsung Galaxy",
+        icon: "S"
+      },
+      {
+        name: "ONEPLUS",
+        model: "OnePlus",
+        icon: "+"
+      },
+      {
+        name: "VIVO",
+        model: "Vivo",
+        icon: "V"
+      },
+      {
+        name: "OPPO",
+        model: "Oppo",
+        icon: "O"
+      }
+    ];
+
+    const carousel =
+      document.getElementById("carousel");
+
+    const selectedModel =
+      document.getElementById("selectedModel");
+
+    const aiText =
+      document.getElementById("aiText");
+
+    let activeIndex = 0;
+
+    let animating = false;
+
+    function createPhones() {
+
+      carousel.innerHTML = "";
+
+      mobiles.forEach((mobile, index) => {
+
+        const phone =
+          document.createElement("div");
+
+        phone.className = "phone";
+
+        phone.innerHTML = `
+          <div class="phone-screen">
+
+            <div class="wallpaper"></div>
+
+            <div class="phone-notch"></div>
+
+            <div class="camera"></div>
+
+            <div class="phone-label">
+              ${mobile.icon}
+            </div>
+
+          </div>
+        `;
+
+        phone.addEventListener("click", () => {
+
+          activeIndex = index;
+
+          render();
+
+        });
+
+        carousel.appendChild(phone);
+
+      });
+
+      render();
+    }
+
+    function render() {
+
+      const phones =
+        document.querySelectorAll(".phone");
+
+      phones.forEach((phone, index) => {
+
+        phone.className = "phone";
+
+        const position =
+          (index - activeIndex + mobiles.length)
+          % mobiles.length;
+
+        if (position === 0) {
+
+          phone.classList.add("center");
+
+        } else if (position === 1) {
+
+          phone.classList.add("right");
+
+        } else if (position === mobiles.length - 1) {
+
+          phone.classList.add("left");
+
+        } else {
+
+          phone.classList.add("back");
+
+        }
+
+      });
+
+      const current =
+        mobiles[activeIndex];
+
+      selectedModel.textContent =
+        current.name;
+
+      aiText.textContent =
+        "Selected: " +
+        current.model +
+        ". Choose your problem.";
+    }
+
+    function nextMobile() {
+
+      if (animating) return;
+
+      animating = true;
+
+      activeIndex =
+        (activeIndex + 1) %
+        mobiles.length;
+
+      render();
+
+      setTimeout(() => {
+        animating = false;
+      }, 650);
+    }
+
+    function previousMobile() {
+
+      if (animating) return;
+
+      animating = true;
+
+      activeIndex =
+        (activeIndex - 1 + mobiles.length) %
+        mobiles.length;
+
+      render();
+
+      setTimeout(() => {
+        animating = false;
+      }, 650);
+    }
+
+    document
+      .getElementById("nextBtn")
+      .addEventListener("click", nextMobile);
+
+    document
+      .getElementById("prevBtn")
+      .addEventListener("click", previousMobile);
+
+    document
+      .querySelectorAll(".issue")
+      .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+          const issue =
+            button.dataset.issue;
+
+          const mobile =
+            mobiles[activeIndex];
+
+          aiText.innerHTML =
+            "<strong>" +
+            mobile.model +
+            "</strong><br>" +
+            issue +
+            " selected.<br><br>" +
+            "AI diagnosis module ready.";
+        });
+
+      });
+
+    document
+      .getElementById("logoutBtn")
+      .addEventListener("click", async () => {
+
+        await supabaseClient.auth.signOut();
+
+        window.location.href =
+          "login.html";
+
+      });
+
+    /*
+      Protect this page.
+
+      User must be logged in.
+    */
+
+    async function checkLogin() {
+
+      const {
+        data: { session }
+      } = await supabaseClient.auth.getSession();
+
+      if (!session) {
+
+        window.location.href =
+          "login.html";
+
+        return;
+      }
+
+      createPhones();
+    }
+
+    checkLogin();
+
+  </script>
+
+</body>
+</html>
+
