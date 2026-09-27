@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Laxmi Narashma Mobile Shop</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f5f5;
+  color:#111;
+}
+
+.header{
+  height:70px;
+  background:#111;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 6%;
+}
+
+.logo{
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.logo span{
+  display:block;
+  font-size:9px;
+  color:#aaa;
+  letter-spacing:3px;
+  margin-top:4px;
+}
+
+.logout{
+  border:1px solid #555;
+  background:#222;
+  color:white;
+  padding:10px 18px;
+  border-radius:22px;
+  cursor:pointer;
+}
+
+.hero{
+  padding:55px 6% 30px;
+  background:linear-gradient(135deg,#111,#292929);
+  color:white;
+}
+
+.hero h1{
+  font-size:clamp(34px,5vw,62px);
+  line-height:1;
+}
+
+.hero p{
+  margin-top:15px;
+  color:#bbb;
+  max-width:550px;
+  line-height:1.6;
+}
+
+.brands{
+  padding:28px 6%;
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  background:white;
+}
+
+.brand{
+  flex:0 0 auto;
+  padding:10px 18px;
+  border:1px solid #ddd;
+  border-radius:22px;
+  background:#fff;
+  cursor:pointer;
+}
+
+.brand.active,
+.brand:hover{
+  background:#111;
+  color:white;
+}
+
+.products{
+  padding:35px 6% 60px;
+}
+
+.products h2{
+  margin-bottom:22px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:22px;
+}
+
+.card{
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 8px 30px rgba(0,0,0,.08);
+  transition:.25s;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 15px 35px rgba(0,0,0,.14);
+}
+
+.phone-image{
+  height:280px;
+  background:#f1f1f1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.phone-image img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.info{
+  padding:20px;
+}
+
+.brand-name{
+  font-size:11px;
+  color:#777;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.info h3{
+  margin-top:7px;
+  font-size:20px;
+}
+
+.price{
+  margin-top:12px;
+  font-size:21px;
+  font-weight:900;
+}
+
+.buy{
+  width:100%;
+  margin-top:15px;
+  padding:12px;
+  border:0;
+  border-radius:10px;
+  background:#111;
+  color:white;
+  cursor:pointer;
+}
+
+.buy:hover{
+  background:#333;
+}
+
+@media(max-width:900px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:550px){
+  .header{
+    padding:0 18px;
+  }
+
+  .hero{
+    padding:40px 20px 28px;
+  }
+
+  .brands,
+  .products{
+    padding-left:20px;
+    padding-right:20px;
+  }
+
+  .grid{
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .phone-image{
+    height:210px;
+  }
+
+  .info{
+    padding:14px;
+  }
+
+  .info h3{
+    font-size:16px;
+  }
+
+  .price{
+    font-size:18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+<div class="logo">
+LAXMI NARASHMA
+<span>MOBILE SHOP</span>
+</div>
+
+<button class="logout" onclick="logoutUser()">
+Logout
+</button>
+
+</header>
+
+<section class="hero">
+
+<h1>Choose Your<br>Next Mobile.</h1>
+
+<p>
+Explore smartphones from Apple, Samsung, OnePlus, Vivo and Nothing.
+Find your model and check the available price.
+</p>
+
+</section>
+
+<div class="brands">
+
+<button class="brand active" onclick="filterBrand('All',this)">
+All
+</button>
+
+<button class="brand" onclick="filterBrand('Apple',this)">
+Apple
+</button>
+
+<button class="brand" onclick="filterBrand('Samsung',this)">
+Samsung
+</button>
+
+<button class="brand" onclick="filterBrand('OnePlus',this)">
+OnePlus
+</button>
+
+<button class="brand" onclick="filterBrand('Vivo',this)">
+Vivo
+</button>
+
+<button class="brand" onclick="filterBrand('Nothing',this)">
+Nothing
+</button>
+
+</div>
+
+<section class="products">
+
+<h2>Latest Mobiles</h2>
+
+<div class="grid">
+
+<!-- APPLE -->
+
+<div class="card" data-brand="Apple">
+
+<div class="phone-image">
+<img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-16-1.jpg" alt="Apple iPhone 16">
+</div>
+
+<div class="info">
+
+<div class="brand-name">Apple</div>
+
+<h3>iPhone 16</h3>
+
+<div class="price">₹69,900</div>
+
+<button class="buy" onclick="selectPhone('Apple iPhone 16')">
+View Details
+</button>
+
+</div>
+</div>
+
+<!-- SAMSUNG -->
+
+<div class="card" data-brand="Samsung">
+
+<div class="phone-image">
+<img src="https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-s25-1.jpg" alt="Samsung Galaxy S25">
+</div>
+
+<div class="info">
+
+<div class="brand-name">Samsung</div>
+
+<h3>Galaxy S25</h3>
+
+<div class="price">₹80,999</div>
+
+<button class="buy" onclick="selectPhone('Samsung Galaxy S25')">
+View Details
+</button>
+
+</div>
+</div>
+
+<!-- ONEPLUS -->
+
+<div class="card" data-brand="OnePlus">
+
+<div class="phone-image">
+<img src="https://fdn2.gsmarena.com/vv/pics/oneplus/oneplus-13-1.jpg" alt="OnePlus 13">
+</div>
+
+<div class="info">
+
+<div class="brand-name">OnePlus</div>
+
+<h3>OnePlus 13</h3>
+
+<div class="price">₹69,999</div>
+
+<button class="buy" onclick="selectPhone('OnePlus 13')">
+View Details
+</button>
+
+</div>
+</div>
+
+<!-- VIVO -->
+
+<div class="card" data-brand="Vivo">
+
+<div class="phone-image">
+<img src="https://fdn2.gsmarena.com/vv/pics/vivo/vivo-x200-1.jpg" alt="Vivo X200">
+</div>
+
+<div class="info">
+
+<div class="brand-name">Vivo</div>
+
+<h3>Vivo X200</h3>
+
+<div class="price">₹65,999</div>
+
+<button class="buy" onclick="selectPhone('Vivo X200')">
+View Details
+</button>
+
+</div>
+</div>
+
+<!-- NOTHING -->
+
+<div class="card" data-brand="Nothing">
+
+<div class="phone-image">
+<img src="https://fdn2.gsmarena.com/vv/pics/nothing/nothing-phone-3-1.jpg" alt="Nothing Phone 3">
+</div>
+
+<div class="info">
+
+<div class="brand-name">Nothing</div>
+
+<h3>Phone 3</h3>
+
+<div class="price">₹59,999</div>
+
+<button class="buy" onclick="selectPhone('Nothing Phone 3')">
+View Details
+</button>
+
+</div>
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+function filterBrand(brand,button){
+
+  document
+    .querySelectorAll(".brand")
+    .forEach(function(btn){
+      btn.classList.remove("active");
+    });
+
+  button.classList.add("active");
+
+  document
+    .querySelectorAll(".card")
+    .forEach(function(card){
+
+      if(
+        brand === "All" ||
+        card.dataset.brand === brand
+      ){
+        card.style.display = "block";
+      }else{
+        card.style.display = "none";
+      }
+
+    });
+}
+
+function selectPhone(phone){
+
+  alert(
+    "LAXMI NARASHMA MOBILE SHOP\n\n"+
+    phone+
+    "\n\nMore details coming soon."
+  );
+
+}
+
+function logoutUser(){
+
+  window.location.href="login.html";
+
+}
+
+</script>
+
+</body>
+</html>
