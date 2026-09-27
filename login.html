@@ -3,28 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>MobileFix - Login</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Login | Laxmi Narashma Mobile Shop</title>
 
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: "Inter", sans-serif;
     }
 
     body {
+      font-family: Arial, sans-serif;
       min-height: 100vh;
       overflow: hidden;
-      background: #0f172a;
+      background: #050505;
+      color: white;
     }
 
-    .page {
+    .login-page {
       min-height: 100vh;
       position: relative;
       display: flex;
@@ -32,240 +28,220 @@
       justify-content: center;
       overflow: hidden;
       background:
-        radial-gradient(circle at 15% 20%, rgba(37,99,235,.45), transparent 30%),
-        radial-gradient(circle at 85% 80%, rgba(14,165,233,.35), transparent 30%),
-        #0f172a;
+        radial-gradient(circle at 50% 40%, rgba(80,80,80,.18), transparent 35%),
+        #050505;
     }
 
-    .orb {
+    /* Cinematic phone background */
+    .phone-glow {
       position: absolute;
-      border-radius: 50%;
-      filter: blur(5px);
-      animation: float 7s ease-in-out infinite;
+      width: 330px;
+      height: 650px;
+      border-radius: 45px;
+      background: linear-gradient(145deg, #252525, #080808);
+      border: 2px solid rgba(255,255,255,.15);
+      box-shadow:
+        0 0 80px rgba(255,255,255,.12),
+        0 0 180px rgba(255,255,255,.05);
+      transform: rotate(-8deg);
+      opacity: .72;
+      animation: phoneFloat 6s ease-in-out infinite;
     }
 
-    .orb.one {
-      width: 220px;
-      height: 220px;
-      background: rgba(59,130,246,.25);
-      top: -70px;
-      left: -60px;
+    .phone-screen {
+      position: absolute;
+      inset: 9px;
+      border-radius: 38px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 30%, #444, transparent 25%),
+        linear-gradient(145deg, #151515, #000);
     }
 
-    .orb.two {
-      width: 280px;
-      height: 280px;
-      background: rgba(14,165,233,.18);
-      bottom: -100px;
-      right: -80px;
-      animation-delay: 1.5s;
+    .phone-camera {
+      position: absolute;
+      top: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 8px;
+      border-radius: 20px;
+      background: #000;
+      opacity: .9;
     }
 
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-25px);
-      }
+    .nothing-dots {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.22) 1px, transparent 1px);
+      background-size: 13px 13px;
+      opacity: .07;
+    }
+
+    .ghost-brand {
+      position: absolute;
+      font-size: clamp(55px, 12vw, 170px);
+      font-weight: 900;
+      letter-spacing: -6px;
+      white-space: nowrap;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,.07);
+      transform: rotate(-7deg);
+      user-select: none;
+    }
+
+    .ghost-brand.top {
+      top: 8%;
+      left: -8%;
+    }
+
+    .ghost-brand.bottom {
+      bottom: 7%;
+      right: -10%;
+    }
+
+    /* Login card */
+    .login-card {
+      position: relative;
+      z-index: 10;
+      width: min(420px, 90%);
+      padding: 38px 32px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 24px;
+      background: rgba(10,10,10,.72);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 30px 100px rgba(0,0,0,.65);
     }
 
     .brand {
-      position: absolute;
-      top: 25px;
-      left: 25px;
-      color: white;
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      z-index: 5;
-    }
-
-    .brand span {
-      color: #60a5fa;
-    }
-
-    .container {
-      width: 92%;
-      max-width: 430px;
-      position: relative;
-      z-index: 10;
-    }
-
-    .card {
-      background: rgba(255,255,255,.10);
-      border: 1px solid rgba(255,255,255,.18);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border-radius: 28px;
-      padding: 34px 28px;
-      box-shadow: 0 30px 80px rgba(0,0,0,.35);
-      color: white;
-    }
-
-    .icon {
-      width: 62px;
-      height: 62px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, #2563eb, #38bdf8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      margin: 0 auto 20px;
-      box-shadow: 0 12px 30px rgba(37,99,235,.35);
-    }
-
-    h1 {
       text-align: center;
-      font-size: 28px;
-      margin-bottom: 8px;
-      letter-spacing: -0.7px;
+      margin-bottom: 30px;
     }
 
-    .subtitle {
-      text-align: center;
-      color: rgba(255,255,255,.65);
-      font-size: 13px;
-      margin-bottom: 28px;
-    }
-
-    .form {
-      display: none;
-      animation: slideIn .4s ease;
-    }
-
-    .form.active {
+    .brand small {
       display: block;
+      color: #999;
+      letter-spacing: 4px;
+      font-size: 10px;
+      margin-bottom: 8px;
     }
 
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .brand h1 {
+      font-size: 28px;
+      letter-spacing: 2px;
     }
 
-    .field {
-      margin-bottom: 16px;
+    .brand p {
+      margin-top: 8px;
+      color: #888;
+      font-size: 13px;
     }
 
-    .field label {
+    .input-group {
+      margin-bottom: 17px;
+    }
+
+    .input-group label {
       display: block;
       font-size: 12px;
-      color: rgba(255,255,255,.75);
+      color: #aaa;
       margin-bottom: 7px;
-      font-weight: 600;
     }
 
-    .field input {
+    .input-group input {
       width: 100%;
       padding: 14px 15px;
-      border-radius: 13px;
-      border: 1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.08);
-      color: white;
+      border: 1px solid #333;
+      border-radius: 12px;
       outline: none;
-      font-size: 14px;
-      transition: .2s;
-    }
-
-    .field input::placeholder {
-      color: rgba(255,255,255,.4);
-    }
-
-    .field input:focus {
-      border-color: #60a5fa;
-      background: rgba(255,255,255,.12);
-      box-shadow: 0 0 0 3px rgba(96,165,250,.12);
-    }
-
-    .forgot {
-      display: block;
-      text-align: right;
-      margin-top: -7px;
-      margin-bottom: 18px;
-      color: #93c5fd;
-      font-size: 12px;
-      text-decoration: none;
-    }
-
-    .main-btn {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #2563eb, #0ea5e9);
+      background: #111;
       color: white;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: .2s;
-      box-shadow: 0 10px 25px rgba(37,99,235,.25);
+      font-size: 14px;
     }
 
-    .main-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 30px rgba(37,99,235,.35);
+    .input-group input:focus {
+      border-color: #888;
+      box-shadow: 0 0 0 3px rgba(255,255,255,.05);
     }
 
-    .switch {
-      text-align: center;
-      margin-top: 22px;
-      font-size: 13px;
-      color: rgba(255,255,255,.6);
-    }
-
-    .switch button {
-      background: none;
+    .login-btn {
+      width: 100%;
+      padding: 15px;
+      margin-top: 8px;
       border: none;
-      color: #93c5fd;
-      font-weight: 700;
+      border-radius: 12px;
+      background: white;
+      color: black;
+      font-weight: 800;
       cursor: pointer;
-      margin-left: 4px;
-      font-size: 13px;
+      transition: .25s;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      background: #ddd;
+    }
+
+    .signup-btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 13px;
+      border: 1px solid #333;
+      border-radius: 12px;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+    }
+
+    .signup-btn:hover {
+      background: #151515;
     }
 
     .message {
       min-height: 20px;
-      text-align: center;
       margin-top: 15px;
+      text-align: center;
       font-size: 12px;
-      color: #fca5a5;
+      color: #aaa;
     }
 
-    .home {
-      position: absolute;
-      bottom: 22px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,.6);
-      font-size: 12px;
+    .back-home {
+      display: block;
+      text-align: center;
+      margin-top: 22px;
+      color: #777;
       text-decoration: none;
-      z-index: 10;
+      font-size: 12px;
     }
 
-    .home:hover {
+    .back-home:hover {
       color: white;
     }
 
-    @media (max-width: 480px) {
-      .card {
-        padding: 28px 20px;
-        border-radius: 24px;
+    @keyframes phoneFloat {
+      0%,100% {
+        transform: translateY(0) rotate(-8deg);
+      }
+      50% {
+        transform: translateY(-18px) rotate(-5deg);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .phone-glow {
+        width: 230px;
+        height: 470px;
+        opacity: .45;
       }
 
-      h1 {
-        font-size: 25px;
+      .login-card {
+        padding: 30px 22px;
       }
 
-      .brand {
-        left: 18px;
-        top: 18px;
+      .ghost-brand {
+        font-size: 55px;
       }
     }
   </style>
@@ -273,230 +249,119 @@
 
 <body>
 
-  <div class="page">
+  <main class="login-page">
 
-    <div class="orb one"></div>
-    <div class="orb two"></div>
+    <div class="ghost-brand top">LAXMI NARASHMA</div>
+    <div class="ghost-brand bottom">MOBILE SHOP</div>
 
-    <div class="brand">
-      Mobile<span>Fix</span>
+    <div class="phone-glow">
+      <div class="phone-screen">
+        <div class="phone-camera"></div>
+        <div class="nothing-dots"></div>
+      </div>
     </div>
 
-    <div class="container">
+    <section class="login-card">
 
-      <div class="card">
-
-        <div class="icon">📱</div>
-
-        <!-- LOGIN -->
-        <div class="form active" id="loginForm">
-
-          <h1>Welcome Back</h1>
-
-          <p class="subtitle">
-            Login to manage your MobileFix repairs
-          </p>
-
-          <div class="field">
-            <label>Email</label>
-            <input
-              type="email"
-              id="loginEmail"
-              placeholder="Enter your email"
-            >
-          </div>
-
-          <div class="field">
-            <label>Password</label>
-            <input
-              type="password"
-              id="loginPassword"
-              placeholder="Enter your password"
-            >
-          </div>
-
-          <a href="#" class="forgot" onclick="forgotPassword(event)">
-            Forgot password?
-          </a>
-
-          <button class="main-btn" onclick="loginUser()">
-            Login →
-          </button>
-
-          <p class="message" id="loginMessage"></p>
-
-          <div class="switch">
-            Don't have an account?
-            <button onclick="showSignup()">Create account</button>
-          </div>
-
-        </div>
-
-
-        <!-- SIGNUP -->
-        <div class="form" id="signupForm">
-
-          <h1>Create Account</h1>
-
-          <p class="subtitle">
-            Join MobileFix and track your repairs
-          </p>
-
-          <div class="field">
-            <label>Full Name</label>
-            <input
-              type="text"
-              id="signupName"
-              placeholder="Enter your name"
-            >
-          </div>
-
-          <div class="field">
-            <label>Phone</label>
-            <input
-              type="tel"
-              id="signupPhone"
-              placeholder="Enter phone number"
-            >
-          </div>
-
-          <div class="field">
-            <label>Email</label>
-            <input
-              type="email"
-              id="signupEmail"
-              placeholder="Enter your email"
-            >
-          </div>
-
-          <div class="field">
-            <label>Password</label>
-            <input
-              type="password"
-              id="signupPassword"
-              placeholder="Create a password"
-            >
-          </div>
-
-          <button class="main-btn" onclick="signupUser()">
-            Create Account →
-          </button>
-
-          <p class="message" id="signupMessage"></p>
-
-          <div class="switch">
-            Already have an account?
-            <button onclick="showLogin()">Login</button>
-          </div>
-
-        </div>
-
+      <div class="brand">
+        <small>LAXMI NARASHMA</small>
+        <h1>MOBILE SHOP</h1>
+        <p>Login to enter Mobile AI Assistant</p>
       </div>
 
-    </div>
+      <form id="loginForm">
 
-    <a href="./index.html" class="home">
-      ← Back to MobileFix
-    </a>
+        <div class="input-group">
+          <label>Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+          >
+        </div>
 
-  </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+          >
+        </div>
 
+        <button class="login-btn" type="submit">
+          LOGIN →
+        </button>
 
-  <!-- Supabase -->
+      </form>
+
+      <button class="signup-btn" id="signupBtn">
+        CREATE ACCOUNT
+      </button>
+
+      <div class="message" id="message"></div>
+
+      <a href="index.html" class="back-home">
+        ← Back to website
+      </a>
+
+    </section>
+
+  </main>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
-
     const SUPABASE_URL =
       "https://antkerjfmdmyitiehnty.supabase.co";
 
     const SUPABASE_PUBLISHABLE_KEY =
       "YOUR_EXISTING_PUBLISHABLE_KEY";
 
-    const supabaseClient =
-      window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-      );
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
 
+    const loginForm = document.getElementById("loginForm");
+    const signupBtn = document.getElementById("signupBtn");
+    const message = document.getElementById("message");
 
-    function showSignup() {
-      document.getElementById("loginForm")
-        .classList.remove("active");
+    loginForm.addEventListener("submit", async function(event) {
+      event.preventDefault();
 
-      document.getElementById("signupForm")
-        .classList.add("active");
-    }
-
-
-    function showLogin() {
-      document.getElementById("signupForm")
-        .classList.remove("active");
-
-      document.getElementById("loginForm")
-        .classList.add("active");
-    }
-
-
-    async function loginUser() {
-
-      const email =
-        document.getElementById("loginEmail").value.trim();
-
-      const password =
-        document.getElementById("loginPassword").value;
-
-      const message =
-        document.getElementById("loginMessage");
-
-      if (!email || !password) {
-        message.textContent =
-          "Please enter email and password.";
-        return;
-      }
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
 
       message.textContent = "Logging in...";
 
-      const { error } =
-        await supabaseClient.auth.signInWithPassword({
-          email: email,
-          password: password
-        });
+      const { error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
 
       if (error) {
         message.textContent = error.message;
         return;
       }
 
-      message.style.color = "#86efac";
-      message.textContent = "Login successful!";
+      message.textContent = "Login successful...";
 
-      setTimeout(function() {
-        window.location.href = "./index.html";
-      }, 700);
-    }
+      setTimeout(() => {
+        window.location.href = "ai.html";
+      }, 500);
+    });
 
+    signupBtn.addEventListener("click", async function() {
 
-    async function signupUser() {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
 
-      const name =
-        document.getElementById("signupName").value.trim();
-
-      const phone =
-        document.getElementById("signupPhone").value.trim();
-
-      const email =
-        document.getElementById("signupEmail").value.trim();
-
-      const password =
-        document.getElementById("signupPassword").value;
-
-      const message =
-        document.getElementById("signupMessage");
-
-      if (!name || !phone || !email || !password) {
+      if (!email || !password) {
         message.textContent =
-          "Please fill all details.";
+          "Enter email and password first.";
         return;
       }
 
@@ -508,76 +373,24 @@
 
       message.textContent = "Creating account...";
 
-      const { data, error } =
-        await supabaseClient.auth.signUp({
-          email: email,
-          password: password,
-          options: {
-            data: {
-              full_name: name,
-              phone: phone
-            }
-          }
-        });
+      const { error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+      });
 
       if (error) {
         message.textContent = error.message;
         return;
       }
 
-      message.style.color = "#86efac";
-
-      if (data.session) {
-        message.textContent =
-          "Account created successfully!";
-
-        setTimeout(function() {
-          window.location.href = "./index.html";
-        }, 700);
-      } else {
-        message.textContent =
-          "Account created! Please check your email to confirm.";
-      }
-    }
-
-
-    async function forgotPassword(event) {
-
-      event.preventDefault();
-
-      const email =
-        document.getElementById("loginEmail").value.trim();
-
-      const message =
-        document.getElementById("loginMessage");
-
-      if (!email) {
-        message.textContent =
-          "Enter your email first.";
-        return;
-      }
-
-      const { error } =
-        await supabaseClient.auth.resetPasswordForEmail(
-          email,
-          {
-            redirectTo:
-              window.location.origin +
-              window.location.pathname
-          }
-        );
-
-      if (error) {
-        message.textContent = error.message;
-        return;
-      }
-
-      message.style.color = "#86efac";
       message.textContent =
-        "Password reset email sent.";
-    }
-
+        "Account created. Check your email if confirmation is required.";
+    });
   </script>
 
 </body>
-  </html>
+</html>
+
+⚠️ Important: "YOUR_EXISTING_PUBLISHABLE_KEY" దగ్గర కొత్త key create చేయొద్దు. నీ "script.js" లో ఇప్పటికే ఉన్న అదే publishable key ని copy చేసి అక్కడ paste చెయ్యాలి.
+
+Paste చేసిన తర్వాత Commit changes నొక్కు. తర్వాత మనం "ai.html" create చేసి mobile carousel + giant LAXMI NARASHMA background + AI repair prompt build చేద్దాం.
