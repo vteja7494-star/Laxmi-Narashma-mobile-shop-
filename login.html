@@ -3,116 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | Laxmi Narashma Mobile Shop</title>
+
+  <title>Laxmi Narashma Mobile Shop - Login</title>
 
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      font-family: Arial, sans-serif;
       min-height: 100vh;
-      overflow: hidden;
-      background: #050505;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(40,40,40,.35), transparent 35%),
+        linear-gradient(135deg, #050505, #111, #000);
       color: white;
-    }
-
-    .login-page {
-      min-height: 100vh;
-      position: relative;
+      font-family: Arial, sans-serif;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       overflow: hidden;
-      background:
-        radial-gradient(circle at 50% 40%, rgba(80,80,80,.18), transparent 35%),
-        #050505;
     }
 
-    /* Cinematic phone background */
-    .phone-glow {
-      position: absolute;
-      width: 330px;
-      height: 650px;
-      border-radius: 45px;
-      background: linear-gradient(145deg, #252525, #080808);
-      border: 2px solid rgba(255,255,255,.15);
-      box-shadow:
-        0 0 80px rgba(255,255,255,.12),
-        0 0 180px rgba(255,255,255,.05);
-      transform: rotate(-8deg);
-      opacity: .72;
-      animation: phoneFloat 6s ease-in-out infinite;
-    }
-
-    .phone-screen {
-      position: absolute;
-      inset: 9px;
-      border-radius: 38px;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 50% 30%, #444, transparent 25%),
-        linear-gradient(145deg, #151515, #000);
-    }
-
-    .phone-camera {
-      position: absolute;
-      top: 25px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 8px;
-      border-radius: 20px;
-      background: #000;
-      opacity: .9;
-    }
-
-    .nothing-dots {
-      position: absolute;
-      inset: 0;
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,.22) 1px, transparent 1px);
-      background-size: 13px 13px;
-      opacity: .07;
-    }
-
-    .ghost-brand {
-      position: absolute;
-      font-size: clamp(55px, 12vw, 170px);
-      font-weight: 900;
-      letter-spacing: -6px;
-      white-space: nowrap;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,.07);
-      transform: rotate(-7deg);
-      user-select: none;
-    }
-
-    .ghost-brand.top {
-      top: 8%;
-      left: -8%;
-    }
-
-    .ghost-brand.bottom {
-      bottom: 7%;
-      right: -10%;
-    }
-
-    /* Login card */
-    .login-card {
+    .container {
+      width: 100%;
+      max-width: 430px;
+      padding: 25px;
       position: relative;
-      z-index: 10;
-      width: min(420px, 90%);
-      padding: 38px 32px;
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 24px;
-      background: rgba(10,10,10,.72);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 30px 100px rgba(0,0,0,.65);
+      z-index: 2;
     }
 
     .brand {
@@ -120,158 +39,145 @@
       margin-bottom: 30px;
     }
 
-    .brand small {
-      display: block;
-      color: #999;
-      letter-spacing: 4px;
-      font-size: 10px;
-      margin-bottom: 8px;
-    }
-
     .brand h1 {
-      font-size: 28px;
-      letter-spacing: 2px;
+      font-size: 25px;
+      letter-spacing: 3px;
+      font-weight: 800;
     }
 
     .brand p {
       margin-top: 8px;
       color: #888;
-      font-size: 13px;
+      font-size: 12px;
+      letter-spacing: 2px;
     }
 
-    .input-group {
+    .login-box {
+      background: rgba(20,20,20,.82);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 25px;
+      padding: 30px 25px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 25px 80px rgba(0,0,0,.65);
+    }
+
+    .login-box h2 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .login-box .subtitle {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .field {
       margin-bottom: 17px;
     }
 
-    .input-group label {
+    .field label {
       display: block;
-      font-size: 12px;
       color: #aaa;
+      font-size: 12px;
       margin-bottom: 7px;
+      letter-spacing: 1px;
     }
 
-    .input-group input {
+    .field input {
       width: 100%;
-      padding: 14px 15px;
-      border: 1px solid #333;
+      padding: 15px;
       border-radius: 12px;
-      outline: none;
-      background: #111;
+      border: 1px solid #333;
+      background: #090909;
       color: white;
-      font-size: 14px;
+      outline: none;
+      font-size: 15px;
     }
 
-    .input-group input:focus {
-      border-color: #888;
-      box-shadow: 0 0 0 3px rgba(255,255,255,.05);
+    .field input:focus {
+      border-color: #777;
+    }
+
+    .login-btn,
+    .signup-btn {
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      margin-top: 8px;
     }
 
     .login-btn {
-      width: 100%;
-      padding: 15px;
-      margin-top: 8px;
       border: none;
-      border-radius: 12px;
       background: white;
       color: black;
-      font-weight: 800;
-      cursor: pointer;
-      transition: .25s;
-    }
-
-    .login-btn:hover {
-      transform: translateY(-2px);
-      background: #ddd;
     }
 
     .signup-btn {
-      width: 100%;
-      margin-top: 12px;
-      padding: 13px;
       border: 1px solid #333;
-      border-radius: 12px;
       background: transparent;
       color: white;
-      cursor: pointer;
+    }
+
+    .login-btn:hover {
+      opacity: .9;
     }
 
     .signup-btn:hover {
-      background: #151515;
+      background: #181818;
     }
 
-    .message {
+    #message {
+      text-align: center;
       min-height: 20px;
-      margin-top: 15px;
-      text-align: center;
-      font-size: 12px;
+      margin-top: 18px;
       color: #aaa;
+      font-size: 13px;
     }
 
-    .back-home {
-      display: block;
-      text-align: center;
-      margin-top: 22px;
-      color: #777;
-      text-decoration: none;
-      font-size: 12px;
-    }
-
-    .back-home:hover {
-      color: white;
-    }
-
-    @keyframes phoneFloat {
-      0%,100% {
-        transform: translateY(0) rotate(-8deg);
-      }
-      50% {
-        transform: translateY(-18px) rotate(-5deg);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .phone-glow {
-        width: 230px;
-        height: 470px;
-        opacity: .45;
-      }
-
-      .login-card {
-        padding: 30px 22px;
-      }
-
-      .ghost-brand {
-        font-size: 55px;
-      }
+    .bg-text {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(-10deg);
+      font-size: clamp(70px, 18vw, 190px);
+      font-weight: 900;
+      white-space: nowrap;
+      color: rgba(255,255,255,.025);
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
     }
   </style>
 </head>
 
 <body>
 
-  <main class="login-page">
+  <div class="bg-text">
+    LAXMI NARASHMA
+  </div>
 
-    <div class="ghost-brand top">LAXMI NARASHMA</div>
-    <div class="ghost-brand bottom">MOBILE SHOP</div>
+  <div class="container">
 
-    <div class="phone-glow">
-      <div class="phone-screen">
-        <div class="phone-camera"></div>
-        <div class="nothing-dots"></div>
-      </div>
+    <div class="brand">
+      <h1>LAXMI NARASHMA</h1>
+      <p>MOBILE SHOP</p>
     </div>
 
-    <section class="login-card">
+    <div class="login-box">
 
-      <div class="brand">
-        <small>LAXMI NARASHMA</small>
-        <h1>MOBILE SHOP</h1>
-        <p>Login to enter Mobile AI Assistant</p>
+      <h2>Welcome Back</h2>
+
+      <div class="subtitle">
+        Login to continue to Mobile AI Assistant
       </div>
 
       <form id="loginForm">
 
-        <div class="input-group">
+        <div class="field">
           <label>Email</label>
           <input
             type="email"
@@ -281,7 +187,7 @@
           >
         </div>
 
-        <div class="input-group">
+        <div class="field">
           <label>Password</label>
           <input
             type="password"
@@ -291,189 +197,167 @@
           >
         </div>
 
-        <button class="login-btn" type="submit">
-          LOGIN →
+        <button
+          type="submit"
+          class="login-btn"
+        >
+          LOGIN
         </button>
 
       </form>
 
-      <button class="signup-btn" id="signupBtn">
+      <button
+        type="button"
+        class="signup-btn"
+        id="signupBtn"
+      >
         CREATE ACCOUNT
       </button>
 
-      <div class="message" id="message"></div>
+      <div id="message"></div>
 
-      <a href="index.html" class="back-home">
-        ← Back to website
-      </a>
+    </div>
 
-    </section>
-
-  </main>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
+    /*
+      IMPORTANT:
+      Use the SAME Supabase URL and SAME PUBLISHABLE KEY
+      that are already working in your script.js.
+
+      Do NOT use the old placeholder:
+      YOUR_EXISTING_PUBLISHABLE_KEY
+    */
+
     const SUPABASE_URL =
       "https://antkerjfmdmyitiehnty.supabase.co";
 
+    /*
+      Paste your existing sb_publishable_... key here.
+      It is the same publishable key from script.js.
+    */
     const SUPABASE_PUBLISHABLE_KEY =
-      "YOUR_EXISTING_PUBLISHABLE_KEY";
+      "PASTE_THE_SAME_SB_PUBLISHABLE_KEY_FROM_SCRIPT_JS_HERE";
 
-    const supabaseClient = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+    const signupBtn =
+      document.getElementById("signupBtn");
+
+    const message =
+      document.getElementById("message");
+
+
+    loginForm.addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+        const email =
+          document.getElementById("email")
+            .value
+            .trim();
+
+        const password =
+          document.getElementById("password")
+            .value;
+
+        message.textContent =
+          "Logging in...";
+
+        const { error } =
+          await supabaseClient.auth
+            .signInWithPassword({
+              email: email,
+              password: password
+            });
+
+        if (error) {
+
+          message.textContent =
+            error.message;
+
+          return;
+        }
+
+        message.textContent =
+          "Login successful...";
+
+        setTimeout(function() {
+
+          window.location.href =
+            "ai.html";
+
+        }, 500);
+
+      }
     );
 
-    const loginForm = document.getElementById("loginForm");
-    const signupBtn = document.getElementById("signupBtn");
-    const message = document.getElementById("message");
 
-    loginForm.addEventListener("submit", async function(event) {
-      event.preventDefault();
+    signupBtn.addEventListener(
+      "click",
+      async function() {
 
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
+        const email =
+          document.getElementById("email")
+            .value
+            .trim();
 
-      message.textContent = "Logging in...";
+        const password =
+          document.getElementById("password")
+            .value;
 
-      const { error } = await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
+        if (!email || !password) {
 
-      if (error) {
-        message.textContent = error.message;
-        return;
-      }
+          message.textContent =
+            "Enter email and password first.";
 
-      message.textContent = "Login successful...";
+          return;
+        }
 
-      setTimeout(() => {
-        window.location.href = "ai.html";
-      }, 500);
-    });
+        if (password.length < 6) {
 
-    signupBtn.addEventListener("click", async function() {
+          message.textContent =
+            "Password must be at least 6 characters.";
 
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
+          return;
+        }
 
-      if (!email || !password) {
         message.textContent =
-          "Enter email and password first.";
-        return;
-      }
+          "Creating account...";
 
-      if (password.length < 6) {
+        const { error } =
+          await supabaseClient.auth
+            .signUp({
+              email: email,
+              password: password
+            });
+
+        if (error) {
+
+          message.textContent =
+            error.message;
+
+          return;
+        }
+
         message.textContent =
-          "Password must be at least 6 characters.";
-        return;
+          "Account created. Check your email if confirmation is required.";
+
       }
-
-      message.textContent = "Creating account...";
-
-      const { error } = await supabaseClient.auth.signUp({
-        email: email,
-        password: password
-      });
-
-      if (error) {
-        message.textContent = error.message;
-        return;
-      }
-
-      message.textContent =
-        "Account created. Check your email if confirmation is required.";
-    });
+    );
   </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-  const SUPABASE_URL =
-    "https://antkerjfmdmyitiehnty.supabase.co";
-
-  const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_gzORKzM9wqsWqUjlp0fq6g_MHjyz4Bs";
-
-  const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
-
-  const loginForm = document.getElementById("loginForm");
-  const signupBtn = document.getElementById("signupBtn");
-  const message = document.getElementById("message");
-
-  loginForm.addEventListener("submit", async function(event) {
-    event.preventDefault();
-
-    const email =
-      document.getElementById("email").value.trim();
-
-    const password =
-      document.getElementById("password").value;
-
-    message.textContent = "Logging in...";
-
-    const { error } =
-      await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
-
-    if (error) {
-      message.textContent = error.message;
-      return;
-    }
-
-    message.textContent = "Login successful...";
-
-    setTimeout(function() {
-      window.location.href = "ai.html";
-    }, 500);
-  });
-
-  signupBtn.addEventListener("click", async function() {
-
-    const email =
-      document.getElementById("email").value.trim();
-
-    const password =
-      document.getElementById("password").value;
-
-    if (!email || !password) {
-      message.textContent =
-        "Enter email and password first.";
-      return;
-    }
-
-    if (password.length < 6) {
-      message.textContent =
-        "Password must be at least 6 characters.";
-      return;
-    }
-
-    message.textContent =
-      "Creating account...";
-
-    const { error } =
-      await supabaseClient.auth.signUp({
-        email: email,
-        password: password
-      });
-
-    if (error) {
-      message.textContent =
-        error.message;
-      return;
-    }
-
-    message.textContent =
-      "Account created. Check your email if confirmation is required.";
-  });
-</script>
 </body>
 </html>
-
-
