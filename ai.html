@@ -1,444 +1,714 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Laxmi Narashma Mobile Shop</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
 }
 
+html,
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#f5f5f5;
-  color:#111;
+  width:100%;
+  height:100%;
 }
 
-.header{
-  height:70px;
-  background:#111;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 6%;
-}
-
-.logo{
-  font-size:18px;
-  font-weight:900;
-  letter-spacing:2px;
-}
-
-.logo span{
-  display:block;
-  font-size:9px;
-  color:#aaa;
-  letter-spacing:3px;
-  margin-top:4px;
-}
-
-.logout{
-  border:1px solid #555;
-  background:#222;
-  color:white;
-  padding:10px 18px;
-  border-radius:22px;
-  cursor:pointer;
+body{
+  font-family:'Inter',sans-serif;
+  overflow:hidden;
 }
 
 .hero{
-  padding:55px 6% 30px;
-  background:linear-gradient(135deg,#111,#292929);
-  color:white;
-}
-
-.hero h1{
-  font-size:clamp(34px,5vw,62px);
-  line-height:1;
-}
-
-.hero p{
-  margin-top:15px;
-  color:#bbb;
-  max-width:550px;
-  line-height:1.6;
-}
-
-.brands{
-  padding:28px 6%;
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-  background:white;
-}
-
-.brand{
-  flex:0 0 auto;
-  padding:10px 18px;
-  border:1px solid #ddd;
-  border-radius:22px;
-  background:#fff;
-  cursor:pointer;
-}
-
-.brand.active,
-.brand:hover{
-  background:#111;
-  color:white;
-}
-
-.products{
-  padding:35px 6% 60px;
-}
-
-.products h2{
-  margin-bottom:22px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:22px;
-}
-
-.card{
-  background:white;
-  border-radius:20px;
+  position:relative;
+  width:100%;
+  height:100vh;
   overflow:hidden;
-  box-shadow:0 8px 30px rgba(0,0,0,.08);
-  transition:.25s;
+  transition:
+    background-color 650ms cubic-bezier(.4,0,.2,1);
 }
 
-.card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 15px 35px rgba(0,0,0,.14);
+/* GRAIN */
+
+.grain{
+  position:absolute;
+  inset:0;
+  z-index:50;
+  pointer-events:none;
+  opacity:.4;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.08'/%3E%3C/svg%3E");
+  background-size:200px 200px;
 }
 
-.phone-image{
-  height:280px;
-  background:#f1f1f1;
+/* GIANT TEXT */
+
+.ghost-text{
+  position:absolute;
+  inset-inline:0;
+  top:18%;
+  z-index:2;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:20px;
+
+  pointer-events:none;
+  user-select:none;
+
+  font-family:'Anton',sans-serif;
+  font-size:clamp(90px,28vw,380px);
+  font-weight:900;
+  line-height:1;
+  letter-spacing:-.02em;
+  white-space:nowrap;
+  color:white;
 }
 
-.phone-image img{
+/* BRAND */
+
+.brand{
+  position:absolute;
+  top:24px;
+  left:16px;
+  z-index:60;
+
+  color:white;
+  opacity:.9;
+
+  font-size:12px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+}
+
+/* CAROUSEL */
+
+.carousel{
+  position:absolute;
+  inset:0;
+  z-index:3;
+}
+
+.slide{
+  position:absolute;
+
+  aspect-ratio:.6 / 1;
+
+  transform-origin:center bottom;
+
+  transition:
+    transform 650ms cubic-bezier(.4,0,.2,1),
+    filter 650ms cubic-bezier(.4,0,.2,1),
+    opacity 650ms cubic-bezier(.4,0,.2,1),
+    left 650ms cubic-bezier(.4,0,.2,1);
+
+  will-change:transform,filter,opacity,left;
+}
+
+.slide img{
   width:100%;
   height:100%;
   object-fit:contain;
+  object-position:bottom center;
+  display:block;
+  user-select:none;
+  -webkit-user-drag:none;
 }
 
-.info{
-  padding:20px;
+/* CENTER */
+
+.slide.center{
+  left:50%;
+  bottom:0;
+  height:92%;
+
+  transform:
+    translateX(-50%)
+    scale(1.68);
+
+  filter:none;
+  opacity:1;
+  z-index:20;
 }
 
-.brand-name{
-  font-size:11px;
-  color:#777;
-  letter-spacing:2px;
+/* LEFT */
+
+.slide.left{
+  left:30%;
+  bottom:12%;
+  height:28%;
+
+  transform:
+    translateX(-50%)
+    scale(1);
+
+  filter:blur(2px);
+  opacity:.85;
+  z-index:10;
+}
+
+/* RIGHT */
+
+.slide.right{
+  left:70%;
+  bottom:12%;
+  height:28%;
+
+  transform:
+    translateX(-50%)
+    scale(1);
+
+  filter:blur(2px);
+  opacity:.85;
+  z-index:10;
+}
+
+/* BACK */
+
+.slide.back{
+  left:50%;
+  bottom:12%;
+  height:22%;
+
+  transform:
+    translateX(-50%)
+    scale(1);
+
+  filter:blur(4px);
+  opacity:1;
+  z-index:5;
+}
+
+/* BOTTOM LEFT */
+
+.bottom-left{
+  position:absolute;
+  left:24px;
+  bottom:24px;
+  z-index:60;
+  max-width:320px;
+}
+
+.title{
+  margin-bottom:8px;
+
+  color:white;
+  opacity:.95;
+
+  font-size:16px;
+  font-weight:700;
   text-transform:uppercase;
+  letter-spacing:.12em;
 }
 
-.info h3{
-  margin-top:7px;
-  font-size:20px;
+.description{
+  margin-bottom:20px;
+
+  color:white;
+  opacity:.85;
+
+  font-size:14px;
+  line-height:1.6;
 }
 
-.price{
-  margin-top:12px;
-  font-size:21px;
-  font-weight:900;
+/* BUTTONS */
+
+.navigation{
+  display:flex;
+  gap:12px;
 }
 
-.buy{
-  width:100%;
-  margin-top:15px;
-  padding:12px;
-  border:0;
-  border-radius:10px;
-  background:#111;
+.nav-button{
+  width:48px;
+  height:48px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:transparent;
+  border:2px solid white;
+  border-radius:50%;
+
   color:white;
   cursor:pointer;
+
+  transition:
+    transform 150ms ease,
+    background-color 150ms ease;
 }
 
-.buy:hover{
-  background:#333;
+.nav-button:hover{
+  transform:scale(1.08);
+  background:rgba(255,255,255,.12);
 }
 
-@media(max-width:900px){
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+.nav-button:active{
+  transform:scale(.96);
 }
 
-@media(max-width:550px){
-  .header{
-    padding:0 18px;
-  }
+/* DISCOVER */
 
-  .hero{
-    padding:40px 20px 28px;
-  }
+.discover{
+  position:absolute;
+  right:16px;
+  bottom:24px;
+  z-index:60;
 
-  .brands,
-  .products{
-    padding-left:20px;
-    padding-right:20px;
-  }
+  display:flex;
+  align-items:center;
+  gap:8px;
 
-  .grid{
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-  }
+  color:white;
+  opacity:.95;
 
-  .phone-image{
-    height:210px;
-  }
+  font-family:'Anton',sans-serif;
+  font-size:clamp(20px,4vw,56px);
+  font-weight:400;
+  line-height:1;
+  letter-spacing:-.02em;
 
-  .info{
-    padding:14px;
-  }
+  text-decoration:none;
 
-  .info h3{
-    font-size:16px;
-  }
-
-  .price{
-    font-size:18px;
-  }
+  transition:opacity 200ms ease;
 }
+
+.discover:hover{
+  opacity:1;
+}
+
+/* DESKTOP */
+
+@media(min-width:640px){
+
+  .brand{
+    left:32px;
+    top:24px;
+  }
+
+  .bottom-left{
+    left:96px;
+    bottom:80px;
+  }
+
+  .title{
+    font-size:22px;
+  }
+
+  .description{
+    font-size:14px;
+    margin-bottom:20px;
+  }
+
+  .nav-button{
+    width:64px;
+    height:64px;
+  }
+
+  .discover{
+    right:40px;
+    bottom:80px;
+  }
+
+}
+
+/* MOBILE */
+
+@media(max-width:639px){
+
+  .ghost-text{
+    top:18%;
+    font-size:28vw;
+  }
+
+  .slide.center{
+    height:60%;
+    bottom:22%;
+
+    transform:
+      translateX(-50%)
+      scale(1.25);
+  }
+
+  .slide.left{
+    left:20%;
+    bottom:32%;
+    height:16%;
+  }
+
+  .slide.right{
+    left:80%;
+    bottom:32%;
+    height:16%;
+  }
+
+  .slide.back{
+    left:50%;
+    bottom:32%;
+    height:13%;
+  }
+
+  .bottom-left{
+    left:16px;
+    bottom:24px;
+    max-width:250px;
+  }
+
+  .description{
+    display:none;
+  }
+
+  .nav-button{
+    width:48px;
+    height:48px;
+  }
+
+  .discover{
+    right:16px;
+    bottom:24px;
+  }
+
+}
+
+/* SMALL PHONES */
+
+@media(max-width:380px){
+
+  .bottom-left{
+    bottom:18px;
+  }
+
+  .discover{
+    font-size:20px;
+  }
+
+}
+
 </style>
+
 </head>
 
 <body>
 
-<header class="header">
+<div
+  class="hero"
+  id="hero"
+  style="background-color:#F4845F;"
+>
 
-<div class="logo">
-LAXMI NARASHMA
-<span>MOBILE SHOP</span>
-</div>
+  <div class="grain"></div>
 
-<button class="logout" onclick="logoutUser()">
-Logout
-</button>
+  <div class="ghost-text">
+    3D SHAPE
+  </div>
 
-</header>
+  <div class="brand">
+    LAXMI NARASHMA MOBILE SHOP
+  </div>
 
-<section class="hero">
+  <div
+    class="carousel"
+    id="carousel"
+  ></div>
 
-<h1>Choose Your<br>Next Mobile.</h1>
+  <div class="bottom-left">
 
-<p>
-Explore smartphones from Apple, Samsung, OnePlus, Vivo and Nothing.
-Find your model and check the available price.
-</p>
+    <p class="title">
+      MOBILE SHOWCASE
+    </p>
 
-</section>
+    <p class="description">
+      Explore premium smartphones with a
+      smooth showroom-style presentation.
+      Choose your favourite mobile and
+      discover more.
+    </p>
 
-<div class="brands">
+    <div class="navigation">
 
-<button class="brand active" onclick="filterBrand('All',this)">
-All
-</button>
+      <button
+        class="nav-button"
+        id="prevButton"
+        aria-label="Previous"
+      >
+        <svg
+          width="26"
+          height="26"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+      </button>
 
-<button class="brand" onclick="filterBrand('Apple',this)">
-Apple
-</button>
+      <button
+        class="nav-button"
+        id="nextButton"
+        aria-label="Next"
+      >
+        <svg
+          width="26"
+          height="26"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m9 18 6-6-6-6"/>
+        </svg>
+      </button>
 
-<button class="brand" onclick="filterBrand('Samsung',this)">
-Samsung
-</button>
+    </div>
 
-<button class="brand" onclick="filterBrand('OnePlus',this)">
-OnePlus
-</button>
+  </div>
 
-<button class="brand" onclick="filterBrand('Vivo',this)">
-Vivo
-</button>
+  <a
+    href="#"
+    class="discover"
+    onclick="return false;"
+  >
+    DISCOVER IT
 
-<button class="brand" onclick="filterBrand('Nothing',this)">
-Nothing
-</button>
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.25"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M5 12h14"/>
+      <path d="m12 5 7 7-7 7"/>
+    </svg>
 
-</div>
-
-<section class="products">
-
-<h2>Latest Mobiles</h2>
-
-<div class="grid">
-
-<!-- APPLE -->
-
-<div class="card" data-brand="Apple">
-
-<div class="phone-image">
-<img src="https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-16-1.jpg" alt="Apple iPhone 16">
-</div>
-
-<div class="info">
-
-<div class="brand-name">Apple</div>
-
-<h3>iPhone 16</h3>
-
-<div class="price">₹69,900</div>
-
-<button class="buy" onclick="selectPhone('Apple iPhone 16')">
-View Details
-</button>
-
-</div>
-</div>
-
-<!-- SAMSUNG -->
-
-<div class="card" data-brand="Samsung">
-
-<div class="phone-image">
-<img src="https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-s25-1.jpg" alt="Samsung Galaxy S25">
-</div>
-
-<div class="info">
-
-<div class="brand-name">Samsung</div>
-
-<h3>Galaxy S25</h3>
-
-<div class="price">₹80,999</div>
-
-<button class="buy" onclick="selectPhone('Samsung Galaxy S25')">
-View Details
-</button>
-
-</div>
-</div>
-
-<!-- ONEPLUS -->
-
-<div class="card" data-brand="OnePlus">
-
-<div class="phone-image">
-<img src="https://fdn2.gsmarena.com/vv/pics/oneplus/oneplus-13-1.jpg" alt="OnePlus 13">
-</div>
-
-<div class="info">
-
-<div class="brand-name">OnePlus</div>
-
-<h3>OnePlus 13</h3>
-
-<div class="price">₹69,999</div>
-
-<button class="buy" onclick="selectPhone('OnePlus 13')">
-View Details
-</button>
+  </a>
 
 </div>
-</div>
-
-<!-- VIVO -->
-
-<div class="card" data-brand="Vivo">
-
-<div class="phone-image">
-<img src="https://fdn2.gsmarena.com/vv/pics/vivo/vivo-x200-1.jpg" alt="Vivo X200">
-</div>
-
-<div class="info">
-
-<div class="brand-name">Vivo</div>
-
-<h3>Vivo X200</h3>
-
-<div class="price">₹65,999</div>
-
-<button class="buy" onclick="selectPhone('Vivo X200')">
-View Details
-</button>
-
-</div>
-</div>
-
-<!-- NOTHING -->
-
-<div class="card" data-brand="Nothing">
-
-<div class="phone-image">
-<img src="https://fdn2.gsmarena.com/vv/pics/nothing/nothing-phone-3-1.jpg" alt="Nothing Phone 3">
-</div>
-
-<div class="info">
-
-<div class="brand-name">Nothing</div>
-
-<h3>Phone 3</h3>
-
-<div class="price">₹59,999</div>
-
-<button class="buy" onclick="selectPhone('Nothing Phone 3')">
-View Details
-</button>
-
-</div>
-</div>
-
-</div>
-
-</section>
 
 <script>
 
-function filterBrand(brand,button){
+/* IMAGE DATA */
 
-  document
-    .querySelectorAll(".brand")
-    .forEach(function(btn){
-      btn.classList.remove("active");
-    });
+const IMAGES = [
 
-  button.classList.add("active");
+  {
+    src:"https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/1.02464a56.png",
+    bg:"#F4845F"
+  },
 
-  document
-    .querySelectorAll(".card")
-    .forEach(function(card){
+  {
+    src:"https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/2.b977faab.png",
+    bg:"#6BBF7A"
+  },
 
-      if(
-        brand === "All" ||
-        card.dataset.brand === brand
-      ){
-        card.style.display = "block";
-      }else{
-        card.style.display = "none";
-      }
+  {
+    src:"https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/3.4df853b4.png",
+    bg:"#E882B4"
+  },
 
-    });
+  {
+    src:"https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/4.4457fbce.png",
+    bg:"#6EB5FF"
+  }
+
+];
+
+/* STATE */
+
+let activeIndex = 0;
+let isAnimating = false;
+
+let isMobile =
+  window.innerWidth < 640;
+
+/* PRELOAD */
+
+IMAGES.forEach(function(item){
+
+  const image = new Image();
+
+  image.src = item.src;
+
+});
+
+/* ELEMENTS */
+
+const hero =
+  document.getElementById("hero");
+
+const carousel =
+  document.getElementById("carousel");
+
+const prevButton =
+  document.getElementById("prevButton");
+
+const nextButton =
+  document.getElementById("nextButton");
+
+/* CREATE SLIDES */
+
+IMAGES.forEach(function(item,index){
+
+  const slide =
+    document.createElement("div");
+
+  slide.className =
+    "slide";
+
+  const image =
+    document.createElement("img");
+
+  image.src =
+    item.src;
+
+  image.alt =
+    "Mobile showcase";
+
+  image.draggable =
+    false;
+
+  slide.appendChild(image);
+
+  carousel.appendChild(slide);
+
+});
+
+/* GET ROLES */
+
+function getRole(index){
+
+  const center =
+    activeIndex;
+
+  const left =
+    (activeIndex + 3) % 4;
+
+  const right =
+    (activeIndex + 1) % 4;
+
+  const back =
+    (activeIndex + 2) % 4;
+
+  if(index === center){
+    return "center";
+  }
+
+  if(index === left){
+    return "left";
+  }
+
+  if(index === right){
+    return "right";
+  }
+
+  if(index === back){
+    return "back";
+  }
+
+  return "";
+
 }
 
-function selectPhone(phone){
+/* RENDER */
 
-  alert(
-    "LAXMI NARASHMA MOBILE SHOP\n\n"+
-    phone+
-    "\n\nMore details coming soon."
-  );
+function render(){
+
+  hero.style.backgroundColor =
+    IMAGES[activeIndex].bg;
+
+  const slides =
+    document.querySelectorAll(".slide");
+
+  slides.forEach(function(slide,index){
+
+    slide.className =
+      "slide " + getRole(index);
+
+  });
 
 }
 
-function logoutUser(){
+/* NAVIGATE */
 
-  window.location.href="login.html";
+function navigate(direction){
+
+  if(isAnimating){
+    return;
+  }
+
+  isAnimating = true;
+
+  if(direction === "next"){
+
+    activeIndex =
+      (activeIndex + 1) % 4;
+
+  }else{
+
+    activeIndex =
+      (activeIndex + 3) % 4;
+
+  }
+
+  render();
+
+  setTimeout(function(){
+
+    isAnimating = false;
+
+  },650);
 
 }
+
+/* BUTTON EVENTS */
+
+prevButton.addEventListener(
+  "click",
+  function(){
+    navigate("prev");
+  }
+);
+
+nextButton.addEventListener(
+  "click",
+  function(){
+    navigate("next");
+  }
+);
+
+/* RESIZE */
+
+window.addEventListener(
+  "resize",
+  function(){
+
+    isMobile =
+      window.innerWidth < 640;
+
+  }
+);
+
+/* INITIAL */
+
+render();
 
 </script>
 
