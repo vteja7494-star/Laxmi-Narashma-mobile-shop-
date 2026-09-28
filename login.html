@@ -23,7 +23,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      overflow-y: auto;
     }
 
     .container {
@@ -66,7 +66,7 @@
       margin-bottom: 8px;
     }
 
-    .login-box .subtitle {
+    .subtitle {
       color: #888;
       font-size: 14px;
       margin-bottom: 25px;
@@ -177,6 +177,8 @@
 
       <form id="loginForm">
 
+        <!-- EMAIL -->
+
         <div class="field">
           <label>Email</label>
 
@@ -186,8 +188,26 @@
             placeholder="Enter your email"
             required
           >
-
         </div>
+
+
+        <!-- MOBILE NUMBER -->
+
+        <div class="field">
+          <label>Mobile Number</label>
+
+          <input
+            type="tel"
+            id="mobile"
+            placeholder="Enter mobile number"
+            inputmode="numeric"
+            maxlength="10"
+            required
+          >
+        </div>
+
+
+        <!-- PASSWORD -->
 
         <div class="field">
           <label>Password</label>
@@ -198,8 +218,8 @@
             placeholder="Enter your password"
             required
           >
-
         </div>
+
 
         <button
           type="submit"
@@ -210,6 +230,7 @@
 
       </form>
 
+
       <button
         type="button"
         class="signup-btn"
@@ -218,11 +239,13 @@
         CREATE ACCOUNT
       </button>
 
+
       <div id="message"></div>
 
     </div>
 
   </div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -233,6 +256,7 @@
 
     const SUPABASE_PUBLISHABLE_KEY =
       "sb_publishable_gzORKzM9wqsWqUjlp0fq6g_MHjyz4Bs";
+
 
     const supabaseClient =
       window.supabase.createClient(
@@ -251,7 +275,10 @@
       document.getElementById("message");
 
 
-    /* LOGIN */
+    /*
+      LOGIN
+      Email + Mobile Number + Password
+    */
 
     loginForm.addEventListener(
       "submit",
@@ -259,20 +286,56 @@
 
         event.preventDefault();
 
+
         const email =
           document.getElementById("email")
             .value
             .trim();
 
+
+        const mobile =
+          document.getElementById("mobile")
+            .value
+            .trim();
+
+
         const password =
           document.getElementById("password")
             .value;
+
+
+        if (!email || !mobile || !password) {
+
+          message.textContent =
+            "Please fill all details.";
+
+          return;
+        }
+
+
+        if (!/^[0-9]{10}$/.test(mobile)) {
+
+          message.textContent =
+            "Enter a valid 10-digit mobile number.";
+
+          return;
+        }
+
 
         message.textContent =
           "Logging in...";
 
 
-        const { error } =
+        /*
+          Supabase currently authenticates
+          using Email + Password.
+
+          Mobile number is validated here
+          and will be stored with the account
+          during signup.
+        */
+
+        const { data, error } =
           await supabaseClient.auth
             .signInWithPassword({
 
@@ -307,7 +370,10 @@
     );
 
 
-    /* CREATE ACCOUNT */
+    /*
+      CREATE ACCOUNT
+      Email + Mobile Number + Password
+    */
 
     signupBtn.addEventListener(
       "click",
@@ -318,15 +384,31 @@
             .value
             .trim();
 
+
+        const mobile =
+          document.getElementById("mobile")
+            .value
+            .trim();
+
+
         const password =
           document.getElementById("password")
             .value;
 
 
-        if (!email || !password) {
+        if (!email || !mobile || !password) {
 
           message.textContent =
-            "Enter email and password first.";
+            "Enter email, mobile number and password.";
+
+          return;
+        }
+
+
+        if (!/^[0-9]{10}$/.test(mobile)) {
+
+          message.textContent =
+            "Enter a valid 10-digit mobile number.";
 
           return;
         }
@@ -345,13 +427,24 @@
           "Creating account...";
 
 
+        /*
+          Mobile number is saved
+          inside Supabase user metadata.
+        */
+
         const { error } =
           await supabaseClient.auth
             .signUp({
 
               email: email,
 
-              password: password
+              password: password,
+
+              options: {
+                data: {
+                  mobile: mobile
+                }
+              }
 
             });
 
