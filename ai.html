@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Laxmi Narashma Mobile Shop</title>
+<title>Laxmi Narashma</title>
 
 <style>
 *{
@@ -16,8 +16,7 @@ html,body{
   width:100%;
   height:100%;
   overflow:hidden;
-  background:#020405;
-  font-family:Arial,sans-serif;
+  background:#000;
 }
 
 .scene{
@@ -25,361 +24,111 @@ html,body{
   width:100%;
   height:100vh;
   overflow:hidden;
-  background:#020405;
+  background:#000;
 }
 
 /* SHOWROOM */
-
 .store{
   position:absolute;
   inset:0;
   background:url("store.png") center/cover no-repeat;
-  transform:scale(1.02);
-  transition:2s ease;
-}
-
-.store.blur{
-  background-image:url("store-blur.png");
-  transform:scale(1.05);
 }
 
 /* LIGHT */
-
 .glow{
   position:absolute;
   left:50%;
   top:55%;
-  width:420px;
-  height:420px;
+  width:400px;
+  height:400px;
   transform:translate(-50%,-50%);
   border-radius:50%;
   background:radial-gradient(
     circle,
-    rgba(0,220,255,.28),
-    rgba(0,160,220,.08) 40%,
-    transparent 72%
+    rgba(0,220,255,.25),
+    transparent 70%
   );
-  filter:blur(20px);
-  opacity:0;
-  transition:1s;
-}
-
-.glow.on{
-  opacity:1;
+  filter:blur(25px);
 }
 
 /* PHONE */
-
-.hero-phone{
+.phone{
   position:absolute;
   left:50%;
   top:55%;
-  width:min(240px,42vw);
-  transform:translate(-50%,120vh);
+  width:min(260px,55vw);
+  transform:translate(-50%,130vh) scale(.8);
   opacity:0;
-  z-index:10;
+  z-index:5;
   filter:
-    drop-shadow(0 25px 35px rgba(0,0,0,.7))
-    drop-shadow(0 0 20px rgba(0,220,255,.25));
-}
-
-.hero-phone.rise{
-  animation:rise 1.5s cubic-bezier(.2,.8,.2,1) forwards;
-}
-
-@keyframes rise{
-  to{
-    transform:translate(-50%,-50%);
-    opacity:1;
-  }
-}
-
-/* EXPLODED ASSEMBLY */
-
-.explosion{
-  position:absolute;
-  left:50%;
-  top:53%;
-  width:min(700px,92vw);
-  height:650px;
-  transform:translate(-50%,-50%);
-  opacity:0;
-  z-index:20;
-  perspective:1200px;
-}
-
-.part{
-  position:absolute;
-  left:50%;
-  top:50%;
-  max-width:180px;
-  max-height:300px;
-  object-fit:contain;
-  opacity:0;
-  filter:
-    drop-shadow(0 0 12px rgba(0,220,255,.22));
-}
-
-/* initial position */
-
-.part.screen{
-  width:180px;
-  transform:translate(-50%,-50%);
-}
-
-.part.back{
-  width:180px;
-  transform:translate(-50%,-50%);
-}
-
-.part.frame{
-  width:190px;
-  transform:translate(-50%,-50%);
-}
-
-.part.battery{
-  width:135px;
-  transform:translate(-50%,-50%);
-}
-
-.part.motherboard{
-  width:145px;
-  transform:translate(-50%,-50%);
-}
-
-.part.camera{
-  width:100px;
-  transform:translate(-50%,-50%);
-}
-
-.part.speaker{
-  width:90px;
-  transform:translate(-50%,-50%);
-}
-
-.part.charging{
-  width:90px;
-  transform:translate(-50%,-50%);
-}
-
-.part.flex{
-  width:150px;
-  transform:translate(-50%,-50%);
-}
-
-.part.vibration{
-  width:75px;
-  transform:translate(-50%,-50%);
-}
-
-.part.sim{
-  width:70px;
-  transform:translate(-50%,-50%);
-}
-
-.part.buttons{
-  width:90px;
-  transform:translate(-50%,-50%);
-}
-
-/* EXPLODE */
-
-.explosion.explode .part{
-  opacity:1;
-}
-
-.explosion.explode .screen{
-  animation:screenOut 3s ease forwards;
-}
-
-.explosion.explode .back{
-  animation:backOut 3s ease forwards;
-}
-
-.explosion.explode .frame{
-  animation:frameOut 3s ease forwards;
-}
-
-.explosion.explode .battery{
-  animation:batteryOut 3s ease forwards;
-}
-
-.explosion.explode .motherboard{
-  animation:boardOut 3s ease forwards;
-}
-
-.explosion.explode .camera{
-  animation:cameraOut 3s ease forwards;
-}
-
-.explosion.explode .speaker{
-  animation:speakerOut 3s ease forwards;
-}
-
-.explosion.explode .charging{
-  animation:chargingOut 3s ease forwards;
-}
-
-.explosion.explode .flex{
-  animation:flexOut 3s ease forwards;
-}
-
-.explosion.explode .vibration{
-  animation:vibrationOut 3s ease forwards;
-}
-
-.explosion.explode .sim{
-  animation:simOut 3s ease forwards;
-}
-
-.explosion.explode .buttons{
-  animation:buttonsOut 3s ease forwards;
-}
-
-@keyframes screenOut{
-  to{transform:translate(-50%,-230px) translateZ(100px);}
-}
-
-@keyframes backOut{
-  to{transform:translate(-50%,130px) translateZ(-100px);}
-}
-
-@keyframes frameOut{
-  to{transform:translate(-250px,-50%) translateZ(30px);}
-}
-
-@keyframes batteryOut{
-  to{transform:translate(90px,-50%) translateZ(80px);}
-}
-
-@keyframes boardOut{
-  to{transform:translate(-90px,-50%) translateZ(50px);}
-}
-
-@keyframes cameraOut{
-  to{transform:translate(170px,-190px) translateZ(120px);}
-}
-
-@keyframes speakerOut{
-  to{transform:translate(180px,150px) translateZ(40px);}
-}
-
-@keyframes chargingOut{
-  to{transform:translate(-190px,180px) translateZ(20px);}
-}
-
-@keyframes flexOut{
-  to{transform:translate(0,-250px) translateZ(150px);}
-}
-
-@keyframes vibrationOut{
-  to{transform:translate(240px,20px) translateZ(90px);}
-}
-
-@keyframes simOut{
-  to{transform:translate(-230px,10px) translateZ(80px);}
-}
-
-@keyframes buttonsOut{
-  to{transform:translate(-160px,-170px) translateZ(110px);}
-}
-
-/* 360 DEGREE ROTATION */
-
-.explosion.rotate{
-  animation:rotateAssembly 10s linear forwards;
-}
-
-@keyframes rotateAssembly{
-  from{
-    transform:translate(-50%,-50%) rotateY(0deg);
-  }
-  to{
-    transform:translate(-50%,-50%) rotateY(360deg);
-  }
-}
-
-/* REASSEMBLE */
-
-.explosion.reassemble .screen,
-.explosion.reassemble .back,
-.explosion.reassemble .frame,
-.explosion.reassemble .battery,
-.explosion.reassemble .motherboard,
-.explosion.reassemble .camera,
-.explosion.reassemble .speaker,
-.explosion.reassemble .charging,
-.explosion.reassemble .flex,
-.explosion.reassemble .vibration,
-.explosion.reassemble .sim,
-.explosion.reassemble .buttons{
-  animation:closeParts 8s ease forwards;
-}
-
-@keyframes closeParts{
-  to{
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-    opacity:1;
-  }
-}
-
-/* FINAL PHONE */
-
-.final{
-  position:absolute;
-  left:50%;
-  top:55%;
-  width:min(250px,43vw);
-  transform:translate(-50%,-50%) scale(.7);
-  opacity:0;
-  z-index:40;
-  filter:
-    drop-shadow(0 25px 40px rgba(0,0,0,.75))
+    drop-shadow(0 25px 35px rgba(0,0,0,.8))
     drop-shadow(0 0 25px rgba(0,220,255,.3));
+  animation:phoneReveal 1.8s cubic-bezier(.2,.8,.2,1) forwards;
 }
 
-.final.show{
-  animation:finalShow 2s ease forwards;
-}
+@keyframes phoneReveal{
+  0%{
+    transform:translate(-50%,130vh) scale(.8);
+    opacity:0;
+  }
 
-@keyframes finalShow{
-  to{
+  65%{
+    transform:translate(-50%,-55%) scale(1.05);
     opacity:1;
+  }
+
+  100%{
     transform:translate(-50%,-50%) scale(1);
+    opacity:1;
+  }
+}
+
+/* CINEMATIC MOVE */
+.phone.move{
+  animation:cinematicMove 1.2s ease-in-out forwards;
+}
+
+@keyframes cinematicMove{
+  0%{
+    transform:translate(-50%,-50%) scale(1);
+  }
+
+  50%{
+    transform:translate(-50%,-50%) scale(1.08) rotateY(8deg);
+  }
+
+  100%{
+    transform:translate(-50%,-50%) scale(1) rotateY(0deg);
   }
 }
 
 /* LOGO */
-
 .logo{
   position:absolute;
   left:50%;
   top:12%;
-  transform:translate(-50%,-30px);
+  transform:translate(-50%,20px);
   opacity:0;
-  z-index:50;
+  z-index:10;
   text-align:center;
 }
 
 .logo.show{
-  animation:logoShow 2.5s ease forwards;
+  animation:logoShow .8s ease forwards;
 }
 
 .logo img{
   display:block;
-  width:min(260px,60vw);
   margin:auto;
 }
 
-.logo .laxmi{
-  width:min(230px,50vw);
+.laxmi{
+  width:min(210px,48vw);
 }
 
-.logo .narashma{
-  width:min(280px,62vw);
-  margin-top:8px;
+.narashma{
+  width:min(270px,60vw);
+  margin-top:8px !important;
 }
 
 @keyframes logoShow{
@@ -390,48 +139,18 @@ html,body{
 }
 
 /* MOBILE */
-
 @media(max-width:600px){
 
-  .hero-phone,
-  .final{
-    width:185px;
+  .phone{
+    width:190px;
   }
 
-  .explosion{
-    width:100vw;
-    height:600px;
+  .laxmi{
+    width:160px;
   }
 
-  .part.screen,
-  .part.back,
-  .part.frame{
-    width:130px;
-  }
-
-  .part.battery{
-    width:100px;
-  }
-
-  .part.motherboard{
-    width:105px;
-  }
-
-  .part.camera{
-    width:75px;
-  }
-
-  .part.speaker,
-  .part.charging{
-    width:65px;
-  }
-
-  .part.flex{
-    width:110px;
-  }
-
-  .logo{
-    top:8%;
+  .narashma{
+    width:210px;
   }
 }
 </style>
@@ -441,49 +160,19 @@ html,body{
 
 <div class="scene">
 
-  <div class="store" id="store"></div>
+  <div class="store"></div>
 
-  <div class="glow" id="glow"></div>
+  <div class="glow"></div>
 
-  <!-- PHONE RISE -->
-
+  <!-- MAIN PHONE -->
   <img
     src="mobile.png"
-    class="hero-phone"
-    id="heroPhone"
-    alt="Mobile"
-  >
-
-  <!-- EXPLODED PHONE -->
-
-  <div class="explosion" id="explosion">
-
-    <img src="front.png" class="part screen" alt="">
-    <img src="back.png" class="part back" alt="">
-    <img src="frame.png" class="part frame" alt="">
-    <img src="battery.png" class="part battery" alt="">
-    <img src="motherboard.png" class="part motherboard" alt="">
-    <img src="camera.png" class="part camera" alt="">
-    <img src="speaker.png" class="part speaker" alt="">
-    <img src="charging.png" class="part charging" alt="">
-    <img src="flex.png" class="part flex" alt="">
-    <img src="vibration.png" class="part vibration" alt="">
-    <img src="sim-tray.png" class="part sim" alt="">
-    <img src="buttons.png" class="part buttons" alt="">
-
-  </div>
-
-  <!-- FINAL PHONE -->
-
-  <img
-    src="final-phone.png"
-    class="final"
-    id="finalPhone"
-    alt="Final mobile"
+    class="phone"
+    id="phone"
+    alt="Premium Mobile"
   >
 
   <!-- LOGO -->
-
   <div class="logo" id="logo">
 
     <img
@@ -504,109 +193,29 @@ html,body{
 
 <script>
 
-const heroPhone =
-  document.getElementById("heroPhone");
+window.addEventListener("load",function(){
 
-const explosion =
-  document.getElementById("explosion");
+  const phone =
+    document.getElementById("phone");
 
-const finalPhone =
-  document.getElementById("finalPhone");
+  const logo =
+    document.getElementById("logo");
 
-const store =
-  document.getElementById("store");
+  /*
+    0.0s → 1.8s
+    Phone rises from showroom
 
-const glow =
-  document.getElementById("glow");
+    1.8s → 3.0s
+    Cinematic final movement
+  */
 
-const logo =
-  document.getElementById("logo");
+  setTimeout(function(){
+    phone.classList.add("move");
+  },1800);
 
-
-/*
-  CINEMATIC TIMELINE
-
-  0s      showroom
-  0.5s    cyan light
-  1s      phone rises
-  2.5s    parts appear
-  3.5s    parts explode
-  6.5s    rotation starts
-  16.5s   reassembly
-  24.5s   final phone
-  27s     logo
-*/
-
-
-window.addEventListener("load", () => {
-
-  /* showroom glow */
-
-  setTimeout(() => {
-    glow.classList.add("on");
-  },500);
-
-
-  /* phone rises in 1.5 seconds */
-
-  setTimeout(() => {
-    heroPhone.classList.add("rise");
-  },700);
-
-
-  /* hide hero phone */
-
-  setTimeout(() => {
-    heroPhone.style.opacity = "0";
-  },2500);
-
-
-  /* exploded assembly appears */
-
-  setTimeout(() => {
-    explosion.style.opacity = "1";
-    explosion.classList.add("explode");
-  },2500);
-
-
-  /* start 360 rotation */
-
-  setTimeout(() => {
-    explosion.classList.add("rotate");
-  },6000);
-
-
-  /* reassemble */
-
-  setTimeout(() => {
-
-    explosion.classList.remove("rotate");
-
-    explosion.classList.add("reassemble");
-
-  },16500);
-
-
-  /* final phone */
-
-  setTimeout(() => {
-
-    explosion.style.opacity = "0";
-
-    store.classList.add("blur");
-
-    finalPhone.classList.add("show");
-
-  },24500);
-
-
-  /* logo */
-
-  setTimeout(() => {
-
+  setTimeout(function(){
     logo.classList.add("show");
-
-  },27000);
+  },2200);
 
 });
 
