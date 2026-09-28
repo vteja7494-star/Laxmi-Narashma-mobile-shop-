@@ -23,7 +23,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      overflow-y: auto;
     }
 
     .container {
@@ -109,6 +109,11 @@
       margin-top: 8px;
     }
 
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     .otp-btn {
       border: none;
       background: white;
@@ -125,10 +130,6 @@
       border: 1px solid #333;
       background: transparent;
       color: white;
-    }
-
-    button:hover {
-      opacity: .9;
     }
 
     #message {
@@ -192,6 +193,7 @@
             type="email"
             id="email"
             placeholder="Enter your email"
+            autocomplete="email"
             required
           >
 
@@ -230,6 +232,7 @@
             id="otp"
             placeholder="Enter 6-digit OTP"
             inputmode="numeric"
+            autocomplete="one-time-code"
             maxlength="6"
           >
 
@@ -304,11 +307,21 @@
       document.getElementById("message");
 
 
+    let resendTimer = null;
+
+    let secondsLeft = 0;
+
+
     /* SEND OTP */
 
     sendOtpBtn.addEventListener(
       "click",
       async function() {
+
+        if (secondsLeft > 0) {
+          return;
+        }
+
 
         const email =
           emailInput.value.trim();
@@ -322,6 +335,11 @@
           return;
         }
 
+
+        sendOtpBtn.disabled = true;
+
+        sendOtpBtn.textContent =
+          "SENDING...";
 
         message.textContent =
           "Sending OTP...";
@@ -342,6 +360,11 @@
 
         if (error) {
 
+          sendOtpBtn.disabled = false;
+
+          sendOtpBtn.textContent =
+            "SEND OTP";
+
           message.textContent =
             error.message;
 
@@ -352,15 +375,59 @@
         message.textContent =
           "OTP sent. Check your email.";
 
-
         emailStep.classList.add("hidden");
 
         otpStep.classList.remove("hidden");
 
         otpInput.focus();
 
+
+        /* 60 SECOND COOLDOWN */
+
+        secondsLeft = 60;
+
+        startResendTimer();
+
       }
     );
+
+
+    /* RESEND TIMER */
+
+    function startResendTimer() {
+
+      clearInterval(resendTimer);
+
+
+      resendTimer =
+        setInterval(function() {
+
+          secondsLeft--;
+
+
+          if (secondsLeft <= 0) {
+
+            clearInterval(resendTimer);
+
+            secondsLeft = 0;
+
+            sendOtpBtn.disabled = false;
+
+            sendOtpBtn.textContent =
+              "RESEND OTP";
+
+            return;
+          }
+
+
+          sendOtpBtn.textContent =
+            "RESEND OTP (" +
+            secondsLeft +
+            "s)";
+
+        }, 1000);
+
+    }
 
 
     /* VERIFY OTP */
@@ -385,6 +452,20 @@
         }
 
 
+        if (!/^[0-9]{6}$/.test(token)) {
+
+          message.textContent =
+            "Enter the 6-digit OTP.";
+
+          return;
+        }
+
+
+        verifyOtpBtn.disabled = true;
+
+        verifyOtpBtn.textContent =
+          "VERIFYING...";
+
         message.textContent =
           "Verifying OTP...";
 
@@ -403,6 +484,11 @@
 
 
         if (error) {
+
+          verifyOtpBtn.disabled = false;
+
+          verifyOtpBtn.textContent =
+            "VERIFY OTP";
 
           message.textContent =
             error.message;
@@ -432,6 +518,10 @@
       "click",
       function() {
 
+        clearInterval(resendTimer);
+
+        secondsLeft = 0;
+
         otpInput.value = "";
 
         message.textContent = "";
@@ -439,6 +529,11 @@
         otpStep.classList.add("hidden");
 
         emailStep.classList.remove("hidden");
+
+        sendOtpBtn.disabled = false;
+
+        sendOtpBtn.textContent =
+          "SEND OTP";
 
         emailInput.focus();
 
