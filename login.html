@@ -23,7 +23,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow-y: auto;
+      overflow: hidden;
     }
 
     .container {
@@ -99,8 +99,7 @@
       border-color: #777;
     }
 
-    .login-btn,
-    .signup-btn {
+    button {
       width: 100%;
       padding: 15px;
       border-radius: 12px;
@@ -110,24 +109,26 @@
       margin-top: 8px;
     }
 
-    .login-btn {
+    .otp-btn {
       border: none;
       background: white;
       color: black;
     }
 
-    .signup-btn {
+    .verify-btn {
+      border: none;
+      background: #00d9ff;
+      color: black;
+    }
+
+    .back-btn {
       border: 1px solid #333;
       background: transparent;
       color: white;
     }
 
-    .login-btn:hover {
+    button:hover {
       opacity: .9;
-    }
-
-    .signup-btn:hover {
-      background: #181818;
     }
 
     #message {
@@ -136,6 +137,10 @@
       margin-top: 18px;
       color: #aaa;
       font-size: 13px;
+    }
+
+    .hidden {
+      display: none;
     }
 
     .bg-text {
@@ -169,17 +174,18 @@
 
     <div class="login-box">
 
-      <h2>Welcome Back</h2>
+      <!-- EMAIL STEP -->
 
-      <div class="subtitle">
-        Login to continue to Mobile Shop
-      </div>
+      <div id="emailStep">
 
-      <form id="loginForm">
+        <h2>Welcome</h2>
 
-        <!-- EMAIL -->
+        <div class="subtitle">
+          Enter your email to receive OTP
+        </div>
 
         <div class="field">
+
           <label>Email</label>
 
           <input
@@ -188,56 +194,64 @@
             placeholder="Enter your email"
             required
           >
+
         </div>
-
-
-        <!-- MOBILE NUMBER -->
-
-        <div class="field">
-          <label>Mobile Number</label>
-
-          <input
-            type="tel"
-            id="mobile"
-            placeholder="Enter mobile number"
-            inputmode="numeric"
-            maxlength="10"
-            required
-          >
-        </div>
-
-
-        <!-- PASSWORD -->
-
-        <div class="field">
-          <label>Password</label>
-
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            required
-          >
-        </div>
-
 
         <button
-          type="submit"
-          class="login-btn"
+          type="button"
+          class="otp-btn"
+          id="sendOtpBtn"
         >
-          LOGIN
+          SEND OTP
         </button>
 
-      </form>
+      </div>
 
 
-      <button
-        type="button"
-        class="signup-btn"
-        id="signupBtn"
+      <!-- OTP STEP -->
+
+      <div
+        id="otpStep"
+        class="hidden"
       >
-        CREATE ACCOUNT
-      </button>
+
+        <h2>Verify OTP</h2>
+
+        <div class="subtitle">
+          Enter the OTP sent to your email
+        </div>
+
+        <div class="field">
+
+          <label>OTP</label>
+
+          <input
+            type="text"
+            id="otp"
+            placeholder="Enter 6-digit OTP"
+            inputmode="numeric"
+            maxlength="6"
+          >
+
+        </div>
+
+        <button
+          type="button"
+          class="verify-btn"
+          id="verifyOtpBtn"
+        >
+          VERIFY OTP
+        </button>
+
+        <button
+          type="button"
+          class="back-btn"
+          id="backBtn"
+        >
+          CHANGE EMAIL
+        </button>
+
+      </div>
 
 
       <div id="message"></div>
@@ -265,83 +279,125 @@
       );
 
 
-    const loginForm =
-      document.getElementById("loginForm");
+    const emailStep =
+      document.getElementById("emailStep");
 
-    const signupBtn =
-      document.getElementById("signupBtn");
+    const otpStep =
+      document.getElementById("otpStep");
+
+    const emailInput =
+      document.getElementById("email");
+
+    const otpInput =
+      document.getElementById("otp");
+
+    const sendOtpBtn =
+      document.getElementById("sendOtpBtn");
+
+    const verifyOtpBtn =
+      document.getElementById("verifyOtpBtn");
+
+    const backBtn =
+      document.getElementById("backBtn");
 
     const message =
       document.getElementById("message");
 
 
-    /*
-      LOGIN
-      Email + Mobile Number + Password
-    */
+    /* SEND OTP */
 
-    loginForm.addEventListener(
-      "submit",
-      async function(event) {
-
-        event.preventDefault();
-
+    sendOtpBtn.addEventListener(
+      "click",
+      async function() {
 
         const email =
-          document.getElementById("email")
-            .value
-            .trim();
+          emailInput.value.trim();
 
 
-        const mobile =
-          document.getElementById("mobile")
-            .value
-            .trim();
-
-
-        const password =
-          document.getElementById("password")
-            .value;
-
-
-        if (!email || !mobile || !password) {
+        if (!email) {
 
           message.textContent =
-            "Please fill all details.";
-
-          return;
-        }
-
-
-        if (!/^[0-9]{10}$/.test(mobile)) {
-
-          message.textContent =
-            "Enter a valid 10-digit mobile number.";
+            "Enter your email.";
 
           return;
         }
 
 
         message.textContent =
-          "Logging in...";
+          "Sending OTP...";
 
 
-        /*
-          Supabase currently authenticates
-          using Email + Password.
-
-          Mobile number is validated here
-          and will be stored with the account
-          during signup.
-        */
-
-        const { data, error } =
+        const { error } =
           await supabaseClient.auth
-            .signInWithPassword({
+            .signInWithOtp({
 
               email: email,
 
-              password: password
+              options: {
+                shouldCreateUser: true
+              }
+
+            });
+
+
+        if (error) {
+
+          message.textContent =
+            error.message;
+
+          return;
+        }
+
+
+        message.textContent =
+          "OTP sent. Check your email.";
+
+
+        emailStep.classList.add("hidden");
+
+        otpStep.classList.remove("hidden");
+
+        otpInput.focus();
+
+      }
+    );
+
+
+    /* VERIFY OTP */
+
+    verifyOtpBtn.addEventListener(
+      "click",
+      async function() {
+
+        const email =
+          emailInput.value.trim();
+
+        const token =
+          otpInput.value.trim();
+
+
+        if (!token) {
+
+          message.textContent =
+            "Enter the OTP.";
+
+          return;
+        }
+
+
+        message.textContent =
+          "Verifying OTP...";
+
+
+        const { error } =
+          await supabaseClient.auth
+            .verifyOtp({
+
+              email: email,
+
+              token: token,
+
+              type: "email"
 
             });
 
@@ -370,96 +426,21 @@
     );
 
 
-    /*
-      CREATE ACCOUNT
-      Email + Mobile Number + Password
-    */
+    /* CHANGE EMAIL */
 
-    signupBtn.addEventListener(
+    backBtn.addEventListener(
       "click",
-      async function() {
+      function() {
 
-        const email =
-          document.getElementById("email")
-            .value
-            .trim();
+        otpInput.value = "";
 
+        message.textContent = "";
 
-        const mobile =
-          document.getElementById("mobile")
-            .value
-            .trim();
+        otpStep.classList.add("hidden");
 
+        emailStep.classList.remove("hidden");
 
-        const password =
-          document.getElementById("password")
-            .value;
-
-
-        if (!email || !mobile || !password) {
-
-          message.textContent =
-            "Enter email, mobile number and password.";
-
-          return;
-        }
-
-
-        if (!/^[0-9]{10}$/.test(mobile)) {
-
-          message.textContent =
-            "Enter a valid 10-digit mobile number.";
-
-          return;
-        }
-
-
-        if (password.length < 6) {
-
-          message.textContent =
-            "Password must be at least 6 characters.";
-
-          return;
-        }
-
-
-        message.textContent =
-          "Creating account...";
-
-
-        /*
-          Mobile number is saved
-          inside Supabase user metadata.
-        */
-
-        const { error } =
-          await supabaseClient.auth
-            .signUp({
-
-              email: email,
-
-              password: password,
-
-              options: {
-                data: {
-                  mobile: mobile
-                }
-              }
-
-            });
-
-
-        if (error) {
-
-          message.textContent =
-            error.message;
-
-          return;
-        }
-
-
-        message.textContent =
-          "Account created. Check your email if confirmation is required.";
+        emailInput.focus();
 
       }
     );
