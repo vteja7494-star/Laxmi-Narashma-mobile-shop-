@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Laxmi Narashma</title>
+
+<title>Laxmi Narashma Mobile Shop</title>
 
 <style>
 *{
@@ -16,7 +17,12 @@ html,body{
   width:100%;
   height:100%;
   overflow:hidden;
-  background:#000;
+  background:#020305;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  transition:opacity 1s ease;
 }
 
 .scene{
@@ -24,133 +30,339 @@ html,body{
   width:100%;
   height:100vh;
   overflow:hidden;
-  background:#000;
+  background:#020305;
 }
 
 /* SHOWROOM */
+
 .store{
   position:absolute;
   inset:0;
   background:url("store.png") center/cover no-repeat;
+  transform:scale(1.03);
+  filter:brightness(.82);
 }
 
-/* LIGHT */
+.store::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(
+      circle at 50% 52%,
+      rgba(255,255,255,.16),
+      transparent 38%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,.18),
+      rgba(0,0,0,.45)
+    );
+}
+
+/* CYAN LIGHT */
+
 .glow{
   position:absolute;
   left:50%;
-  top:55%;
-  width:400px;
-  height:400px;
+  top:54%;
+  width:430px;
+  height:430px;
   transform:translate(-50%,-50%);
   border-radius:50%;
+
   background:radial-gradient(
     circle,
-    rgba(0,220,255,.25),
-    transparent 70%
+    rgba(0,220,255,.28),
+    rgba(0,150,220,.10) 38%,
+    transparent 72%
   );
+
   filter:blur(25px);
+  opacity:0;
+  animation:glowIn 1.5s ease .3s forwards;
+}
+
+@keyframes glowIn{
+  to{
+    opacity:1;
+  }
 }
 
 /* PHONE */
+
 .phone{
   position:absolute;
+  z-index:10;
+
   left:50%;
   top:55%;
+
   width:min(260px,55vw);
-  transform:translate(-50%,130vh) scale(.8);
+
+  transform:
+    translate(-50%,130vh)
+    scale(.75);
+
   opacity:0;
-  z-index:5;
+
   filter:
-    drop-shadow(0 25px 35px rgba(0,0,0,.8))
-    drop-shadow(0 0 25px rgba(0,220,255,.3));
-  animation:phoneReveal 1.8s cubic-bezier(.2,.8,.2,1) forwards;
+    drop-shadow(0 30px 40px rgba(0,0,0,.8))
+    drop-shadow(0 0 25px rgba(0,220,255,.32));
+
+  animation:
+    phoneReveal 2.2s
+    cubic-bezier(.18,.82,.2,1)
+    .5s forwards;
 }
 
 @keyframes phoneReveal{
+
   0%{
-    transform:translate(-50%,130vh) scale(.8);
+    transform:
+      translate(-50%,130vh)
+      scale(.75);
+
     opacity:0;
   }
 
   65%{
-    transform:translate(-50%,-55%) scale(1.05);
+    transform:
+      translate(-50%,-58%)
+      scale(1.04);
+
     opacity:1;
   }
 
   100%{
-    transform:translate(-50%,-50%) scale(1);
+    transform:
+      translate(-50%,-50%)
+      scale(1);
+
     opacity:1;
   }
 }
 
-/* CINEMATIC MOVE */
-.phone.move{
-  animation:cinematicMove 1.2s ease-in-out forwards;
-}
+/* PHONE LIGHT */
 
-@keyframes cinematicMove{
-  0%{
-    transform:translate(-50%,-50%) scale(1);
-  }
-
-  50%{
-    transform:translate(-50%,-50%) scale(1.08) rotateY(8deg);
-  }
-
-  100%{
-    transform:translate(-50%,-50%) scale(1) rotateY(0deg);
-  }
-}
-
-/* LOGO */
-.logo{
+.phoneLight{
   position:absolute;
+  z-index:9;
+
   left:50%;
-  top:12%;
-  transform:translate(-50%,20px);
+  top:55%;
+
+  width:300px;
+  height:520px;
+
+  transform:translate(-50%,-50%);
+
+  border-radius:50%;
+
+  background:radial-gradient(
+    ellipse,
+    rgba(0,220,255,.20),
+    transparent 65%
+  );
+
+  filter:blur(30px);
+
   opacity:0;
-  z-index:10;
-  text-align:center;
+
+  animation:
+    phoneLightIn 1.5s ease 1s
+    forwards;
 }
 
-.logo.show{
-  animation:logoShow .8s ease forwards;
-}
-
-.logo img{
-  display:block;
-  margin:auto;
-}
-
-.laxmi{
-  width:min(210px,48vw);
-}
-
-.narashma{
-  width:min(270px,60vw);
-  margin-top:8px !important;
-}
-
-@keyframes logoShow{
+@keyframes phoneLightIn{
   to{
     opacity:1;
-    transform:translate(-50%,0);
   }
+}
+
+/* BRAND */
+
+.brand{
+  position:absolute;
+
+  z-index:30;
+
+  left:50%;
+  top:13%;
+
+  transform:
+    translate(-50%,30px);
+
+  opacity:0;
+
+  text-align:center;
+
+  pointer-events:none;
+}
+
+.brand.show{
+  animation:
+    brandShow 1.8s
+    cubic-bezier(.2,.8,.2,1)
+    forwards;
+}
+
+@keyframes brandShow{
+
+  0%{
+    opacity:0;
+    transform:
+      translate(-50%,30px)
+      scale(.92);
+  }
+
+  100%{
+    opacity:1;
+    transform:
+      translate(-50%,0)
+      scale(1);
+  }
+}
+
+/* LAXMI */
+
+.laxmi{
+  display:block;
+
+  width:min(220px,50vw);
+
+  margin:auto;
+
+  filter:
+    drop-shadow(0 3px 8px rgba(0,0,0,.7))
+    drop-shadow(0 0 8px rgba(255,255,255,.18));
+}
+
+/* NARASHMA */
+
+.narashma{
+  display:block;
+
+  width:min(285px,64vw);
+
+  margin:10px auto 0;
+
+  filter:
+    drop-shadow(0 3px 8px rgba(0,0,0,.7))
+    drop-shadow(0 0 10px rgba(255,255,255,.18));
+}
+
+/* ENTER AREA */
+
+.enter{
+  position:absolute;
+
+  z-index:40;
+
+  left:50%;
+  bottom:8%;
+
+  transform:
+    translate(-50%,20px);
+
+  opacity:0;
+
+  text-align:center;
+
+  animation:
+    enterShow 1.2s
+    ease 4.2s
+    forwards;
+}
+
+@keyframes enterShow{
+
+  to{
+    opacity:1;
+
+    transform:
+      translate(-50%,0);
+  }
+}
+
+.enterText{
+  color:#fff;
+
+  font-size:12px;
+
+  letter-spacing:4px;
+
+  margin-bottom:12px;
+
+  opacity:.75;
+}
+
+.enterButton{
+
+  border:1px solid rgba(255,255,255,.55);
+
+  background:
+    rgba(255,255,255,.08);
+
+  color:white;
+
+  padding:12px 28px;
+
+  border-radius:30px;
+
+  font-size:13px;
+
+  letter-spacing:2px;
+
+  cursor:pointer;
+
+  backdrop-filter:blur(12px);
+
+  transition:.3s;
+}
+
+.enterButton:hover{
+
+  background:
+    rgba(255,255,255,.18);
+
+  transform:scale(1.04);
+}
+
+/* FADE */
+
+.fadeOut{
+  opacity:0;
+  pointer-events:none;
 }
 
 /* MOBILE */
+
 @media(max-width:600px){
 
   .phone{
-    width:190px;
+    width:200px;
+  }
+
+  .phoneLight{
+    width:230px;
+    height:430px;
   }
 
   .laxmi{
-    width:160px;
+    width:165px;
   }
 
   .narashma{
-    width:210px;
+    width:220px;
+  }
+
+  .brand{
+    top:9%;
+  }
+
+  .enter{
+    bottom:7%;
   }
 }
 </style>
@@ -158,22 +370,30 @@ html,body{
 
 <body>
 
-<div class="scene">
+<div class="scene" id="scene">
+
+  <!-- SHOWROOM -->
 
   <div class="store"></div>
 
+  <!-- LIGHT -->
+
   <div class="glow"></div>
 
-  <!-- MAIN PHONE -->
+  <div class="phoneLight"></div>
+
+  <!-- PHONE -->
+
   <img
     src="mobile.png"
     class="phone"
     id="phone"
-    alt="Premium Mobile"
+    alt="Premium Smartphone"
   >
 
-  <!-- LOGO -->
-  <div class="logo" id="logo">
+  <!-- BRAND -->
+
+  <div class="brand" id="brand">
 
     <img
       src="laxmi.png"
@@ -189,35 +409,65 @@ html,body{
 
   </div>
 
+  <!-- ENTER -->
+
+  <div class="enter">
+
+    <div class="enterText">
+      PREMIUM MOBILE EXPERIENCE
+    </div>
+
+    <button
+      class="enterButton"
+      onclick="openLogin()"
+    >
+      ENTER STORE
+    </button>
+
+  </div>
+
 </div>
 
 <script>
 
+const brand =
+  document.getElementById("brand");
+
+const scene =
+  document.getElementById("scene");
+
+/*
+  OPENING TIMELINE
+
+  0s       showroom
+  0.5s     phone starts rising
+  2.7s     phone fully revealed
+  3s       brand appears
+  4.2s     enter button appears
+*/
+
 window.addEventListener("load",function(){
 
-  const phone =
-    document.getElementById("phone");
-
-  const logo =
-    document.getElementById("logo");
-
-  /*
-    0.0s → 1.8s
-    Phone rises from showroom
-
-    1.8s → 3.0s
-    Cinematic final movement
-  */
-
   setTimeout(function(){
-    phone.classList.add("move");
-  },1800);
 
-  setTimeout(function(){
-    logo.classList.add("show");
-  },2200);
+    brand.classList.add("show");
+
+  },3000);
 
 });
+
+
+function openLogin(){
+
+  scene.classList.add("fadeOut");
+
+  setTimeout(function(){
+
+    window.location.href="login.html";
+
+  },900);
+
+}
 
 </script>
 
