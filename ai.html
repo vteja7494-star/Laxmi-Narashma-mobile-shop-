@@ -18,7 +18,7 @@ html,body{
   height:100%;
   overflow:hidden;
   background:#020305;
-  font-family:Arial,sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
@@ -33,66 +33,91 @@ body{
   background:#020305;
 }
 
-/* SHOWROOM */
+/* =========================
+   SHOWROOM
+========================= */
 
 .store{
   position:absolute;
   inset:0;
-  background:url("store.png") center/cover no-repeat;
+
+  background:url("store.png")
+    center center /
+    cover
+    no-repeat;
+
   transform:scale(1.03);
-  filter:brightness(.82);
+
+  filter:brightness(.78);
 }
 
 .store::after{
   content:"";
   position:absolute;
   inset:0;
+
   background:
     radial-gradient(
-      circle at 50% 52%,
-      rgba(255,255,255,.16),
-      transparent 38%
+      circle at 50% 50%,
+      rgba(0,220,255,.10),
+      transparent 42%
     ),
     linear-gradient(
       to bottom,
-      rgba(0,0,0,.18),
-      rgba(0,0,0,.45)
+      rgba(0,0,0,.12),
+      rgba(0,0,0,.48)
     );
 }
 
-/* CYAN LIGHT */
+/* =========================
+   CENTER CYAN GLOW
+========================= */
 
 .glow{
   position:absolute;
+
   left:50%;
-  top:54%;
+  top:53%;
+
   width:430px;
   height:430px;
+
   transform:translate(-50%,-50%);
+
   border-radius:50%;
 
-  background:radial-gradient(
-    circle,
-    rgba(0,220,255,.28),
-    rgba(0,150,220,.10) 38%,
-    transparent 72%
-  );
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,220,255,.30),
+      rgba(0,150,220,.12) 38%,
+      transparent 72%
+    );
 
   filter:blur(25px);
+
   opacity:0;
-  animation:glowIn 1.5s ease .3s forwards;
+
+  animation:
+    glowIn 1.5s ease .2s
+    forwards;
 }
 
 @keyframes glowIn{
+
   to{
     opacity:1;
   }
+
 }
 
-/* PHONE */
+/* =========================
+   PHONE
+========================= */
 
 .phone{
   position:absolute;
+
   z-index:10;
 
   left:50%;
@@ -102,18 +127,26 @@ body{
 
   transform:
     translate(-50%,130vh)
-    scale(.75);
+    scale(.72);
 
   opacity:0;
 
   filter:
-    drop-shadow(0 30px 40px rgba(0,0,0,.8))
-    drop-shadow(0 0 25px rgba(0,220,255,.32));
+    drop-shadow(
+      0 30px 40px
+      rgba(0,0,0,.85)
+    )
+    drop-shadow(
+      0 0 28px
+      rgba(0,220,255,.35)
+    );
 
   animation:
-    phoneReveal 2.2s
+    phoneReveal
+    2.3s
     cubic-bezier(.18,.82,.2,1)
-    .5s forwards;
+    .45s
+    forwards;
 }
 
 @keyframes phoneReveal{
@@ -121,15 +154,23 @@ body{
   0%{
     transform:
       translate(-50%,130vh)
-      scale(.75);
+      scale(.72);
 
     opacity:0;
   }
 
-  65%{
+  55%{
     transform:
-      translate(-50%,-58%)
-      scale(1.04);
+      translate(-50%,-57%)
+      scale(1.05);
+
+    opacity:1;
+  }
+
+  75%{
+    transform:
+      translate(-50%,-48%)
+      scale(.98);
 
     opacity:1;
   }
@@ -141,46 +182,58 @@ body{
 
     opacity:1;
   }
+
 }
 
-/* PHONE LIGHT */
+/* =========================
+   PHONE LIGHT
+========================= */
 
 .phoneLight{
   position:absolute;
+
   z-index:9;
 
   left:50%;
   top:55%;
 
-  width:300px;
+  width:310px;
   height:520px;
 
-  transform:translate(-50%,-50%);
+  transform:
+    translate(-50%,-50%);
 
   border-radius:50%;
 
-  background:radial-gradient(
-    ellipse,
-    rgba(0,220,255,.20),
-    transparent 65%
-  );
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(0,220,255,.22),
+      transparent 65%
+    );
 
   filter:blur(30px);
 
   opacity:0;
 
   animation:
-    phoneLightIn 1.5s ease 1s
+    phoneLightIn
+    1.5s ease
+    .8s
     forwards;
 }
 
 @keyframes phoneLightIn{
+
   to{
     opacity:1;
   }
+
 }
 
-/* BRAND */
+/* =========================
+   BRAND
+========================= */
 
 .brand{
   position:absolute;
@@ -188,10 +241,13 @@ body{
   z-index:30;
 
   left:50%;
-  top:13%;
+  top:10%;
+
+  width:100%;
 
   transform:
-    translate(-50%,30px);
+    translate(-50%,30px)
+    scale(.92);
 
   opacity:0;
 
@@ -201,8 +257,10 @@ body{
 }
 
 .brand.show{
+
   animation:
-    brandShow 1.8s
+    brandShow
+    1.6s
     cubic-bezier(.2,.8,.2,1)
     forwards;
 }
@@ -211,6 +269,7 @@ body{
 
   0%{
     opacity:0;
+
     transform:
       translate(-50%,30px)
       scale(.92);
@@ -218,60 +277,97 @@ body{
 
   100%{
     opacity:1;
+
     transform:
       translate(-50%,0)
       scale(1);
   }
+
 }
 
-/* LAXMI */
+/* =========================
+   LAXMI
+========================= */
 
 .laxmi{
+
   display:block;
 
-  width:min(220px,50vw);
+  width:min(210px,48vw);
 
-  margin:auto;
+  max-height:90px;
+
+  object-fit:contain;
+
+  margin:0 auto;
+
+  mix-blend-mode:screen;
 
   filter:
-    drop-shadow(0 3px 8px rgba(0,0,0,.7))
-    drop-shadow(0 0 8px rgba(255,255,255,.18));
+    drop-shadow(
+      0 3px 8px
+      rgba(0,0,0,.8)
+    )
+    drop-shadow(
+      0 0 12px
+      rgba(220,245,255,.28)
+    );
 }
 
-/* NARASHMA */
+/* =========================
+   NARASHMA
+========================= */
 
 .narashma{
+
   display:block;
 
-  width:min(285px,64vw);
+  width:min(280px,65vw);
 
-  margin:10px auto 0;
+  max-height:105px;
+
+  object-fit:contain;
+
+  margin:6px auto 0;
+
+  mix-blend-mode:screen;
 
   filter:
-    drop-shadow(0 3px 8px rgba(0,0,0,.7))
-    drop-shadow(0 0 10px rgba(255,255,255,.18));
+    drop-shadow(
+      0 3px 8px
+      rgba(0,0,0,.8)
+    )
+    drop-shadow(
+      0 0 14px
+      rgba(0,220,255,.25)
+    );
 }
 
-/* ENTER AREA */
+/* =========================
+   ENTER AREA
+========================= */
 
 .enter{
+
   position:absolute;
 
   z-index:40;
 
   left:50%;
-  bottom:8%;
+  bottom:7%;
 
   transform:
-    translate(-50%,20px);
+    translate(-50%,25px);
 
   opacity:0;
 
   text-align:center;
 
   animation:
-    enterShow 1.2s
-    ease 4.2s
+    enterShow
+    1.2s
+    ease
+    4.1s
     forwards;
 }
 
@@ -283,30 +379,39 @@ body{
     transform:
       translate(-50%,0);
   }
+
 }
 
 .enterText{
+
   color:#fff;
 
-  font-size:12px;
+  font-size:11px;
 
   letter-spacing:4px;
 
-  margin-bottom:12px;
+  margin-bottom:13px;
 
-  opacity:.75;
+  opacity:.78;
+
+  text-shadow:
+    0 0 10px
+    rgba(0,220,255,.35);
 }
 
 .enterButton{
 
-  border:1px solid rgba(255,255,255,.55);
+  border:
+    1px solid
+    rgba(255,255,255,.65);
 
   background:
-    rgba(255,255,255,.08);
+    rgba(0,20,30,.35);
 
-  color:white;
+  color:#fff;
 
-  padding:12px 28px;
+  padding:
+    13px 30px;
 
   border-radius:30px;
 
@@ -316,84 +421,158 @@ body{
 
   cursor:pointer;
 
-  backdrop-filter:blur(12px);
+  backdrop-filter:
+    blur(14px);
 
-  transition:.3s;
+  box-shadow:
+    0 0 18px
+    rgba(0,220,255,.12);
+
+  transition:
+    .3s ease;
 }
 
 .enterButton:hover{
 
   background:
-    rgba(255,255,255,.18);
+    rgba(0,180,220,.18);
+
+  border-color:
+    rgba(0,220,255,.8);
+
+  box-shadow:
+    0 0 25px
+    rgba(0,220,255,.28);
 
   transform:scale(1.04);
 }
 
-/* FADE */
+/* =========================
+   FADE OUT
+========================= */
 
 .fadeOut{
+
   opacity:0;
+
   pointer-events:none;
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:600px){
 
+  .store{
+    background-position:
+      center center;
+  }
+
   .phone{
-    width:200px;
+
+    width:205px;
+
   }
 
   .phoneLight{
-    width:230px;
-    height:430px;
+
+    width:240px;
+    height:440px;
+
   }
 
-  .laxmi{
-    width:165px;
-  }
+  .glow{
 
-  .narashma{
-    width:220px;
+    width:330px;
+    height:330px;
+
   }
 
   .brand{
-    top:9%;
+
+    top:8%;
+
+  }
+
+  .laxmi{
+
+    width:160px;
+
+    max-height:70px;
+
+  }
+
+  .narashma{
+
+    width:225px;
+
+    max-height:85px;
+
   }
 
   .enter{
-    bottom:7%;
+
+    bottom:6%;
+
   }
+
+  .enterText{
+
+    font-size:10px;
+
+    letter-spacing:3px;
+
+  }
+
+  .enterButton{
+
+    padding:
+      12px 27px;
+
+  }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
-<div class="scene" id="scene">
+<div
+  class="scene"
+  id="scene"
+>
 
   <!-- SHOWROOM -->
 
   <div class="store"></div>
 
-  <!-- LIGHT -->
+
+  <!-- CYAN LIGHT -->
 
   <div class="glow"></div>
 
   <div class="phoneLight"></div>
 
+
   <!-- PHONE -->
 
   <img
-    src="mobile.png"
+    src="final-phone.png"
     class="phone"
     id="phone"
     alt="Premium Smartphone"
   >
 
+
   <!-- BRAND -->
 
-  <div class="brand" id="brand">
+  <div
+    class="brand"
+    id="brand"
+  >
 
     <img
       src="laxmi.png"
@@ -408,6 +587,7 @@ body{
     >
 
   </div>
+
 
   <!-- ENTER -->
 
@@ -428,7 +608,12 @@ body{
 
 </div>
 
+
 <script>
+
+/* =========================
+   ELEMENTS
+========================= */
 
 const brand =
   document.getElementById("brand");
@@ -436,36 +621,47 @@ const brand =
 const scene =
   document.getElementById("scene");
 
-/*
-  OPENING TIMELINE
 
-  0s       showroom
-  0.5s     phone starts rising
-  2.7s     phone fully revealed
-  3s       brand appears
-  4.2s     enter button appears
-*/
+/* =========================
+   BRAND TIMING
+========================= */
 
-window.addEventListener("load",function(){
+window.addEventListener(
+  "load",
+  function(){
 
-  setTimeout(function(){
+    setTimeout(
+      function(){
 
-    brand.classList.add("show");
+        brand.classList.add("show");
 
-  },3000);
+      },
+      3000
+    );
 
-});
+  }
+);
 
+
+/* =========================
+   OPEN LOGIN
+========================= */
 
 function openLogin(){
 
-  scene.classList.add("fadeOut");
+  scene.classList.add(
+    "fadeOut"
+  );
 
-  setTimeout(function(){
+  setTimeout(
+    function(){
 
-    window.location.href="login.html";
+      window.location.href =
+        "login.html";
 
-  },900);
+    },
+    900
+  );
 
 }
 
