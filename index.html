@@ -21,20 +21,68 @@
       color: #fff;
     }
 
-    /* NAVBAR */
+    /* =========================
+       FIRST OPENING IMAGE
+    ========================= */
+
+    #openingScreen {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+
+      width: 100%;
+      height: 100vh;
+
+      background: #000;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      opacity: 1;
+
+      transition: opacity 0.8s ease;
+    }
+
+    #openingScreen img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+
+      display: block;
+    }
+
+    #openingScreen.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
     .navbar {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       z-index: 1000;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       padding: 18px 6%;
+
       background: rgba(5, 7, 11, 0.45);
+
       backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+
+      border-bottom:
+        1px solid
+        rgba(255,255,255,0.08);
     }
 
     .logo {
@@ -80,31 +128,48 @@
       cursor: pointer;
     }
 
-    /* HERO */
+
+    /* =========================
+       HERO
+    ========================= */
+
     .hero {
       min-height: 100vh;
       position: relative;
+
       display: flex;
       align-items: flex-end;
+
       overflow: hidden;
+
       background: #030508;
     }
 
     .hero-image {
       position: absolute;
       inset: 0;
+
       width: 100%;
       height: 100%;
+
       object-fit: cover;
       object-position: center;
+
       transform: scale(1.04);
-      animation: roomEnter 10s ease-out forwards;
+
+      animation:
+        roomEnter
+        10s
+        ease-out
+        forwards;
     }
 
     .hero::after {
       content: "";
+
       position: absolute;
       inset: 0;
+
       background:
         linear-gradient(
           90deg,
@@ -123,25 +188,44 @@
     .hero-content {
       position: relative;
       z-index: 2;
+
       width: min(700px, 90%);
-      margin: 0 0 9vh 7%;
-      animation: fadeUp 1.3s ease-out forwards;
+
+      margin:
+        0 0 9vh 7%;
+
+      animation:
+        fadeUp
+        1.3s
+        ease-out
+        forwards;
     }
 
     .hero-kicker {
       color: #35bfff;
+
       font-size: 13px;
+
       letter-spacing: 4px;
+
       text-transform: uppercase;
+
       margin-bottom: 14px;
     }
 
     .hero h1 {
-      font-size: clamp(42px, 8vw, 86px);
+      font-size:
+        clamp(42px, 8vw, 86px);
+
       line-height: 0.95;
+
       letter-spacing: -3px;
+
       margin-bottom: 20px;
-      text-shadow: 0 10px 40px rgba(0,0,0,0.8);
+
+      text-shadow:
+        0 10px 40px
+        rgba(0,0,0,0.8);
     }
 
     .hero h1 span {
@@ -150,47 +234,72 @@
 
     .hero p {
       max-width: 610px;
-      color: rgba(255,255,255,0.78);
+
+      color:
+        rgba(255,255,255,0.78);
+
       font-size: 17px;
+
       line-height: 1.65;
+
       margin-bottom: 28px;
     }
 
     .hero-buttons {
       display: flex;
+
       gap: 13px;
+
       flex-wrap: wrap;
     }
 
     .primary-btn,
     .secondary-btn {
       display: inline-block;
+
       text-decoration: none;
+
       padding: 13px 22px;
+
       border-radius: 30px;
+
       font-weight: 700;
+
       cursor: pointer;
+
       transition: 0.3s;
     }
 
     .primary-btn {
       background: #35bfff;
+
       color: #001018;
+
       border: none;
     }
 
     .secondary-btn {
-      background: rgba(255,255,255,0.08);
+      background:
+        rgba(255,255,255,0.08);
+
       color: #fff;
-      border: 1px solid rgba(255,255,255,0.25);
+
+      border:
+        1px solid
+        rgba(255,255,255,0.25);
     }
 
     .primary-btn:hover,
     .secondary-btn:hover {
-      transform: translateY(-3px);
+      transform:
+        translateY(-3px);
     }
 
-    /* SECTIONS */
+
+    /* =========================
+       SECTIONS
+    ========================= */
+
     section:not(.hero) {
       padding: 75px 6%;
     }
@@ -208,15 +317,23 @@
     .cards,
     .brands {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
       gap: 18px;
     }
 
     .card,
     .brand-card {
       background: #10141b;
-      border: 1px solid rgba(255,255,255,0.08);
+
+      border:
+        1px solid
+        rgba(255,255,255,0.08);
+
       border-radius: 18px;
+
       padding: 25px;
     }
 
@@ -227,27 +344,42 @@
 
     .card p {
       color: #aaa;
+
       line-height: 1.5;
+
       margin-bottom: 18px;
     }
 
     .card button {
-      border: 1px solid #35bfff;
+      border:
+        1px solid
+        #35bfff;
+
       background: transparent;
+
       color: #35bfff;
+
       padding: 9px 15px;
+
       border-radius: 20px;
+
       cursor: pointer;
     }
 
-    /* BOOKING */
+
+    /* =========================
+       BOOKING
+    ========================= */
+
     .booking-section {
       background: #080b10;
     }
 
     .booking-form {
       max-width: 760px;
+
       display: grid;
+
       gap: 14px;
     }
 
@@ -255,54 +387,94 @@
     .booking-form select,
     .booking-form textarea {
       width: 100%;
+
       padding: 14px;
+
       border-radius: 10px;
-      border: 1px solid #252d38;
+
+      border:
+        1px solid
+        #252d38;
+
       background: #11161e;
+
       color: #fff;
+
       outline: none;
     }
 
     .booking-form textarea {
       min-height: 100px;
+
       resize: vertical;
     }
 
     .booking-form button {
       padding: 15px;
+
       border: 0;
+
       border-radius: 12px;
+
       background: #35bfff;
+
       color: #001018;
+
       font-weight: 800;
+
       cursor: pointer;
     }
 
-    /* ANIMATIONS */
+
+    /* =========================
+       ANIMATIONS
+    ========================= */
+
     @keyframes roomEnter {
+
       from {
         transform: scale(1.13);
-        filter: brightness(0.55) blur(2px);
+
+        filter:
+          brightness(0.55)
+          blur(2px);
       }
+
       to {
         transform: scale(1.04);
-        filter: brightness(0.9) blur(0);
+
+        filter:
+          brightness(0.9)
+          blur(0);
       }
+
     }
 
     @keyframes fadeUp {
+
       from {
         opacity: 0;
-        transform: translateY(35px);
+
+        transform:
+          translateY(35px);
       }
+
       to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+          translateY(0);
       }
+
     }
 
-    /* MOBILE */
+
+    /* =========================
+       MOBILE
+    ========================= */
+
     @media (max-width: 768px) {
+
       .navbar {
         padding: 15px 5%;
       }
@@ -313,13 +485,20 @@
 
       .nav-links {
         position: absolute;
+
         top: 70px;
         left: 0;
+
         width: 100%;
+
         display: none;
+
         flex-direction: column;
+
         padding: 25px;
-        background: rgba(5,7,11,0.97);
+
+        background:
+          rgba(5,7,11,0.97);
       }
 
       .nav-links.active {
@@ -335,11 +514,13 @@
       }
 
       .hero-content {
-        margin: 0 6% 8vh;
+        margin:
+          0 6% 8vh;
       }
 
       .hero h1 {
         font-size: 48px;
+
         letter-spacing: -2px;
       }
 
@@ -355,39 +536,108 @@
       section:not(.hero) {
         padding: 55px 6%;
       }
+
     }
+
   </style>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap"
-  rel="stylesheet"
-/>
+
 </head>
+
 
 <body>
 
-  <!-- NAVBAR -->
+
+  <!-- =========================
+       FIRST IMAGE
+  ========================= -->
+
+  <div id="openingScreen">
+
+    <img
+      src="./mobile.png"
+      alt="Laxmi Narashma Mobile"
+    >
+
+  </div>
+
+
+  <!-- =========================
+       NAVBAR
+  ========================= -->
+
   <header class="navbar">
+
     <div class="logo">
       LAXMI <span>NARASHMA</span>
     </div>
 
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <button
+      class="menu-btn"
+      onclick="toggleMenu()"
+    >
+      ☰
+    </button>
 
-    <nav class="nav-links" id="navLinks">
-      <a href="#home" onclick="closeMenu()">Home</a>
-      <a href="#services" onclick="closeMenu()">Services</a>
-      <a href="#brands" onclick="closeMenu()">Brands</a>
-      <a href="#booking" onclick="closeMenu()">Book Repair</a>
-      <a href="#contact" onclick="closeMenu()">Contact</a>
-      <a href="login.html" class="login-btn">Login</a>
+    <nav
+      class="nav-links"
+      id="navLinks"
+    >
+
+      <a
+        href="#home"
+        onclick="closeMenu()"
+      >
+        Home
+      </a>
+
+      <a
+        href="#services"
+        onclick="closeMenu()"
+      >
+        Services
+      </a>
+
+      <a
+        href="#brands"
+        onclick="closeMenu()"
+      >
+        Brands
+      </a>
+
+      <a
+        href="#booking"
+        onclick="closeMenu()"
+      >
+        Book Repair
+      </a>
+
+      <a
+        href="#contact"
+        onclick="closeMenu()"
+      >
+        Contact
+      </a>
+
+      <a
+        href="login.html"
+        class="login-btn"
+      >
+        Login
+      </a>
+
     </nav>
+
   </header>
 
 
-  <!-- CINEMATIC HERO -->
-  <section class="hero" id="home">
+  <!-- =========================
+       HERO
+  ========================= -->
+
+  <section
+    class="hero"
+    id="home"
+  >
 
     <img
       class="hero-image"
@@ -407,44 +657,81 @@
       </h1>
 
       <p>
-        Professional mobile repair, screen replacement, battery service,
-        charging repair, software support and more.
-        Fast service with transparent pricing.
+        Professional mobile repair, screen replacement,
+        battery service, charging repair, software support
+        and more. Fast service with transparent pricing.
       </p>
 
       <div class="hero-buttons">
-        <a href="#booking" class="primary-btn">
+
+        <a
+          href="#booking"
+          class="primary-btn"
+        >
           Book Repair
         </a>
 
-        <a href="#services" class="secondary-btn">
+        <a
+          href="#services"
+          class="secondary-btn"
+        >
           View Services
         </a>
+
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- BRANDS -->
+  <!-- =========================
+       BRANDS
+  ========================= -->
+
   <section id="brands">
-    <h2 class="section-title">Popular Brands</h2>
+
+    <h2 class="section-title">
+      Popular Brands
+    </h2>
+
     <p class="section-subtitle">
       We service popular smartphone brands.
     </p>
 
     <div class="brands">
-      <div class="brand-card"><h3>Apple</h3></div>
-      <div class="brand-card"><h3>Samsung</h3></div>
-      <div class="brand-card"><h3>OnePlus</h3></div>
-      <div class="brand-card"><h3>Nothing</h3></div>
+
+      <div class="brand-card">
+        <h3>Apple</h3>
+      </div>
+
+      <div class="brand-card">
+        <h3>Samsung</h3>
+      </div>
+
+      <div class="brand-card">
+        <h3>OnePlus</h3>
+      </div>
+
+      <div class="brand-card">
+        <h3>Nothing</h3>
+      </div>
+
     </div>
+
   </section>
 
 
-  <!-- SERVICES -->
+  <!-- =========================
+       SERVICES
+  ========================= -->
+
   <section id="services">
-    <h2 class="section-title">Repair Services</h2>
+
+    <h2 class="section-title">
+      Repair Services
+    </h2>
+
     <p class="section-subtitle">
       Professional service for common mobile problems.
     </p>
@@ -452,51 +739,110 @@
     <div class="cards">
 
       <div class="card">
-        <h3>Screen Damage</h3>
-        <p>Broken, cracked or damaged mobile display replacement.</p>
-        <button onclick="bookService('Screen Damage')">
+
+        <h3>
+          Screen Damage
+        </h3>
+
+        <p>
+          Broken, cracked or damaged mobile
+          display replacement.
+        </p>
+
+        <button
+          onclick="bookService('Screen Damage')"
+        >
           Book Service
         </button>
+
       </div>
 
-      <div class="card">
-        <h3>Battery Replacement</h3>
-        <p>Battery health issues, fast drain and replacement service.</p>
-        <button onclick="bookService('Battery Replacement')">
-          Book Service
-        </button>
-      </div>
 
       <div class="card">
-        <h3>Charging Problem</h3>
-        <p>Charging port and charging-related repair service.</p>
-        <button onclick="bookService('Charging Problem')">
+
+        <h3>
+          Battery Replacement
+        </h3>
+
+        <p>
+          Battery health issues, fast drain
+          and replacement service.
+        </p>
+
+        <button
+          onclick="bookService('Battery Replacement')"
+        >
           Book Service
         </button>
+
       </div>
 
+
       <div class="card">
-        <h3>Software Repair</h3>
-        <p>Software issues, updates, performance and troubleshooting.</p>
-        <button onclick="bookService('Software Repair')">
+
+        <h3>
+          Charging Problem
+        </h3>
+
+        <p>
+          Charging port and charging-related
+          repair service.
+        </p>
+
+        <button
+          onclick="bookService('Charging Problem')"
+        >
           Book Service
         </button>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>
+          Software Repair
+        </h3>
+
+        <p>
+          Software issues, updates,
+          performance and troubleshooting.
+        </p>
+
+        <button
+          onclick="bookService('Software Repair')"
+        >
+          Book Service
+        </button>
+
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- BOOKING -->
-  <section class="booking-section" id="booking">
+  <!-- =========================
+       BOOKING
+  ========================= -->
 
-    <h2 class="section-title">Book a Repair</h2>
+  <section
+    class="booking-section"
+    id="booking"
+  >
+
+    <h2 class="section-title">
+      Book a Repair
+    </h2>
 
     <p class="section-subtitle">
       Enter your details and confirm your repair booking.
     </p>
 
-    <form id="bookingForm" class="booking-form">
+    <form
+      id="bookingForm"
+      class="booking-form"
+    >
 
       <input
         type="text"
@@ -512,8 +858,15 @@
         required
       >
 
-      <select id="brand" required>
-        <option value="">Select Brand</option>
+      <select
+        id="brand"
+        required
+      >
+
+        <option value="">
+          Select Brand
+        </option>
+
         <option>Apple</option>
         <option>Samsung</option>
         <option>OnePlus</option>
@@ -523,7 +876,9 @@
         <option>Realme</option>
         <option>Redmi</option>
         <option>Other</option>
+
       </select>
+
 
       <input
         type="text"
@@ -532,24 +887,74 @@
         required
       >
 
-      <select id="problem" required>
-        <option value="">Select Problem</option>
-        <option>Screen Damage</option>
-        <option>Battery Replacement</option>
-        <option>Charging Problem</option>
-        <option>Software Repair</option>
-        <option>Water Damage</option>
-        <option>Camera Problem</option>
-        <option>Speaker/Mic Problem</option>
-        <option>Other</option>
+
+      <select
+        id="problem"
+        required
+      >
+
+        <option value="">
+          Select Problem
+        </option>
+
+        <option>
+          Screen Damage
+        </option>
+
+        <option>
+          Battery Replacement
+        </option>
+
+        <option>
+          Charging Problem
+        </option>
+
+        <option>
+          Software Repair
+        </option>
+
+        <option>
+          Water Damage
+        </option>
+
+        <option>
+          Camera Problem
+        </option>
+
+        <option>
+          Speaker/Mic Problem
+        </option>
+
+        <option>
+          Other
+        </option>
+
       </select>
 
-      <select id="serviceType" required>
-        <option value="">Select Service Type</option>
-        <option>Visit Repair Shop</option>
-        <option>Pickup From My Location</option>
-        <option>Doorstep Repair</option>
+
+      <select
+        id="serviceType"
+        required
+      >
+
+        <option value="">
+          Select Service Type
+        </option>
+
+        <option>
+          Visit Repair Shop
+        </option>
+
+        <option>
+          Pickup From My Location
+        </option>
+
+        <option>
+          Doorstep Repair
+        </option>
+
       </select>
+
 
       <input
         type="date"
@@ -557,20 +962,29 @@
         required
       >
 
+
       <button type="submit">
         Confirm Repair Booking
       </button>
 
     </form>
+
   </section>
 
 
-  <!-- CONTACT -->
+  <!-- =========================
+       CONTACT
+  ========================= -->
+
   <section id="contact">
-    <h2 class="section-title">Need Help?</h2>
+
+    <h2 class="section-title">
+      Need Help?
+    </h2>
 
     <p class="section-subtitle">
-      Contact Laxmi Narashma Mobile Shop for repair support.
+      Contact Laxmi Narashma Mobile Shop
+      for repair support.
     </p>
 
     <button
@@ -579,14 +993,60 @@
     >
       Contact Support
     </button>
+
   </section>
 
 
-  <!-- SUPABASE -->
+  <!-- =========================
+       SUPABASE
+  ========================= -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- EXISTING WORKING SCRIPT -->
   <script src="./script.js?v=2"></script>
+
+
+  <!-- =========================
+       OPENING SCREEN TIMING
+  ========================= -->
+
+  <script>
+
+    window.addEventListener(
+      "load",
+      function() {
+
+        setTimeout(
+          function() {
+
+            const opening =
+              document.getElementById(
+                "openingScreen"
+              );
+
+            opening.classList.add(
+              "hide"
+            );
+
+            setTimeout(
+              function() {
+
+                opening.style.display =
+                  "none";
+
+              },
+              800
+            );
+
+          },
+          3000
+        );
+
+      }
+    );
+
+  </script>
+
 
 </body>
 </html>
