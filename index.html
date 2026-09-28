@@ -1,1052 +1,994 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Laxmi Narashma Mobile Shop</title>
+<title>Laxmi Narashma Mobile Shop</title>
 
-  <link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="./style.css">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#05070b;
+  color:#fff;
+}
+
+/* =========================
+   HIDE WEBSITE UNTIL LOGIN
+========================= */
+
+#mainWebsite{
+  display:none;
+}
+
+/* =========================
+   FIRST IMAGE
+========================= */
+
+#openingScreen{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+
+  width:100%;
+  height:100vh;
+
+  background:#000;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  opacity:1;
+
+  transition:opacity .8s ease;
+}
+
+#openingScreen img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+#openingScreen.hide{
+  opacity:0;
+  pointer-events:none;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #05070b;
-      color: #fff;
-    }
 
-    /* =========================
-       FIRST OPENING IMAGE
-    ========================= */
-
-    #openingScreen {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:1000;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:18px 6%;
+
+  background:rgba(5,7,11,.45);
+
+  backdrop-filter:blur(14px);
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.08);
+}
+
+.logo{
+  font-size:21px;
+  font-weight:800;
+  letter-spacing:1px;
+  color:#fff;
+}
+
+.logo span{
+  color:#35bfff;
+}
+
+.nav-links{
+  display:flex;
+  gap:24px;
+  align-items:center;
+}
+
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  font-size:14px;
+  opacity:.85;
+}
+
+.nav-links a:hover{
+  color:#35bfff;
+}
+
+.login-btn{
+  border:1px solid #35bfff;
+  padding:9px 17px;
+  border-radius:22px;
+}
+
+.menu-btn{
+  display:none;
+  background:transparent;
+  border:0;
+  color:white;
+  font-size:28px;
+  cursor:pointer;
+}
+
 
-      width: 100%;
-      height: 100vh;
-
-      background: #000;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      opacity: 1;
+/* =========================
+   HERO
+========================= */
 
-      transition: opacity 0.8s ease;
-    }
+.hero{
+  min-height:100vh;
+  position:relative;
 
-    #openingScreen img {
-      width: 100%;
-      height: 100%;
+  display:flex;
+  align-items:flex-end;
 
-      object-fit: contain;
+  overflow:hidden;
 
-      display: block;
-    }
+  background:#030508;
+}
 
-    #openingScreen.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
+.hero-image{
+  position:absolute;
+  inset:0;
 
+  width:100%;
+  height:100%;
 
-    /* =========================
-       NAVBAR
-    ========================= */
+  object-fit:cover;
+  object-position:center;
 
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
+  transform:scale(1.04);
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+  animation:
+    roomEnter
+    10s
+    ease-out
+    forwards;
+}
 
-      padding: 18px 6%;
+.hero::after{
+  content:"";
 
-      background: rgba(5, 7, 11, 0.45);
+  position:absolute;
+  inset:0;
 
-      backdrop-filter: blur(14px);
-
-      border-bottom:
-        1px solid
-        rgba(255,255,255,0.08);
-    }
-
-    .logo {
-      font-size: 21px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: #fff;
-    }
-
-    .logo span {
-      color: #35bfff;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 14px;
-      opacity: 0.85;
-    }
-
-    .nav-links a:hover {
-      color: #35bfff;
-    }
-
-    .login-btn {
-      border: 1px solid #35bfff;
-      padding: 9px 17px;
-      border-radius: 22px;
-    }
-
-    .menu-btn {
-      display: none;
-      background: transparent;
-      border: 0;
-      color: white;
-      font-size: 28px;
-      cursor: pointer;
-    }
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.82) 0%,
+      rgba(0,0,0,.55) 38%,
+      rgba(0,0,0,.18) 75%,
+      rgba(0,0,0,.45) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(0,0,0,.85) 0%,
+      transparent 55%
+    );
+}
 
+.hero-content{
+  position:relative;
+  z-index:2;
 
-    /* =========================
-       HERO
-    ========================= */
+  width:min(700px,90%);
 
-    .hero {
-      min-height: 100vh;
-      position: relative;
+  margin:
+    0 0 9vh 7%;
 
-      display: flex;
-      align-items: flex-end;
+  animation:
+    fadeUp
+    1.3s
+    ease-out
+    forwards;
+}
 
-      overflow: hidden;
+.hero-kicker{
+  color:#35bfff;
 
-      background: #030508;
-    }
+  font-size:13px;
 
-    .hero-image {
-      position: absolute;
-      inset: 0;
+  letter-spacing:4px;
 
-      width: 100%;
-      height: 100%;
+  text-transform:uppercase;
 
-      object-fit: cover;
-      object-position: center;
+  margin-bottom:14px;
+}
 
-      transform: scale(1.04);
+.hero h1{
+  font-size:
+    clamp(42px,8vw,86px);
 
-      animation:
-        roomEnter
-        10s
-        ease-out
-        forwards;
-    }
+  line-height:.95;
 
-    .hero::after {
-      content: "";
+  letter-spacing:-3px;
 
-      position: absolute;
-      inset: 0;
+  margin-bottom:20px;
 
-      background:
-        linear-gradient(
-          90deg,
-          rgba(0,0,0,0.82) 0%,
-          rgba(0,0,0,0.55) 38%,
-          rgba(0,0,0,0.18) 75%,
-          rgba(0,0,0,0.45) 100%
-        ),
-        linear-gradient(
-          0deg,
-          rgba(0,0,0,0.85) 0%,
-          transparent 55%
-        );
-    }
+  text-shadow:
+    0 10px 40px
+    rgba(0,0,0,.8);
+}
 
-    .hero-content {
-      position: relative;
-      z-index: 2;
+.hero h1 span{
+  color:#35bfff;
+}
 
-      width: min(700px, 90%);
+.hero p{
+  max-width:610px;
 
-      margin:
-        0 0 9vh 7%;
+  color:
+    rgba(255,255,255,.78);
 
-      animation:
-        fadeUp
-        1.3s
-        ease-out
-        forwards;
-    }
+  font-size:17px;
 
-    .hero-kicker {
-      color: #35bfff;
+  line-height:1.65;
 
-      font-size: 13px;
+  margin-bottom:28px;
+}
 
-      letter-spacing: 4px;
+.hero-buttons{
+  display:flex;
+  gap:13px;
+  flex-wrap:wrap;
+}
 
-      text-transform: uppercase;
+.primary-btn,
+.secondary-btn{
+  display:inline-block;
 
-      margin-bottom: 14px;
-    }
+  text-decoration:none;
 
-    .hero h1 {
-      font-size:
-        clamp(42px, 8vw, 86px);
+  padding:13px 22px;
 
-      line-height: 0.95;
+  border-radius:30px;
 
-      letter-spacing: -3px;
+  font-weight:700;
 
-      margin-bottom: 20px;
+  cursor:pointer;
 
-      text-shadow:
-        0 10px 40px
-        rgba(0,0,0,0.8);
-    }
+  transition:.3s;
+}
 
-    .hero h1 span {
-      color: #35bfff;
-    }
+.primary-btn{
+  background:#35bfff;
+  color:#001018;
+  border:none;
+}
 
-    .hero p {
-      max-width: 610px;
+.secondary-btn{
+  background:
+    rgba(255,255,255,.08);
 
-      color:
-        rgba(255,255,255,0.78);
+  color:#fff;
 
-      font-size: 17px;
+  border:
+    1px solid
+    rgba(255,255,255,.25);
+}
 
-      line-height: 1.65;
+.primary-btn:hover,
+.secondary-btn:hover{
+  transform:translateY(-3px);
+}
 
-      margin-bottom: 28px;
-    }
 
-    .hero-buttons {
-      display: flex;
+/* =========================
+   SECTIONS
+========================= */
 
-      gap: 13px;
+section:not(.hero){
+  padding:75px 6%;
+}
 
-      flex-wrap: wrap;
-    }
+.section-title{
+  font-size:34px;
+  margin-bottom:12px;
+}
 
-    .primary-btn,
-    .secondary-btn {
-      display: inline-block;
+.section-subtitle{
+  color:#999;
+  margin-bottom:30px;
+}
 
-      text-decoration: none;
+.cards,
+.brands{
+  display:grid;
+  grid-template-columns:
+    repeat(4,1fr);
+  gap:18px;
+}
 
-      padding: 13px 22px;
+.card,
+.brand-card{
+  background:#10141b;
 
-      border-radius: 30px;
+  border:
+    1px solid
+    rgba(255,255,255,.08);
 
-      font-weight: 700;
+  border-radius:18px;
 
-      cursor: pointer;
+  padding:25px;
+}
 
-      transition: 0.3s;
-    }
+.card h3,
+.brand-card h3{
+  margin-bottom:10px;
+}
 
-    .primary-btn {
-      background: #35bfff;
+.card p{
+  color:#aaa;
 
-      color: #001018;
+  line-height:1.5;
 
-      border: none;
-    }
+  margin-bottom:18px;
+}
 
-    .secondary-btn {
-      background:
-        rgba(255,255,255,0.08);
+.card button{
+  border:
+    1px solid
+    #35bfff;
 
-      color: #fff;
+  background:transparent;
 
-      border:
-        1px solid
-        rgba(255,255,255,0.25);
-    }
+  color:#35bfff;
 
-    .primary-btn:hover,
-    .secondary-btn:hover {
-      transform:
-        translateY(-3px);
-    }
+  padding:9px 15px;
 
+  border-radius:20px;
 
-    /* =========================
-       SECTIONS
-    ========================= */
+  cursor:pointer;
+}
 
-    section:not(.hero) {
-      padding: 75px 6%;
-    }
 
-    .section-title {
-      font-size: 34px;
-      margin-bottom: 12px;
-    }
+/* =========================
+   BOOKING
+========================= */
 
-    .section-subtitle {
-      color: #999;
-      margin-bottom: 30px;
-    }
+.booking-section{
+  background:#080b10;
+}
 
-    .cards,
-    .brands {
-      display: grid;
+.booking-form{
+  max-width:760px;
 
-      grid-template-columns:
-        repeat(4, 1fr);
+  display:grid;
 
-      gap: 18px;
-    }
+  gap:14px;
+}
 
-    .card,
-    .brand-card {
-      background: #10141b;
+.booking-form input,
+.booking-form select,
+.booking-form textarea{
+  width:100%;
 
-      border:
-        1px solid
-        rgba(255,255,255,0.08);
+  padding:14px;
 
-      border-radius: 18px;
+  border-radius:10px;
 
-      padding: 25px;
-    }
+  border:
+    1px solid
+    #252d38;
 
-    .card h3,
-    .brand-card h3 {
-      margin-bottom: 10px;
-    }
+  background:#11161e;
 
-    .card p {
-      color: #aaa;
+  color:#fff;
 
-      line-height: 1.5;
+  outline:none;
+}
 
-      margin-bottom: 18px;
-    }
+.booking-form textarea{
+  min-height:100px;
+  resize:vertical;
+}
 
-    .card button {
-      border:
-        1px solid
-        #35bfff;
+.booking-form button{
+  padding:15px;
 
-      background: transparent;
+  border:0;
 
-      color: #35bfff;
+  border-radius:12px;
 
-      padding: 9px 15px;
+  background:#35bfff;
 
-      border-radius: 20px;
+  color:#001018;
 
-      cursor: pointer;
-    }
+  font-weight:800;
 
+  cursor:pointer;
+}
 
-    /* =========================
-       BOOKING
-    ========================= */
 
-    .booking-section {
-      background: #080b10;
-    }
+/* =========================
+   ANIMATIONS
+========================= */
 
-    .booking-form {
-      max-width: 760px;
+@keyframes roomEnter{
 
-      display: grid;
+  from{
+    transform:scale(1.13);
 
-      gap: 14px;
-    }
+    filter:
+      brightness(.55)
+      blur(2px);
+  }
 
-    .booking-form input,
-    .booking-form select,
-    .booking-form textarea {
-      width: 100%;
+  to{
+    transform:scale(1.04);
 
-      padding: 14px;
+    filter:
+      brightness(.9)
+      blur(0);
+  }
 
-      border-radius: 10px;
+}
 
-      border:
-        1px solid
-        #252d38;
+@keyframes fadeUp{
 
-      background: #11161e;
+  from{
+    opacity:0;
+    transform:translateY(35px);
+  }
 
-      color: #fff;
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 
-      outline: none;
-    }
+}
 
-    .booking-form textarea {
-      min-height: 100px;
 
-      resize: vertical;
-    }
+/* =========================
+   MOBILE
+========================= */
 
-    .booking-form button {
-      padding: 15px;
+@media(max-width:768px){
 
-      border: 0;
+  .navbar{
+    padding:15px 5%;
+  }
 
-      border-radius: 12px;
+  .menu-btn{
+    display:block;
+  }
 
-      background: #35bfff;
+  .nav-links{
+    position:absolute;
 
-      color: #001018;
+    top:70px;
+    left:0;
 
-      font-weight: 800;
+    width:100%;
 
-      cursor: pointer;
-    }
+    display:none;
 
+    flex-direction:column;
 
-    /* =========================
-       ANIMATIONS
-    ========================= */
+    padding:25px;
 
-    @keyframes roomEnter {
+    background:
+      rgba(5,7,11,.97);
+  }
 
-      from {
-        transform: scale(1.13);
+  .nav-links.active{
+    display:flex;
+  }
 
-        filter:
-          brightness(0.55)
-          blur(2px);
-      }
+  .hero{
+    min-height:100svh;
+  }
 
-      to {
-        transform: scale(1.04);
+  .hero-image{
+    object-position:center;
+  }
 
-        filter:
-          brightness(0.9)
-          blur(0);
-      }
+  .hero-content{
+    margin:
+      0 6% 8vh;
+  }
 
-    }
+  .hero h1{
+    font-size:48px;
+    letter-spacing:-2px;
+  }
 
-    @keyframes fadeUp {
+  .hero p{
+    font-size:15px;
+  }
 
-      from {
-        opacity: 0;
+  .cards,
+  .brands{
+    grid-template-columns:1fr;
+  }
 
-        transform:
-          translateY(35px);
-      }
+  section:not(.hero){
+    padding:55px 6%;
+  }
 
-      to {
-        opacity: 1;
-
-        transform:
-          translateY(0);
-      }
-
-    }
-
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 768px) {
-
-      .navbar {
-        padding: 15px 5%;
-      }
-
-      .menu-btn {
-        display: block;
-      }
-
-      .nav-links {
-        position: absolute;
-
-        top: 70px;
-        left: 0;
-
-        width: 100%;
-
-        display: none;
-
-        flex-direction: column;
-
-        padding: 25px;
-
-        background:
-          rgba(5,7,11,0.97);
-      }
-
-      .nav-links.active {
-        display: flex;
-      }
-
-      .hero {
-        min-height: 100svh;
-      }
-
-      .hero-image {
-        object-position: center;
-      }
-
-      .hero-content {
-        margin:
-          0 6% 8vh;
-      }
-
-      .hero h1 {
-        font-size: 48px;
-
-        letter-spacing: -2px;
-      }
-
-      .hero p {
-        font-size: 15px;
-      }
-
-      .cards,
-      .brands {
-        grid-template-columns: 1fr;
-      }
-
-      section:not(.hero) {
-        padding: 55px 6%;
-      }
-
-    }
-
-  </style>
-
+}
+</style>
 </head>
 
 
 <body>
 
 
-  <!-- =========================
-       FIRST IMAGE
-  ========================= -->
+<!-- =========================
+     FIRST IMAGE
+========================= -->
 
-  <div id="openingScreen">
+<div id="openingScreen">
 
-    <img
-      src="./mobile.png"
-      alt="Laxmi Narashma Mobile"
-    >
+  <img
+    src="./mobile.png"
+    alt="Laxmi Narashma Mobile"
+  >
 
+</div>
+
+
+<!-- =========================
+     MAIN WEBSITE
+========================= -->
+
+<div id="mainWebsite">
+
+
+<header class="navbar">
+
+  <div class="logo">
+    LAXMI <span>NARASHMA</span>
   </div>
 
+  <button
+    class="menu-btn"
+    onclick="toggleMenu()"
+  >
+    ☰
+  </button>
 
-  <!-- =========================
-       NAVBAR
-  ========================= -->
+  <nav
+    class="nav-links"
+    id="navLinks"
+  >
 
-  <header class="navbar">
+    <a href="#home" onclick="closeMenu()">
+      Home
+    </a>
 
-    <div class="logo">
-      LAXMI <span>NARASHMA</span>
+    <a href="#services" onclick="closeMenu()">
+      Services
+    </a>
+
+    <a href="#brands" onclick="closeMenu()">
+      Brands
+    </a>
+
+    <a href="#booking" onclick="closeMenu()">
+      Book Repair
+    </a>
+
+    <a href="#contact" onclick="closeMenu()">
+      Contact
+    </a>
+
+  </nav>
+
+</header>
+
+
+<section
+  class="hero"
+  id="home"
+>
+
+  <img
+    class="hero-image"
+    src="./laxmi-narashma-mobile-hero-9x16-1.png"
+    alt="Laxmi Narashma Mobile Shop"
+  >
+
+  <div class="hero-content">
+
+    <div class="hero-kicker">
+      Professional Mobile Repair
     </div>
 
-    <button
-      class="menu-btn"
-      onclick="toggleMenu()"
-    >
-      ☰
-    </button>
+    <h1>
+      LAXMI<br>
+      <span>NARASHMA</span>
+    </h1>
 
-    <nav
-      class="nav-links"
-      id="navLinks"
-    >
+    <p>
+      Professional mobile repair, screen replacement,
+      battery service, charging repair, software support
+      and more. Fast service with transparent pricing.
+    </p>
 
-      <a
-        href="#home"
-        onclick="closeMenu()"
-      >
-        Home
-      </a>
-
-      <a
-        href="#services"
-        onclick="closeMenu()"
-      >
-        Services
-      </a>
-
-      <a
-        href="#brands"
-        onclick="closeMenu()"
-      >
-        Brands
-      </a>
+    <div class="hero-buttons">
 
       <a
         href="#booking"
-        onclick="closeMenu()"
+        class="primary-btn"
       >
         Book Repair
       </a>
 
       <a
-        href="#contact"
-        onclick="closeMenu()"
+        href="#services"
+        class="secondary-btn"
       >
-        Contact
+        View Services
       </a>
 
-      <a
-        href="login.html"
-        class="login-btn"
-      >
-        Login
-      </a>
+    </div>
 
-    </nav>
+  </div>
 
-  </header>
+</section>
 
 
-  <!-- =========================
-       HERO
-  ========================= -->
+<section id="brands">
 
-  <section
-    class="hero"
-    id="home"
-  >
+  <h2 class="section-title">
+    Popular Brands
+  </h2>
 
-    <img
-      class="hero-image"
-      src="./laxmi-narashma-mobile-hero-9x16-1.png"
-      alt="Laxmi Narashma Mobile Shop"
-    >
+  <p class="section-subtitle">
+    We service popular smartphone brands.
+  </p>
 
-    <div class="hero-content">
+  <div class="brands">
 
-      <div class="hero-kicker">
-        Professional Mobile Repair
-      </div>
+    <div class="brand-card">
+      <h3>Apple</h3>
+    </div>
 
-      <h1>
-        LAXMI<br>
-        <span>NARASHMA</span>
-      </h1>
+    <div class="brand-card">
+      <h3>Samsung</h3>
+    </div>
+
+    <div class="brand-card">
+      <h3>OnePlus</h3>
+    </div>
+
+    <div class="brand-card">
+      <h3>Nothing</h3>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="services">
+
+  <h2 class="section-title">
+    Repair Services
+  </h2>
+
+  <p class="section-subtitle">
+    Professional service for common mobile problems.
+  </p>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>Screen Damage</h3>
 
       <p>
-        Professional mobile repair, screen replacement,
-        battery service, charging repair, software support
-        and more. Fast service with transparent pricing.
+        Broken, cracked or damaged mobile
+        display replacement.
       </p>
 
-      <div class="hero-buttons">
-
-        <a
-          href="#booking"
-          class="primary-btn"
-        >
-          Book Repair
-        </a>
-
-        <a
-          href="#services"
-          class="secondary-btn"
-        >
-          View Services
-        </a>
-
-      </div>
-
+      <button
+        onclick="bookService('Screen Damage')"
+      >
+        Book Service
+      </button>
     </div>
 
-  </section>
 
+    <div class="card">
+      <h3>Battery Replacement</h3>
 
-  <!-- =========================
-       BRANDS
-  ========================= -->
+      <p>
+        Battery health issues, fast drain
+        and replacement service.
+      </p>
 
-  <section id="brands">
-
-    <h2 class="section-title">
-      Popular Brands
-    </h2>
-
-    <p class="section-subtitle">
-      We service popular smartphone brands.
-    </p>
-
-    <div class="brands">
-
-      <div class="brand-card">
-        <h3>Apple</h3>
-      </div>
-
-      <div class="brand-card">
-        <h3>Samsung</h3>
-      </div>
-
-      <div class="brand-card">
-        <h3>OnePlus</h3>
-      </div>
-
-      <div class="brand-card">
-        <h3>Nothing</h3>
-      </div>
-
+      <button
+        onclick="bookService('Battery Replacement')"
+      >
+        Book Service
+      </button>
     </div>
 
-  </section>
 
+    <div class="card">
+      <h3>Charging Problem</h3>
 
-  <!-- =========================
-       SERVICES
-  ========================= -->
+      <p>
+        Charging port and charging-related
+        repair service.
+      </p>
 
-  <section id="services">
-
-    <h2 class="section-title">
-      Repair Services
-    </h2>
-
-    <p class="section-subtitle">
-      Professional service for common mobile problems.
-    </p>
-
-    <div class="cards">
-
-      <div class="card">
-
-        <h3>
-          Screen Damage
-        </h3>
-
-        <p>
-          Broken, cracked or damaged mobile
-          display replacement.
-        </p>
-
-        <button
-          onclick="bookService('Screen Damage')"
-        >
-          Book Service
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          Battery Replacement
-        </h3>
-
-        <p>
-          Battery health issues, fast drain
-          and replacement service.
-        </p>
-
-        <button
-          onclick="bookService('Battery Replacement')"
-        >
-          Book Service
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          Charging Problem
-        </h3>
-
-        <p>
-          Charging port and charging-related
-          repair service.
-        </p>
-
-        <button
-          onclick="bookService('Charging Problem')"
-        >
-          Book Service
-        </button>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          Software Repair
-        </h3>
-
-        <p>
-          Software issues, updates,
-          performance and troubleshooting.
-        </p>
-
-        <button
-          onclick="bookService('Software Repair')"
-        >
-          Book Service
-        </button>
-
-      </div>
-
+      <button
+        onclick="bookService('Charging Problem')"
+      >
+        Book Service
+      </button>
     </div>
 
-  </section>
+
+    <div class="card">
+      <h3>Software Repair</h3>
+
+      <p>
+        Software issues, updates,
+        performance and troubleshooting.
+      </p>
+
+      <button
+        onclick="bookService('Software Repair')"
+      >
+        Book Service
+      </button>
+    </div>
+
+  </div>
+
+</section>
 
 
-  <!-- =========================
-       BOOKING
-  ========================= -->
+<section
+  class="booking-section"
+  id="booking"
+>
 
-  <section
-    class="booking-section"
-    id="booking"
+  <h2 class="section-title">
+    Book a Repair
+  </h2>
+
+  <p class="section-subtitle">
+    Enter your details and confirm your repair booking.
+  </p>
+
+  <form
+    id="bookingForm"
+    class="booking-form"
   >
 
-    <h2 class="section-title">
-      Book a Repair
-    </h2>
-
-    <p class="section-subtitle">
-      Enter your details and confirm your repair booking.
-    </p>
-
-    <form
-      id="bookingForm"
-      class="booking-form"
+    <input
+      type="text"
+      id="name"
+      placeholder="Your Name"
+      required
     >
 
-      <input
-        type="text"
-        id="name"
-        placeholder="Your Name"
-        required
-      >
-
-      <input
-        type="tel"
-        id="phone"
-        placeholder="Phone Number"
-        required
-      >
-
-      <select
-        id="brand"
-        required
-      >
-
-        <option value="">
-          Select Brand
-        </option>
-
-        <option>Apple</option>
-        <option>Samsung</option>
-        <option>OnePlus</option>
-        <option>Nothing</option>
-        <option>Vivo</option>
-        <option>Oppo</option>
-        <option>Realme</option>
-        <option>Redmi</option>
-        <option>Other</option>
-
-      </select>
-
-
-      <input
-        type="text"
-        id="model"
-        placeholder="Mobile Model"
-        required
-      >
-
-
-      <select
-        id="problem"
-        required
-      >
-
-        <option value="">
-          Select Problem
-        </option>
-
-        <option>
-          Screen Damage
-        </option>
-
-        <option>
-          Battery Replacement
-        </option>
-
-        <option>
-          Charging Problem
-        </option>
-
-        <option>
-          Software Repair
-        </option>
-
-        <option>
-          Water Damage
-        </option>
-
-        <option>
-          Camera Problem
-        </option>
-
-        <option>
-          Speaker/Mic Problem
-        </option>
-
-        <option>
-          Other
-        </option>
-
-      </select>
-
-
-      <select
-        id="serviceType"
-        required
-      >
-
-        <option value="">
-          Select Service Type
-        </option>
-
-        <option>
-          Visit Repair Shop
-        </option>
-
-        <option>
-          Pickup From My Location
-        </option>
-
-        <option>
-          Doorstep Repair
-        </option>
-
-      </select>
-
-
-      <input
-        type="date"
-        id="repairDate"
-        required
-      >
-
-
-      <button type="submit">
-        Confirm Repair Booking
-      </button>
-
-    </form>
-
-  </section>
-
-
-  <!-- =========================
-       CONTACT
-  ========================= -->
-
-  <section id="contact">
-
-    <h2 class="section-title">
-      Need Help?
-    </h2>
-
-    <p class="section-subtitle">
-      Contact Laxmi Narashma Mobile Shop
-      for repair support.
-    </p>
-
-    <button
-      class="primary-btn"
-      onclick="showContact()"
+    <input
+      type="tel"
+      id="phone"
+      placeholder="Phone Number"
+      required
     >
-      Contact Support
+
+    <select id="brand" required>
+
+      <option value="">
+        Select Brand
+      </option>
+
+      <option>Apple</option>
+      <option>Samsung</option>
+      <option>OnePlus</option>
+      <option>Nothing</option>
+      <option>Vivo</option>
+      <option>Oppo</option>
+      <option>Realme</option>
+      <option>Redmi</option>
+      <option>Other</option>
+
+    </select>
+
+
+    <input
+      type="text"
+      id="model"
+      placeholder="Mobile Model"
+      required
+    >
+
+
+    <select id="problem" required>
+
+      <option value="">
+        Select Problem
+      </option>
+
+      <option>Screen Damage</option>
+      <option>Battery Replacement</option>
+      <option>Charging Problem</option>
+      <option>Software Repair</option>
+      <option>Water Damage</option>
+      <option>Camera Problem</option>
+      <option>Speaker/Mic Problem</option>
+      <option>Other</option>
+
+    </select>
+
+
+    <select
+      id="serviceType"
+      required
+    >
+
+      <option value="">
+        Select Service Type
+      </option>
+
+      <option>
+        Visit Repair Shop
+      </option>
+
+      <option>
+        Pickup From My Location
+      </option>
+
+      <option>
+        Doorstep Repair
+      </option>
+
+    </select>
+
+
+    <input
+      type="date"
+      id="repairDate"
+      required
+    >
+
+
+    <button type="submit">
+      Confirm Repair Booking
     </button>
 
-  </section>
+  </form>
+
+</section>
 
 
-  <!-- =========================
-       SUPABASE
-  ========================= -->
+<section id="contact">
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <h2 class="section-title">
+    Need Help?
+  </h2>
 
-  <script src="./script.js?v=2"></script>
+  <p class="section-subtitle">
+    Contact Laxmi Narashma Mobile Shop
+    for repair support.
+  </p>
+
+  <button
+    class="primary-btn"
+    onclick="showContact()"
+  >
+    Contact Support
+  </button>
+
+</section>
 
 
-  <!-- =========================
-       OPENING SCREEN TIMING
-  ========================= -->
+</div>
 
-  <script>
 
-    window.addEventListener(
-      "load",
-      function() {
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-        setTimeout(
-          function() {
+<script src="./script.js?v=2"></script>
 
-            const opening =
-              document.getElementById(
-                "openingScreen"
-              );
 
-            opening.classList.add(
-              "hide"
-            );
+<!-- =========================
+     LOGIN CHECK
+========================= -->
 
-            setTimeout(
-              function() {
+<script>
 
-                opening.style.display =
-                  "none";
+const openingScreen =
+  document.getElementById(
+    "openingScreen"
+  );
 
-              },
-              800
-            );
+const mainWebsite =
+  document.getElementById(
+    "mainWebsite"
+  );
 
-          },
-          3000
-        );
 
-      }
+async function startWebsite(){
+
+  const {
+    data: {
+      session
+    }
+  } =
+  await supabaseClient.auth.getSession();
+
+
+  /* NOT LOGGED IN */
+
+  if(!session){
+
+    setTimeout(function(){
+
+      window.location.href =
+        "login.html";
+
+    },3000);
+
+    return;
+  }
+
+
+  /* LOGGED IN */
+
+  mainWebsite.style.display =
+    "block";
+
+
+  setTimeout(function(){
+
+    openingScreen.classList.add(
+      "hide"
     );
 
-  </script>
+    setTimeout(function(){
 
+      openingScreen.style.display =
+        "none";
+
+    },800);
+
+  },3000);
+
+}
+
+
+window.addEventListener(
+  "load",
+  startWebsite
+);
+
+</script>
 
 </body>
 </html>
