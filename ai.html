@@ -1,532 +1,411 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laxmi Narashma Mobile Shop</title>
 
-  <title>Laxmi Narashma Mobile Shop</title>
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#050607;
+  font-family:Arial,sans-serif;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+.scene{
+  position:relative;
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 55%,rgba(80,120,130,.16),transparent 35%),
+    linear-gradient(180deg,#101416,#030506 75%);
+}
 
-    html {
-      scroll-behavior: smooth;
-    }
+/* SHOWROOM */
+.store{
+  position:absolute;
+  inset:0;
+  background-image:url("store.png");
+  background-size:cover;
+  background-position:center;
+  transition:filter 2s ease,transform 2s ease;
+}
 
-    body {
-      font-family: "Inter", sans-serif;
-      background: #080808;
-      color: white;
-    }
+.store.blur{
+  filter:blur(9px) brightness(.65);
+  transform:scale(1.04);
+}
 
-    .hero {
-      min-height: 100vh;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background:
-        radial-gradient(circle at 50% 40%, #3b3b3b 0%, #141414 42%, #050505 100%);
-    }
+/* CENTRAL LIGHT */
+.light{
+  position:absolute;
+  left:50%;
+  top:58%;
+  width:340px;
+  height:340px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(
+    circle,
+    rgba(70,220,255,.28),
+    rgba(70,220,255,.08) 35%,
+    transparent 70%
+  );
+  filter:blur(10px);
+  opacity:0;
+  transition:opacity 1s;
+}
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      filter: blur(100px);
-    }
+.light.active{
+  opacity:1;
+}
 
-    .brand {
-      position: absolute;
-      top: 28px;
-      left: 30px;
-      z-index: 10;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      opacity: 0.8;
-    }
+/* PHONE */
+.phone{
+  position:absolute;
+  left:50%;
+  top:55%;
+  width:min(230px,34vw);
+  transform:translate(-50%,-50%) translateY(120vh);
+  opacity:0;
+  z-index:10;
+  filter:
+    drop-shadow(0 20px 35px rgba(0,0,0,.7))
+    drop-shadow(0 0 18px rgba(60,220,255,.22));
+}
 
-    .hero-title {
-      position: absolute;
-      top: 14%;
-      z-index: 1;
-      font-family: "Anton", sans-serif;
-      font-size: clamp(100px, 24vw, 330px);
-      line-height: 0.8;
-      color: rgba(255,255,255,0.07);
-      white-space: nowrap;
-      user-select: none;
-    }
+.phone.rise{
+  animation:phoneRise 1.5s cubic-bezier(.2,.8,.2,1) forwards;
+}
 
-    .hero-content {
-      position: relative;
-      z-index: 3;
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+@keyframes phoneRise{
+  from{
+    transform:translate(-50%,-50%) translateY(120vh);
+    opacity:0;
+  }
+  to{
+    transform:translate(-50%,-50%) translateY(0);
+    opacity:1;
+  }
+}
 
-    .phone {
-      width: min(310px, 58vw);
-      max-height: 78vh;
-      object-fit: contain;
-      filter:
-        drop-shadow(0 35px 35px rgba(0,0,0,0.65))
-        drop-shadow(0 10px 20px rgba(255,255,255,0.08));
-      animation: phoneFloat 4s ease-in-out infinite;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
+/* EXPLODED IMAGE */
+.exploded{
+  position:absolute;
+  left:50%;
+  top:55%;
+  width:min(650px,80vw);
+  transform:translate(-50%,-50%) scale(.5);
+  opacity:0;
+  z-index:20;
+  pointer-events:none;
+}
 
-    @keyframes phoneFloat {
-      0%, 100% {
-        transform: translateY(0);
-      }
+.exploded.show{
+  animation:explodeShow 1.4s ease forwards;
+}
 
-      50% {
-        transform: translateY(-14px);
-      }
-    }
+@keyframes explodeShow{
+  from{
+    transform:translate(-50%,-50%) scale(.5);
+    opacity:0;
+  }
+  to{
+    transform:translate(-50%,-50%) scale(1);
+    opacity:1;
+  }
+}
 
-    .scroll-text {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      opacity: 0.55;
-    }
+.exploded.rotate{
+  animation:rotation 10s linear infinite;
+}
 
-    .section {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      padding: 80px 8%;
-    }
+@keyframes rotation{
+  from{
+    transform:translate(-50%,-50%) rotateY(0deg) scale(1);
+  }
+  to{
+    transform:translate(-50%,-50%) rotateY(360deg) scale(1);
+  }
+}
 
-    .section:nth-child(even) {
-      background: #111;
-    }
+/* REASSEMBLE */
+.reassemble{
+  position:absolute;
+  left:50%;
+  top:55%;
+  width:min(650px,80vw);
+  transform:translate(-50%,-50%) scale(1.15);
+  opacity:0;
+  z-index:30;
+}
 
-    .section:nth-child(odd) {
-      background: #181818;
-    }
+.reassemble.show{
+  animation:reassemble 8s ease forwards;
+}
 
-    .section-inner {
-      width: 100%;
-      max-width: 1200px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 70px;
-      align-items: center;
-    }
+@keyframes reassemble{
+  0%{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1.15);
+  }
 
-    .section-label {
-      font-size: 12px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      opacity: 0.55;
-      margin-bottom: 15px;
-    }
+  70%{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(.82);
+  }
 
-    .section-title {
-      font-family: "Anton", sans-serif;
-      font-size: clamp(70px, 10vw, 150px);
-      line-height: 0.9;
-      text-transform: uppercase;
-      margin-bottom: 25px;
-    }
+  100%{
+    opacity:0;
+    transform:translate(-50%,-50%) scale(.5);
+  }
+}
 
-    .section-description {
-      max-width: 430px;
-      color: #aaa;
-      line-height: 1.8;
-      font-size: 15px;
-    }
+/* FINAL PHONE */
+.finalPhone{
+  position:absolute;
+  left:50%;
+  top:55%;
+  width:min(240px,36vw);
+  transform:translate(-50%,-50%) scale(.7);
+  opacity:0;
+  z-index:40;
+}
 
-    .spec-card {
-      min-height: 360px;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 28px;
-      padding: 40px;
-      background: rgba(255,255,255,0.04);
-      backdrop-filter: blur(20px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
+.finalPhone.show{
+  animation:finalReveal 2s cubic-bezier(.2,.8,.2,1) forwards;
+}
 
-    .spec-big {
-      font-family: "Anton", sans-serif;
-      font-size: clamp(70px, 10vw, 130px);
-      line-height: 1;
-    }
+@keyframes finalReveal{
+  from{
+    transform:translate(-50%,-50%) scale(.7);
+    opacity:0;
+  }
 
-    .spec-small {
-      margin-top: 15px;
-      color: #999;
-      font-size: 13px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
+  to{
+    transform:translate(-50%,-50%) scale(1);
+    opacity:1;
+  }
+}
 
-    .service {
-      background:
-        radial-gradient(circle at 50% 50%, #303030, #080808 65%);
-    }
+/* LOGO */
+.logo{
+  position:absolute;
+  left:50%;
+  top:18%;
+  transform:translateX(-50%);
+  z-index:50;
+  text-align:center;
+  opacity:0;
+}
 
-    .service-box {
-      width: 100%;
-      max-width: 800px;
-      margin: auto;
-      text-align: center;
-    }
+.logo.show{
+  animation:logoReveal 2.5s ease forwards;
+}
 
-    .service-title {
-      font-family: "Anton", sans-serif;
-      font-size: clamp(70px, 13vw, 170px);
-      line-height: 0.9;
-      margin-bottom: 30px;
-    }
+.laxmi{
+  display:block;
+  color:#f4f4f4;
+  font-family:Georgia,serif;
+  font-size:clamp(30px,5vw,65px);
+  letter-spacing:10px;
+  text-shadow:
+    0 0 10px rgba(255,255,255,.5),
+    0 0 25px rgba(100,220,255,.3);
+}
 
-    .service-text {
-      max-width: 600px;
-      margin: auto;
-      color: #aaa;
-      line-height: 1.8;
-    }
+.narashma{
+  display:block;
+  margin-top:4px;
+  color:#c8cdd0;
+  font-family:Arial Black,sans-serif;
+  font-size:clamp(24px,4vw,55px);
+  letter-spacing:7px;
+  text-shadow:
+    0 0 10px rgba(255,255,255,.4),
+    0 0 20px rgba(80,210,255,.25);
+}
 
-    .service-button {
-      display: inline-block;
-      margin-top: 35px;
-      padding: 18px 34px;
-      border-radius: 999px;
-      background: white;
-      color: black;
-      text-decoration: none;
-      font-weight: 700;
-      transition: transform 0.2s ease;
-    }
+@keyframes logoReveal{
+  from{
+    opacity:0;
+    transform:translateX(-50%) translateY(25px);
+  }
 
-    .service-button:hover {
-      transform: scale(1.05);
-    }
+  to{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+  }
+}
 
-    @media (max-width: 700px) {
-      .brand {
-        left: 18px;
-        top: 20px;
-      }
+/* MOBILE VIEW */
+@media(max-width:600px){
 
-      .hero-title {
-        top: 25%;
-        font-size: 30vw;
-      }
+  .phone,
+  .finalPhone{
+    width:190px;
+  }
 
-      .phone {
-        width: 65vw;
-      }
+  .exploded,
+  .reassemble{
+    width:95vw;
+  }
 
-      .section {
-        padding: 70px 22px;
-      }
+  .logo{
+    top:12%;
+  }
 
-      .section-inner {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
+  .laxmi{
+    font-size:30px;
+    letter-spacing:7px;
+  }
 
-      .section-title {
-        font-size: 80px;
-      }
-
-      .spec-card {
-        min-height: 260px;
-      }
-    }
-  </style>
+  .narashma{
+    font-size:24px;
+    letter-spacing:4px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- HERO -->
-
-  <section class="hero">
-
-    <div class="brand">
-      LAXMI NARASHMA MOBILE SHOP
-    </div>
-
-    <div class="hero-title">
-      MOBILE
-    </div>
-
-    <div class="hero-content">
-
-      <!-- Put your uploaded phone image as mobile.png -->
-      <img
-        src="mobile.png"
-        class="phone"
-        alt="Mobile phone"
-      />
-
-    </div>
-
-    <div class="scroll-text">
-      Scroll to explore
-    </div>
-
-  </section>
-
-
-  <!-- DISPLAY -->
-
-  <section class="section">
-
-    <div class="section-inner">
-
-      <div>
-        <div class="section-label">
-          01 — Display
-        </div>
-
-        <h2 class="section-title">
-          SCREEN
-        </h2>
-
-        <p class="section-description">
-          Experience the phone display section with a clean,
-          premium presentation. Exact specifications can be
-          added once the phone model is confirmed.
-        </p>
-      </div>
-
-      <div class="spec-card">
-        <div>
-          <div class="spec-big">DISPLAY</div>
-          <div class="spec-small">
-            Premium smartphone screen
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- BATTERY -->
-
-  <section class="section">
-
-    <div class="section-inner">
-
-      <div class="spec-card">
-        <div>
-          <div class="spec-big">POWER</div>
-          <div class="spec-small">
-            Battery & charging
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="section-label">
-          02 — Battery
-        </div>
-
-        <h2 class="section-title">
-          POWER
-        </h2>
-
-        <p class="section-description">
-          Battery information can be displayed here,
-          including capacity, charging and battery features.
-        </p>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- CAMERA -->
-
-  <section class="section">
-
-    <div class="section-inner">
-
-      <div>
-        <div class="section-label">
-          03 — Camera
-        </div>
-
-        <h2 class="section-title">
-          CAMERA
-        </h2>
-
-        <p class="section-description">
-          Showcase the camera system with separate front
-          and rear camera information.
-        </p>
-      </div>
-
-      <div class="spec-card">
-        <div>
-          <div class="spec-big">CAMERA</div>
-          <div class="spec-small">
-            Photography & video
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- PERFORMANCE -->
-
-  <section class="section">
-
-    <div class="section-inner">
-
-      <div class="spec-card">
-        <div>
-          <div class="spec-big">SPEED</div>
-          <div class="spec-small">
-            Performance & processor
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="section-label">
-          04 — Performance
-        </div>
-
-        <h2 class="section-title">
-          SPEED
-        </h2>
-
-        <p class="section-description">
-          Processor, RAM and performance information can
-          be displayed in this section.
-        </p>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- STORAGE -->
-
-  <section class="section">
-
-    <div class="section-inner">
-
-      <div>
-        <div class="section-label">
-          05 — Storage
-        </div>
-
-        <h2 class="section-title">
-          STORAGE
-        </h2>
-
-        <p class="section-description">
-          Storage variants and memory information can be
-          presented here.
-        </p>
-      </div>
-
-      <div class="spec-card">
-        <div>
-          <div class="spec-big">SPACE</div>
-          <div class="spec-small">
-            Storage & memory
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- SERVICE -->
-
-  <section class="section service">
-
-    <div class="service-box">
-
-      <div class="section-label">
-        Laxmi Narashma Mobile Shop
-      </div>
-
-      <h2 class="service-title">
-        NEED SERVICE?
-      </h2>
-
-      <p class="service-text">
-        Book mobile repair, screen replacement, battery
-        replacement and other mobile services directly
-        through Laxmi Narashma Mobile Shop.
-      </p>
-
-      <a
-        href="index.html#booking"
-        class="service-button"
-      >
-        BOOK SERVICE
-      </a>
-
-    </div>
-
-  </section>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<div class="scene">
+
+  <div class="store" id="store"></div>
+
+  <div class="light" id="light"></div>
+
+  <!-- PHONE RISE -->
+  <img
+    src="mobile.png"
+    class="phone"
+    id="phone"
+    alt="Premium smartphone"
+  >
+
+  <!-- EXPLODED VIEW -->
+  <img
+    src="explode-full.png"
+    class="exploded"
+    id="exploded"
+    alt="Exploded smartphone"
+  >
+
+  <!-- REASSEMBLY -->
+  <img
+    src="reassemble.png"
+    class="reassemble"
+    id="reassemble"
+    alt="Smartphone reassembly"
+  >
+
+  <!-- FINAL PHONE -->
+  <img
+    src="final-phone.png"
+    class="finalPhone"
+    id="finalPhone"
+    alt="Final smartphone"
+  >
+
+  <!-- LOGO -->
+  <div class="logo" id="logo">
+    <span class="laxmi">LAXMI</span>
+    <span class="narashma">NARASHMA</span>
+  </div>
+
+</div>
 
 <script>
-const SUPABASE_URL = "https://antkerjfmdmyitiehnty.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_gzORKzM9wqsWQjlp0fq6g_MHjyz4Bs";
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-);
+const phone = document.getElementById("phone");
+const exploded = document.getElementById("exploded");
+const reassemble = document.getElementById("reassemble");
+const finalPhone = document.getElementById("finalPhone");
+const store = document.getElementById("store");
+const light = document.getElementById("light");
+const logo = document.getElementById("logo");
 
-(async function () {
-  const { data } = await supabaseClient.auth.getSession();
+/*
+  CINEMATIC TIMELINE
 
-  if (!data.session) {
-    window.location.href = "login.html";
-  }
-})();
+  0s       → showroom
+  0.5s     → light
+  1s       → phone rises
+  2.5s     → exploded view
+  3.9s     → 360 rotation
+  13.9s    → reassembly
+  21.9s    → final phone
+  24s      → logo
+*/
+
+window.addEventListener("load", () => {
+
+  /* showroom light */
+  setTimeout(() => {
+    light.classList.add("active");
+  }, 400);
+
+  /* phone rises */
+  setTimeout(() => {
+    phone.classList.add("rise");
+  }, 700);
+
+  /* exploded view */
+  setTimeout(() => {
+
+    phone.style.opacity = "0";
+
+    exploded.classList.add("show");
+
+  }, 2500);
+
+  /* rotation */
+  setTimeout(() => {
+
+    exploded.classList.add("rotate");
+
+  }, 3900);
+
+  /* reassembly */
+  setTimeout(() => {
+
+    exploded.style.opacity = "0";
+
+    reassemble.classList.add("show");
+
+  }, 13900);
+
+  /* final phone */
+  setTimeout(() => {
+
+    reassemble.style.opacity = "0";
+
+    store.classList.add("blur");
+
+    finalPhone.classList.add("show");
+
+  }, 21900);
+
+  /* logo reveal */
+  setTimeout(() => {
+
+    logo.classList.add("show");
+
+  }, 24000);
+
+});
+
 </script>
+
 </body>
 </html>
