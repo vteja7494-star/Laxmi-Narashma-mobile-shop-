@@ -1,84 +1,1079 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MobileFix Admin Panel</title>
-  <link rel="stylesheet" href="./admin.css">
+
+  <title>LAXMI NARASIMHA MOBILE - Admin Dashboard</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f9;
+      color: #1f2937;
+    }
+
+    .topbar {
+      background: #111827;
+      color: white;
+      padding: 18px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .topbar h1 {
+      font-size: 21px;
+    }
+
+    .logout-btn {
+      background: #ef4444;
+      border: none;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 65px);
+    }
+
+    .sidebar {
+      width: 230px;
+      background: #1f2937;
+      color: white;
+      padding: 20px 12px;
+    }
+
+    .sidebar h2 {
+      font-size: 16px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .menu-btn {
+      width: 100%;
+      display: block;
+      background: transparent;
+      border: none;
+      color: #d1d5db;
+      text-align: left;
+      padding: 12px;
+      border-radius: 7px;
+      cursor: pointer;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .menu-btn:hover,
+    .menu-btn.active {
+      background: #374151;
+      color: white;
+    }
+
+    .main {
+      flex: 1;
+      padding: 25px;
+      overflow-x: hidden;
+    }
+
+    .welcome {
+      margin-bottom: 25px;
+    }
+
+    .welcome h2 {
+      font-size: 25px;
+      margin-bottom: 6px;
+    }
+
+    .welcome p {
+      color: #6b7280;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    }
+
+    .card .icon {
+      font-size: 27px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .card .number {
+      font-size: 27px;
+      font-weight: bold;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    }
+
+    .panel h3 {
+      margin-bottom: 15px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+    }
+
+    th,
+    td {
+      padding: 13px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background: #f9fafb;
+      color: #374151;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .booked {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .repairing {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .completed {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 35px;
+      color: #6b7280;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .quick-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .quick-card h4 {
+      margin-bottom: 7px;
+    }
+
+    .quick-card p {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .mobile-menu {
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .quick-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .layout {
+        display: block;
+      }
+
+      .sidebar {
+        width: 100%;
+        display: none;
+      }
+
+      .sidebar.open {
+        display: block;
+      }
+
+      .mobile-menu {
+        display: block;
+        background: #374151;
+        color: white;
+        border: none;
+        padding: 9px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      .topbar {
+        padding: 14px 16px;
+      }
+
+      .topbar h1 {
+        font-size: 16px;
+      }
+
+      .main {
+        padding: 16px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .card {
+        padding: 15px;
+      }
+
+      .card .number {
+        font-size: 22px;
+      }
+
+      .quick-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <div class="admin-layout">
+  <header class="topbar">
+    <div>
+      <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+      <span style="margin-left:10px;">
+        LAXMI NARASIMHA MOBILE
+      </span>
+    </div>
 
-    <aside class="sidebar">
-      <h2>MobileFix</h2>
-      <p>Admin Panel</p>
+    <button class="logout-btn" onclick="logoutAdmin()">
+      Logout
+    </button>
+  </header>
 
-      <nav>
-        <button>Dashboard</button>
-        <button>Bookings</button>
-        <button>Customers</button>
-        <button>Repairs</button>
-        <button>Technicians</button>
-        <button>Inventory</button>
-        <button>Payments</button>
-        <button>Invoices</button>
-        <button>Coupons</button>
-        <button>Reviews</button>
-        <button>Advertisements</button>
-        <button>Reports</button>
-        <button>Settings</button>
-      </nav>
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar">
+
+      <h2>ADMIN PANEL</h2>
+
+      <button class="menu-btn active" onclick="showSection('dashboard', this)">
+        📊 Dashboard
+      </button>
+
+      <button class="menu-btn" onclick="showSection('bookings', this)">
+        📋 Bookings
+      </button>
+
+      <button class="menu-btn" onclick="showSection('customers', this)">
+        👥 Customers
+      </button>
+
+      <button class="menu-btn" onclick="showSection('repairs', this)">
+        🔧 Repairs
+      </button>
+
+      <button class="menu-btn" onclick="showSection('technicians', this)">
+        🧑‍🔧 Technicians
+      </button>
+
+      <button class="menu-btn" onclick="showSection('inventory', this)">
+        📦 Inventory
+      </button>
+
+      <button class="menu-btn" onclick="showSection('payments', this)">
+        💳 Payments
+      </button>
+
+      <button class="menu-btn" onclick="showSection('ads', this)">
+        📢 Advertisements
+      </button>
+
+      <button class="menu-btn" onclick="showSection('reviews', this)">
+        ⭐ Reviews
+      </button>
+
+      <button class="menu-btn" onclick="showSection('reports', this)">
+        📈 Reports
+      </button>
+
+      <button class="menu-btn" onclick="showSection('settings', this)">
+        ⚙️ Settings
+      </button>
+
     </aside>
 
-    <main class="main-content">
+    <main class="main">
 
-      <header class="admin-header">
-        <div>
-          <h1>Dashboard</h1>
-          <p>Mobile Repair Management System</p>
+      <!-- DASHBOARD -->
+
+      <section id="dashboard" class="section active">
+
+        <div class="welcome">
+          <h2>Admin Dashboard</h2>
+          <p>Welcome to LAXMI NARASIMHA MOBILE management system.</p>
         </div>
 
-        <button class="logout-btn">Logout</button>
-      </header>
+        <div class="cards">
 
-      <section class="stats">
+          <div class="card">
+            <div class="icon">📋</div>
+            <h3>Total Bookings</h3>
+            <div class="number" id="totalBookings">0</div>
+          </div>
 
-        <div class="stat-card">
-          <span>Total Bookings</span>
-          <strong>0</strong>
+          <div class="card">
+            <div class="icon">🔧</div>
+            <h3>Active Repairs</h3>
+            <div class="number" id="activeRepairs">0</div>
+          </div>
+
+          <div class="card">
+            <div class="icon">👥</div>
+            <h3>Customers</h3>
+            <div class="number" id="totalCustomers">0</div>
+          </div>
+
+          <div class="card">
+            <div class="icon">💰</div>
+            <h3>Payments</h3>
+            <div class="number">₹0</div>
+          </div>
+
         </div>
 
-        <div class="stat-card">
-          <span>Active Repairs</span>
-          <strong>0</strong>
+        <div class="panel">
+
+          <h3>Quick Management</h3>
+
+          <div class="quick-grid">
+
+            <div class="quick-card">
+              <h4>📋 Bookings</h4>
+              <p>Manage customer repair bookings.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>🔧 Repairs</h4>
+              <p>Track repair progress and status.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>📦 Inventory</h4>
+              <p>Manage mobile spare parts.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>🧑‍🔧 Technicians</h4>
+              <p>Manage technicians and assignments.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>📢 Advertisements</h4>
+              <p>Manage banners and promotions.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>⭐ Reviews</h4>
+              <p>View customer reviews.</p>
+            </div>
+
+          </div>
+
         </div>
 
-        <div class="stat-card">
-          <span>Customers</span>
-          <strong>0</strong>
-        </div>
+        <div class="panel">
 
-        <div class="stat-card">
-          <span>Revenue</span>
-          <strong>₹0</strong>
+          <h3>Recent Bookings</h3>
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>Customer</th>
+                  <th>Phone</th>
+                  <th>Device</th>
+                  <th>Service</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody id="recentBookings">
+
+                <tr>
+                  <td colspan="6" class="empty">
+                    Loading bookings...
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
         </div>
 
       </section>
 
-      <section class="dashboard-card">
-        <h2>Recent Bookings</h2>
 
-        <div class="empty-state">
-          <p>No bookings loaded yet.</p>
+      <!-- BOOKINGS -->
+
+      <section id="bookings" class="section">
+
+        <div class="panel">
+
+          <h3>📋 Bookings Management</h3>
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Brand</th>
+                  <th>Model</th>
+                  <th>Problem</th>
+                  <th>Service</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody id="bookingsTable">
+
+                <tr>
+                  <td colspan="9" class="empty">
+                    Booking data will appear here.
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
         </div>
+
+      </section>
+
+
+      <!-- CUSTOMERS -->
+
+      <section id="customers" class="section">
+
+        <div class="panel">
+
+          <h3>👥 Customers</h3>
+
+          <div class="empty">
+            Customer management will be connected to Supabase.
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- REPAIRS -->
+
+      <section id="repairs" class="section">
+
+        <div class="panel">
+
+          <h3>🔧 Repairs</h3>
+
+          <div class="quick-grid">
+
+            <div class="quick-card">
+              <h4>📥 Booking</h4>
+              <p>New repair booking.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>🔍 Diagnosis</h4>
+              <p>Device diagnosis.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>🛠️ Repairing</h4>
+              <p>Repair in progress.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>✅ Quality Check</h4>
+              <p>Final quality inspection.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>📦 Ready</h4>
+              <p>Device ready for delivery.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>🚚 Delivery</h4>
+              <p>Device delivery.</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- TECHNICIANS -->
+
+      <section id="technicians" class="section">
+
+        <div class="panel">
+
+          <h3>🧑‍🔧 Technicians</h3>
+
+          <div class="empty">
+            Technician management will be added here.
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- INVENTORY -->
+
+      <section id="inventory" class="section">
+
+        <div class="panel">
+
+          <h3>📦 Inventory</h3>
+
+          <div class="quick-grid">
+
+            <div class="quick-card">
+              <h4>📱 Displays</h4>
+              <p>Display stock management.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>🔋 Batteries</h4>
+              <p>Battery stock management.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>🔌 Charging Ports</h4>
+              <p>Charging port stock.</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- PAYMENTS -->
+
+      <section id="payments" class="section">
+
+        <div class="panel">
+
+          <h3>💳 Payments</h3>
+
+          <div class="empty">
+            Payment management will be added here.
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ADS -->
+
+      <section id="ads" class="section">
+
+        <div class="panel">
+
+          <h3>📢 Advertisements</h3>
+
+          <div class="quick-grid">
+
+            <div class="quick-card">
+              <h4>➕ Create Advertisement</h4>
+              <p>Create promotional banners.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>👁️ Views</h4>
+              <p>Track advertisement views.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>🖱️ Clicks</h4>
+              <p>Track advertisement clicks.</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- REVIEWS -->
+
+      <section id="reviews" class="section">
+
+        <div class="panel">
+
+          <h3>⭐ Customer Reviews</h3>
+
+          <div class="empty">
+            Customer reviews will appear here.
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- REPORTS -->
+
+      <section id="reports" class="section">
+
+        <div class="panel">
+
+          <h3>📈 Reports</h3>
+
+          <div class="quick-grid">
+
+            <div class="quick-card">
+              <h4>📋 Booking Report</h4>
+              <p>View booking statistics.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>💰 Revenue Report</h4>
+              <p>View payment and revenue data.</p>
+            </div>
+
+            <div class="quick-card">
+              <h4>🔧 Repair Report</h4>
+              <p>View repair statistics.</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- SETTINGS -->
+
+      <section id="settings" class="section">
+
+        <div class="panel">
+
+          <h3>⚙️ Settings</h3>
+
+          <div class="empty">
+            Admin settings will be added here.
+          </div>
+
+        </div>
+
       </section>
 
     </main>
 
   </div>
 
+
+  <script>
+
+    const SUPABASE_URL =
+      "https://antkerjfmdmyitiehnty.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_gzORKzM9wqsWQjlp0fq6g_MHjyz4Bs";
+
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+
+    function toggleSidebar() {
+
+      const sidebar =
+        document.getElementById("sidebar");
+
+      sidebar.classList.toggle("open");
+
+    }
+
+
+    function showSection(sectionId, button) {
+
+      const sections =
+        document.querySelectorAll(".section");
+
+      sections.forEach(function(section) {
+        section.classList.remove("active");
+      });
+
+
+      const selected =
+        document.getElementById(sectionId);
+
+      if (selected) {
+        selected.classList.add("active");
+      }
+
+
+      const buttons =
+        document.querySelectorAll(".menu-btn");
+
+      buttons.forEach(function(btn) {
+        btn.classList.remove("active");
+      });
+
+
+      if (button) {
+        button.classList.add("active");
+      }
+
+
+      const sidebar =
+        document.getElementById("sidebar");
+
+      if (window.innerWidth <= 700) {
+        sidebar.classList.remove("open");
+      }
+
+    }
+
+
+    async function loadBookings() {
+
+      const { data, error } =
+        await supabaseClient
+          .from("bookings")
+          .select("*")
+          .order("created_at", {
+            ascending: false
+          });
+
+
+      if (error) {
+
+        console.log(error);
+
+        document.getElementById(
+          "recentBookings"
+        ).innerHTML = `
+          <tr>
+            <td colspan="6" class="empty">
+              Booking data unavailable.
+            </td>
+          </tr>
+        `;
+
+        return;
+
+      }
+
+
+      const total =
+        data ? data.length : 0;
+
+      document.getElementById(
+        "totalBookings"
+      ).textContent = total;
+
+
+      const active =
+        data
+          ? data.filter(function(item) {
+              return item.status !== "Completed";
+            }).length
+          : 0;
+
+      document.getElementById(
+        "activeRepairs"
+      ).textContent = active;
+
+
+      const uniqueCustomers =
+        data
+          ? new Set(
+              data.map(function(item) {
+                return item.phone;
+              })
+            ).size
+          : 0;
+
+      document.getElementById(
+        "totalCustomers"
+      ).textContent = uniqueCustomers;
+
+
+      renderRecentBookings(data);
+
+      renderBookingsTable(data);
+
+    }
+
+
+    function renderRecentBookings(data) {
+
+      const tbody =
+        document.getElementById(
+          "recentBookings"
+        );
+
+
+      if (!data || data.length === 0) {
+
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="empty">
+              No bookings yet.
+            </td>
+          </tr>
+        `;
+
+        return;
+      }
+
+
+      const recent =
+        data.slice(0, 10);
+
+
+      tbody.innerHTML =
+        recent.map(function(item) {
+
+          return `
+            <tr>
+
+              <td>
+                ${item.booking_id || "-"}
+              </td>
+
+              <td>
+                ${item.name || "-"}
+              </td>
+
+              <td>
+                ${item.phone || "-"}
+              </td>
+
+              <td>
+                ${(item.brand || "")}
+                ${(item.model || "")}
+              </td>
+
+              <td>
+                ${item.service_type || "-"}
+              </td>
+
+              <td>
+                <span class="status booked">
+                  ${item.status || "Booked"}
+                </span>
+              </td>
+
+            </tr>
+          `;
+
+        }).join("");
+
+    }
+
+
+    function renderBookingsTable(data) {
+
+      const tbody =
+        document.getElementById(
+          "bookingsTable"
+        );
+
+
+      if (!data || data.length === 0) {
+
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" class="empty">
+              No bookings found.
+            </td>
+          </tr>
+        `;
+
+        return;
+      }
+
+
+      tbody.innerHTML =
+        data.map(function(item) {
+
+          return `
+            <tr>
+
+              <td>${item.booking_id || "-"}</td>
+
+              <td>${item.name || "-"}</td>
+
+              <td>${item.phone || "-"}</td>
+
+              <td>${item.brand || "-"}</td>
+
+              <td>${item.model || "-"}</td>
+
+              <td>${item.problem || "-"}</td>
+
+              <td>${item.service_type || "-"}</td>
+
+              <td>${item.repair_date || "-"}</td>
+
+              <td>
+                <span class="status booked">
+                  ${item.status || "Booked"}
+                </span>
+              </td>
+
+            </tr>
+          `;
+
+        }).join("");
+
+    }
+
+
+    async function logoutAdmin() {
+
+      await supabaseClient.auth.signOut();
+
+      window.location.href = "login.html";
+
+    }
+
+
+    async function checkAdminLogin() {
+
+      const {
+        data: { session }
+      } =
+        await supabaseClient.auth.getSession();
+
+
+      if (!session) {
+
+        window.location.href =
+          "login.html";
+
+        return false;
+
+      }
+
+
+      return true;
+
+    }
+
+
+    window.addEventListener(
+      "load",
+      async function() {
+
+        const loggedIn =
+          await checkAdminLogin();
+
+
+        if (loggedIn) {
+          await loadBookings();
+        }
+
+      }
+    );
+
+  </script>
+
 </body>
 </html>
-                     
